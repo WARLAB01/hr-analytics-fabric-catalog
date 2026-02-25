@@ -1490,7 +1490,7 @@
 
             <div id="builder" class="tab-content builder-container">
                 <div class="builder-main">
-                    <h2 class="builder-title">Your Pattern Stack</h2>
+                    <h2 class="builder-title">Pattern Builder</h2>
                     <div id="no-available-warning" class="no-available-warning" style="display: none;"></div>
                     <div id="stack-container"></div>
                 </div>
@@ -1609,7 +1609,12 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
             document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+            // Find the button that matches this tab and activate it
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + tabName + "'")) {
+                    btn.classList.add('active');
+                }
+            });
             appState.currentTab = tabName;
 
             if (tabName === 'browse') refreshBrowseTab();
@@ -1867,51 +1872,30 @@
 
         function exportStackMarkdown() {
             const stackPatterns = appState.selectedPatterns.map(id => patterns.find(p => p.id === id)).filter(Boolean);
-            let md = '# Pattern Stack
-
-';
-            md += `Generated: ${new Date().toLocaleString()}
-
-`;
+            let md = '# Pattern Stack\n\n';
+            md += `Generated: ${new Date().toLocaleString()}\n\n`;
 
             stackPatterns.forEach(p => {
-                md += `## ${p.name}
-
-`;
-                md += `**Domain:** ${p.domain}
-
-`;
-                md += `**Complexity:** ${p.complexity}
-
-`;
-                md += `**Summary:** ${p.summary}
-
-`;
+                md += `## ${p.name}\n\n`;
+                md += `**Domain:** ${p.domain}\n\n`;
+                md += `**Complexity:** ${p.complexity}\n\n`;
+                md += `**Summary:** ${p.summary}\n\n`;
 
                 if (p.peopleAnalyticsUseCases && p.peopleAnalyticsUseCases.length > 0) {
-                    md += `**Supported Use Cases:**
-`;
+                    md += `**Supported Use Cases:**\n`;
                     p.peopleAnalyticsUseCases.forEach(uc => {
-                        md += `- ${uc}
-`;
+                        md += `- ${uc}\n`;
                     });
-                    md += '
-';
+                    md += '\n';
                 }
 
-                md += `**Fabric Components:** ${p.fabricComponents.join(', ')}
-
-`;
+                md += `**Fabric Components:** ${p.fabricComponents.join(', ')}\n\n`;
 
                 if (p.description) {
-                    md += `**Description:** ${p.description}
-
-`;
+                    md += `**Description:** ${p.description}\n\n`;
                 }
 
-                md += '---
-
-';
+                md += '---\n\n';
             });
 
             downloadMarkdown(md, 'pattern-stack.md');
