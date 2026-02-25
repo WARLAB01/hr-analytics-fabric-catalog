@@ -52,12 +52,18 @@
         "lakehouse"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/onelake-medallion-lakehouse-architecture",
+          "title": "Implement Medallion Lakehouse Architecture in Fabric"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/training/modules/describe-medallion-architecture/",
+          "title": "Organize a Fabric Lakehouse Using Medallion Architecture"
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Storage scales with volume; optimize with VACUUM"
+      "costImplications": "Storage scales with volume; optimize with VACUUM",
+      "connectorInfo": null
     },
     {
       "id": "delta-lake-partitioning",
@@ -106,12 +112,18 @@
         "delta-lake"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order",
+          "title": "Delta Lake table optimization and V-Order"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-and-delta-tables",
+          "title": "Lakehouse and Delta Lake tables"
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Reduces costs 50-80%; storage overhead minimal"
+      "costImplications": "Reduces costs 50-80%; storage overhead minimal",
+      "connectorInfo": null
     },
     {
       "id": "lakehouse-warehouse-selection",
@@ -137,7 +149,7 @@
         "Performance strategies differ significantly.",
         "Teams must understand distinct capabilities."
       ],
-      "usageInstructions": "1. Assess workload type. 2. Structured HR reporting \u2192 Warehouse. 3. Exploratory analysis \u2192 Lakehouse. 4. Semi-structured \u2192 Lakehouse. 5. If both needed: Lakehouse Bronze/Silver, Warehouse for reporting. 6. Use shortcuts.",
+      "usageInstructions": "1. Assess workload type. 2. Structured HR reporting → Warehouse. 3. Exploratory analysis → Lakehouse. 4. Semi-structured → Lakehouse. 5. If both needed: Lakehouse Bronze/Silver, Warehouse for reporting. 6. Use shortcuts.",
       "governanceConsiderations": "Warehouse provides stricter governance through schema enforcement. Restrict Warehouse to certified analytics. Use Lakehouse for non-sensitive exploration.",
       "peopleAnalyticsUseCases": [
         "Operational HR dashboards in Warehouse.",
@@ -157,12 +169,18 @@
         "storage-selection"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/fundamentals/decision-guide-lakehouse-warehouse",
+          "title": "Decision Guide: Choose between Warehouse and Lakehouse"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/get-started-lakehouse-sql-analytics-endpoint",
+          "title": "Better Together - the Lakehouse and Warehouse"
+        }
       ],
       "estimatedImplementationEffort": "1 week assessment",
-      "costImplications": "Lakehouse compute scales with transforms; Warehouse has fixed DWU pricing"
+      "costImplications": "Lakehouse compute scales with transforms; Warehouse has fixed DWU pricing",
+      "connectorInfo": null
     },
     {
       "id": "onelake-shortcuts",
@@ -210,12 +228,18 @@
         "zero-copy"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts",
+          "title": "Unify data sources with OneLake shortcuts"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/create-onelake-shortcut",
+          "title": "Create and manage a OneLake shortcut"
+        }
       ],
       "estimatedImplementationEffort": "2-3 days",
-      "costImplications": "Zero-copy saves significantly vs replication"
+      "costImplications": "Zero-copy saves significantly vs replication",
+      "connectorInfo": null
     },
     {
       "id": "direct-lake-semantic-model",
@@ -266,12 +290,18 @@
         "power-bi"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/fundamentals/direct-lake-overview",
+          "title": "Direct Lake overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/fundamentals/direct-lake-understand-storage",
+          "title": "Understand Direct Lake query performance"
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Reduces import compute; scales with query volume"
+      "costImplications": "Reduces import compute; scales with query volume",
+      "connectorInfo": null
     },
     {
       "id": "hub-spoke-workspace",
@@ -319,12 +349,18 @@
         "hub-spoke"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/architecture/analytics/architecture/fabric-deployment-patterns",
+          "title": "Deployment Patterns for Microsoft Fabric"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/security/how-to-common-data-architectures",
+          "title": "How to secure data for common data architectures"
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Hub shared across spokes; separate Spoke costs"
+      "costImplications": "Hub shared across spokes; separate Spoke costs",
+      "connectorInfo": null
     },
     {
       "id": "spark-notebook-etl",
@@ -377,12 +413,22 @@
         "transformation"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-5 days per pipeline",
-      "costImplications": "Scales with complexity and volume"
+      "costImplications": "Scales with complexity and volume",
+      "connectorInfo": null
     },
     {
       "id": "dataflow-gen2",
@@ -432,12 +478,22 @@
         "power-query"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/power-bi/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-3 days",
-      "costImplications": "Lower compute for simple transforms; scales with frequency"
+      "costImplications": "Lower compute for simple transforms; scales with frequency",
+      "connectorInfo": null
     },
     {
       "id": "incremental-watermark",
@@ -491,12 +547,22 @@
         "etl"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-5 days",
-      "costImplications": "Reduces 80-90% vs full reload"
+      "costImplications": "Reduces 80-90% vs full reload",
+      "connectorInfo": null
     },
     {
       "id": "scd-type-2",
@@ -546,12 +612,22 @@
         "temporal"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 days",
-      "costImplications": "Storage 20-50% higher for history"
+      "costImplications": "Storage 20-50% higher for history",
+      "connectorInfo": null
     },
     {
       "id": "cdc-change-capture",
@@ -598,11 +674,18 @@
         "compliance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/data-warehouse/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 days",
-      "costImplications": "Storage 10-30% overhead; consider tiered storage"
+      "costImplications": "Storage 10-30% overhead; consider tiered storage",
+      "connectorInfo": null
     },
     {
       "id": "dbt-integration",
@@ -654,12 +737,22 @@
         "version-control"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-warehouse/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Same as SQL compute; reduced overhead from reuse"
+      "costImplications": "Same as SQL compute; reduced overhead from reuse",
+      "connectorInfo": "Requires the dbt-fabric adapter (pip install dbt-fabric). Connects to Fabric Data Warehouse via SQL endpoint using service principal or Azure CLI authentication. T-SQL only; no Spark SQL support."
     },
     {
       "id": "data-quality-validation",
@@ -714,12 +807,22 @@
         "testing"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Validation is 5-10% of ETL compute"
+      "costImplications": "Validation is 5-10% of ETL compute",
+      "connectorInfo": "For Great Expectations integration: install via pip in a Fabric custom Spark environment. For Informatica DQ: use the IDMC cloud connector with Fabric Data Warehouse endpoint. Purview Data Quality is native."
     },
     {
       "id": "purview-data-map",
@@ -770,12 +873,22 @@
         "lineage"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Purview licensing plus scan compute"
+      "costImplications": "Purview licensing plus scan compute",
+      "connectorInfo": null
     },
     {
       "id": "sensitivity-labels",
@@ -825,12 +938,22 @@
         "protection"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Minimal overhead; licensing included in Purview"
+      "costImplications": "Minimal overhead; licensing included in Purview",
+      "connectorInfo": null
     },
     {
       "id": "row-level-security",
@@ -879,12 +1002,22 @@
         "access-control"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-warehouse/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Minimal compute overhead"
+      "costImplications": "Minimal compute overhead",
+      "connectorInfo": null
     },
     {
       "id": "dynamic-data-masking",
@@ -930,12 +1063,22 @@
         "development"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Minimal overhead for masking operations"
+      "costImplications": "Minimal overhead for masking operations",
+      "connectorInfo": "For Microsoft Presidio: install presidio-analyzer and presidio-anonymizer via pip in a Fabric custom Spark environment. For Informatica DPM: use the IDMC connector. Native dynamic data masking available in Fabric Warehouse T-SQL."
     },
     {
       "id": "abac-access-control",
@@ -982,11 +1125,18 @@
         "access-control"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Azure AD licensing; minimal compute"
+      "costImplications": "Azure AD licensing; minimal compute",
+      "connectorInfo": null
     },
     {
       "id": "workspace-permission-governance",
@@ -1033,11 +1183,18 @@
         "access-control"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Minimal overhead"
+      "costImplications": "Minimal overhead",
+      "connectorInfo": null
     },
     {
       "id": "directlake-power-bi",
@@ -1087,12 +1244,22 @@
         "semantic-model"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Reduces Premium capacity cost vs import"
+      "costImplications": "Reduces Premium capacity cost vs import",
+      "connectorInfo": null
     },
     {
       "id": "storage-mode-selection",
@@ -1139,12 +1306,22 @@
         "performance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-warehouse/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Optimizes capacity utilization"
+      "costImplications": "Optimizes capacity utilization",
+      "connectorInfo": null
     },
     {
       "id": "composite-model",
@@ -1191,11 +1368,18 @@
         "power-bi"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Higher compute for cross-source joins"
+      "costImplications": "Higher compute for cross-source joins",
+      "connectorInfo": "Native within Power BI/Fabric. Composite models chain multiple semantic models or add DirectQuery sources to Direct Lake models. For external sources, use Power BI gateway for on-premises data."
     },
     {
       "id": "certified-semantic-model",
@@ -1242,11 +1426,18 @@
         "metrics"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Minimal overhead"
+      "costImplications": "Minimal overhead",
+      "connectorInfo": null
     },
     {
       "id": "paginated-reports",
@@ -1293,12 +1484,22 @@
         "formal-documents"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/",
-        "https://learn.microsoft.com/en-us/fabric/data-warehouse/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-4 weeks",
-      "costImplications": "Minimal overhead; scales with report volume"
+      "costImplications": "Minimal overhead; scales with report volume",
+      "connectorInfo": null
     },
     {
       "id": "metrics-scorecard",
@@ -1343,11 +1544,18 @@
         "executive-dashboard"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Minimal overhead"
+      "costImplications": "Minimal overhead",
+      "connectorInfo": null
     },
     {
       "id": "deployment-pipelines",
@@ -1356,7 +1564,7 @@
       "domainId": 4,
       "category": "DevOps",
       "summary": "Automated promotion of BI artifacts from development through staging to production enabling controlled releases.",
-      "description": "Dev \u2192 Stage \u2192 Prod. Semantic models and reports tested in stage before prod deployment. Reduces errors in production.",
+      "description": "Dev → Stage → Prod. Semantic models and reports tested in stage before prod deployment. Reduces errors in production.",
       "fabricComponents": [
         "Power BI",
         "Deployment Pipelines",
@@ -1394,11 +1602,18 @@
         "power-bi"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Minimal overhead"
+      "costImplications": "Minimal overhead",
+      "connectorInfo": null
     },
     {
       "id": "batch-inference-pipeline",
@@ -1448,12 +1663,22 @@
         "predictions"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Spark compute scales with employee count"
+      "costImplications": "Spark compute scales with employee count",
+      "connectorInfo": null
     },
     {
       "id": "feature-store-delta",
@@ -1502,12 +1727,22 @@
         "ml-infrastructure"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Storage for feature tables; compute for refresh"
+      "costImplications": "Storage for feature tables; compute for refresh",
+      "connectorInfo": null
     },
     {
       "id": "mlflow-model-registry",
@@ -1557,10 +1792,14 @@
         "ml-governance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Minimal overhead for registry"
+      "costImplications": "Minimal overhead for registry",
+      "connectorInfo": null
     },
     {
       "id": "model-drift-detection",
@@ -1609,10 +1848,14 @@
         "ml-ops"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Compute for drift detection and retraining"
+      "costImplications": "Compute for drift detection and retraining",
+      "connectorInfo": null
     },
     {
       "id": "fairness-bias-evaluation",
@@ -1661,10 +1904,14 @@
         "ml"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Analysis compute; typically small"
+      "costImplications": "Analysis compute; typically small",
+      "connectorInfo": null
     },
     {
       "id": "champion-challenger",
@@ -1713,10 +1960,14 @@
         "experimentation"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Compute for dual model scoring"
+      "costImplications": "Compute for dual model scoring",
+      "connectorInfo": null
     },
     {
       "id": "rag-fabric-grounded",
@@ -1768,12 +2019,22 @@
         "chatbot"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "OpenAI API costs plus storage for vectors"
+      "costImplications": "OpenAI API costs plus storage for vectors",
+      "connectorInfo": "Azure OpenAI is accessible natively from Fabric Spark Notebooks via the Python SDK with built-in Fabric authentication (no API key management needed). For production chatbot: integrate Fabric Data Agent with Copilot Studio via Model Context Protocol."
     },
     {
       "id": "secure-chat-rls",
@@ -1823,12 +2084,22 @@
         "conversational"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Chatbot platform + API costs"
+      "costImplications": "Chatbot platform + API costs",
+      "connectorInfo": null
     },
     {
       "id": "azure-ai-foundry-integration",
@@ -1877,12 +2148,22 @@
         "document-understanding"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Azure AI Foundry API costs per request"
+      "costImplications": "Azure AI Foundry API costs per request",
+      "connectorInfo": null
     },
     {
       "id": "copilot-studio-grounded",
@@ -1931,10 +2212,14 @@
         "generative-ai"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Copilot Studio licensing"
+      "costImplications": "Copilot Studio licensing",
+      "connectorInfo": "Uses Fabric Data Agent (preview) which natively accesses OneLake data. Deploy to users via Copilot Studio integration using Model Context Protocol (MCP). Requires Copilot Studio license."
     },
     {
       "id": "semantic-search-vectors",
@@ -1981,12 +2266,22 @@
         "embeddings"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Vector DB storage plus embedding API costs"
+      "costImplications": "Vector DB storage plus embedding API costs",
+      "connectorInfo": "Azure OpenAI accessible natively from Fabric notebooks. For Document Intelligence (resume parsing), use SynapseML integration. No external connectors needed."
     },
     {
       "id": "llm-auto-narrative",
@@ -2034,12 +2329,22 @@
         "generative-ai"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "OpenAI API costs per narrative generation"
+      "costImplications": "OpenAI API costs per narrative generation",
+      "connectorInfo": null
     },
     {
       "id": "hr-ai-guardrails",
@@ -2087,10 +2392,14 @@
         "compliance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Guardrails framework plus monitoring overhead"
+      "costImplications": "Guardrails framework plus monitoring overhead",
+      "connectorInfo": null
     },
     {
       "id": "data-activator-reflex",
@@ -2098,7 +2407,7 @@
       "domain": "Alerting, Automation, and Operational Intelligence",
       "domainId": 7,
       "category": "Automation",
-      "summary": "Automatic workflows triggered by data anomalies: high turnover in department \u2192 auto-email recruiter; forecast miss \u2192 escalate to VP.",
+      "summary": "Automatic workflows triggered by data anomalies: high turnover in department → auto-email recruiter; forecast miss → escalate to VP.",
       "description": "Monitor headcount by department. If any dept loses >10% of staff in a month, auto-trigger recruiting workflow. Alert manager.",
       "fabricComponents": [
         "Data Activator",
@@ -2119,10 +2428,10 @@
       "usageInstructions": "1. Create rule on metric. 2. Define trigger condition. 3. Select action (email, Power Automate). 4. Test. 5. Deploy. 6. Monitor.",
       "governanceConsiderations": "Rules must be approved. Test before prod. Monitor false positives. Log all actions. Disable poorly performing rules.",
       "peopleAnalyticsUseCases": [
-        "High turnover alert \u2192 send recruiter email.",
-        "Salary anomaly detection \u2192 escalate to manager.",
-        "Hiring target miss \u2192 VP alert.",
-        "Compliance violation \u2192 legal escalation."
+        "High turnover alert → send recruiter email.",
+        "Salary anomaly detection → escalate to manager.",
+        "Hiring target miss → VP alert.",
+        "Compliance violation → legal escalation."
       ],
       "complexity": "Medium",
       "maturity": "GA",
@@ -2140,11 +2449,18 @@
         "automation"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/real-time-intelligence/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/real-time-intelligence/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks per reflex",
-      "costImplications": "Minimal overhead; Power Automate action costs"
+      "costImplications": "Minimal overhead; Power Automate action costs",
+      "connectorInfo": "Data Activator (Reflex) natively monitors Fabric Semantic Models and Eventstreams. Triggers Power Automate flows natively. For email/Teams notifications, Power Automate handles routing—no additional connectors."
     },
     {
       "id": "power-automate-triggers",
@@ -2153,7 +2469,7 @@
       "domainId": 7,
       "category": "Automation",
       "summary": "Power Automate workflows triggered by HR data changes automating notifications, approvals, and downstream processes.",
-      "description": "When new hire is added, automatically send welcome email, provision accounts, schedule onboarding. New termination \u2192 disable access.",
+      "description": "When new hire is added, automatically send welcome email, provision accounts, schedule onboarding. New termination → disable access.",
       "fabricComponents": [
         "Power Automate",
         "Warehouse",
@@ -2173,10 +2489,10 @@
       "usageInstructions": "1. Create flow. 2. Set Fabric data trigger. 3. Add actions (email, API call). 4. Test. 5. Enable. 6. Monitor.",
       "governanceConsiderations": "Flows must be approved. Sensitive actions require confirmation. Audit trail of executions. Disable unused flows.",
       "peopleAnalyticsUseCases": [
-        "New hire trigger \u2192 welcome email, account provisioning.",
-        "Termination trigger \u2192 disable access, exit survey.",
-        "Promotion trigger \u2192 new org reporting, email announcement.",
-        "Review due date \u2192 email reminder to managers."
+        "New hire trigger → welcome email, account provisioning.",
+        "Termination trigger → disable access, exit survey.",
+        "Promotion trigger → new org reporting, email announcement.",
+        "Review due date → email reminder to managers."
       ],
       "complexity": "Low",
       "maturity": "GA",
@@ -2192,12 +2508,22 @@
         "automation"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-warehouse/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 days per workflow",
-      "costImplications": "Power Automate licensing; per-action costs"
+      "costImplications": "Power Automate licensing; per-action costs",
+      "connectorInfo": "For Microsoft 365 lifecycle automation: use Microsoft Graph Lifecycle Workflows API via Power Automate or Data Factory REST connector. Fabric pipelines handle data orchestration natively."
     },
     {
       "id": "metric-summarization-engine",
@@ -2245,12 +2571,22 @@
         "metrics"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Minimal compute; scheduling overhead"
+      "costImplications": "Minimal compute; scheduling overhead",
+      "connectorInfo": null
     },
     {
       "id": "sla-freshness-monitoring",
@@ -2297,10 +2633,14 @@
         "monitoring"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Minimal overhead for monitoring"
+      "costImplications": "Minimal overhead for monitoring",
+      "connectorInfo": null
     },
     {
       "id": "escalation-routing",
@@ -2308,7 +2648,7 @@
       "domain": "Alerting, Automation, and Operational Intelligence",
       "domainId": 7,
       "category": "Automation",
-      "summary": "Smart routing of alerts to appropriate teams based on severity and data ownership (high turnover \u2192 dept head; data quality issue \u2192 data team).",
+      "summary": "Smart routing of alerts to appropriate teams based on severity and data ownership (high turnover → dept head; data quality issue → data team).",
       "description": "High turnover alert goes to HR head. Data quality issue goes to data team. Ownership-based routing ensures right person acts.",
       "fabricComponents": [
         "Alerting",
@@ -2328,10 +2668,10 @@
       "usageInstructions": "1. Define alert types. 2. Map to owners. 3. Set routing rules. 4. Configure notifications. 5. Test. 6. Monitor effectiveness.",
       "governanceConsiderations": "Ownership assignments maintained. Routing rules reviewed. Escalation paths clear. Response SLAs defined.",
       "peopleAnalyticsUseCases": [
-        "High turnover \u2192 department head.",
-        "Data quality issue \u2192 data steward.",
-        "Salary anomaly \u2192 compensation manager.",
-        "Compliance issue \u2192 HR legal."
+        "High turnover → department head.",
+        "Data quality issue → data steward.",
+        "Salary anomaly → compensation manager.",
+        "Compliance issue → HR legal."
       ],
       "complexity": "Medium",
       "maturity": "GA",
@@ -2347,10 +2687,14 @@
         "alerting"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Minimal overhead"
+      "costImplications": "Minimal overhead",
+      "connectorInfo": null
     },
     {
       "id": "cross-workspace-shortcuts",
@@ -2396,12 +2740,22 @@
         "sharing"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 days",
-      "costImplications": "Zero-copy saves significantly"
+      "costImplications": "Zero-copy saves significantly",
+      "connectorInfo": null
     },
     {
       "id": "cross-tenant-sharing",
@@ -2447,12 +2801,22 @@
         "sharing"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Minimal overhead; security complexity"
+      "costImplications": "Minimal overhead; security complexity",
+      "connectorInfo": null
     },
     {
       "id": "semantic-model-certification-pipeline",
@@ -2500,11 +2864,18 @@
         "governance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/power-bi/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/power-bi/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Minimal overhead; certification automation"
+      "costImplications": "Minimal overhead; certification automation",
+      "connectorInfo": null
     },
     {
       "id": "api-exposure-management",
@@ -2553,11 +2924,18 @@
         "data-distribution"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/data-warehouse/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "API Management licensing plus query compute"
+      "costImplications": "API Management licensing plus query compute",
+      "connectorInfo": "Use Fabric REST APIs for programmatic access. For custom API endpoints over Fabric data: deploy an Azure Function or API Management layer that queries the Fabric SQL analytics endpoint."
     },
     {
       "id": "dataset-subscription-alerting",
@@ -2606,12 +2984,22 @@
         "event-driven"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Event Grid pricing plus webhook compute"
+      "costImplications": "Event Grid pricing plus webhook compute",
+      "connectorInfo": null
     },
     {
       "id": "encryption-at-rest-cmk",
@@ -2662,12 +3050,22 @@
         "financial-services"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Azure Key Vault: $0.34/10k operations; CMK key storage $1/month. Key Vault calls add minimal overhead."
+      "costImplications": "Azure Key Vault: $0.34/10k operations; CMK key storage $1/month. Key Vault calls add minimal overhead.",
+      "connectorInfo": null
     },
     {
       "id": "dlp-policy-enforcement",
@@ -2720,12 +3118,22 @@
         "security"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Included in Purview premium license (part of Microsoft 365 E5 or standalone). DLP policy evaluation adds <1% query latency."
+      "costImplications": "Included in Purview premium license (part of Microsoft 365 E5 or standalone). DLP policy evaluation adds <1% query latency.",
+      "connectorInfo": null
     },
     {
       "id": "pii-tokenization",
@@ -2777,12 +3185,22 @@
         "presidio"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Presidio: open-source, no licensing cost. Key Vault storage: minimal. Spark compute: standard Fabric notebook rates."
+      "costImplications": "Presidio: open-source, no licensing cost. Key Vault storage: minimal. Spark compute: standard Fabric notebook rates.",
+      "connectorInfo": null
     },
     {
       "id": "data-retention-lifecycle",
@@ -2836,12 +3254,22 @@
         "data-deletion"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "5-7 weeks",
-      "costImplications": "Data Factory pipeline runs: $0.50 per execution. Fabric compute for Notebook purge jobs: standard rates. Storage savings from deletion: 10-30% reduction in employee data volume."
+      "costImplications": "Data Factory pipeline runs: $0.50 per execution. Fabric compute for Notebook purge jobs: standard rates. Storage savings from deletion: 10-30% reduction in employee data volume.",
+      "connectorInfo": null
     },
     {
       "id": "anonymization-k-anonymity",
@@ -2895,12 +3323,22 @@
         "compliance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "No licensing cost; implemented in Fabric Warehouse at standard query rates. Noise injection PySpark notebooks at standard compute rates."
+      "costImplications": "No licensing cost; implemented in Fabric Warehouse at standard query rates. Noise injection PySpark notebooks at standard compute rates.",
+      "connectorInfo": null
     },
     {
       "id": "audit-siem-integration",
@@ -2950,11 +3388,18 @@
         "security"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Log Analytics Workspace: $0.70/GB ingested. Azure Sentinel: $100+ per GB for first 100GB/day. Detection rule tuning requires SOC analyst time."
+      "costImplications": "Log Analytics Workspace: $0.70/GB ingested. Azure Sentinel: $100+ per GB for first 100GB/day. Detection rule tuning requires SOC analyst time.",
+      "connectorInfo": null
     },
     {
       "id": "dsr-fulfillment",
@@ -3008,12 +3453,22 @@
         "right-to-erasure"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "Purview Data Map: included in premium licensing. Data Factory DSR pipelines: $0.50 per execution. Estimated 100-200 DSR requests/year at $50 cost to process each."
+      "costImplications": "Purview Data Map: included in premium licensing. Data Factory DSR pipelines: $0.50 per execution. Estimated 100-200 DSR requests/year at $50 cost to process each.",
+      "connectorInfo": null
     },
     {
       "id": "disaster-recovery-geo",
@@ -3063,12 +3518,22 @@
         "failover"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "ZRS: no additional cost. Geo-replication: $0.02/GB/month for replication. Failover capacity: $16/hour standby, $96/hour active (Premium P1)."
+      "costImplications": "ZRS: no additional cost. Geo-replication: $0.02/GB/month for replication. Failover capacity: $16/hour standby, $96/hour active (Premium P1).",
+      "connectorInfo": null
     },
     {
       "id": "network-isolation-private-links",
@@ -3118,11 +3583,18 @@
         "compliance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Private Endpoint: $0.50/hour ($360/month per endpoint). VNet/NSG: no cost. ExpressRoute (if used): $0.30-0.50/hour depending on bandwidth."
+      "costImplications": "Private Endpoint: $0.50/hour ($360/month per endpoint). VNet/NSG: no cost. ExpressRoute (if used): $0.30-0.50/hour depending on bandwidth.",
+      "connectorInfo": null
     },
     {
       "id": "privileged-access-management",
@@ -3172,11 +3644,18 @@
         "compliance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Entra ID Premium P2: $30-50/user/month (per admin). PIM: included in Premium P2. Hardware MFA keys: $20-50 per unit."
+      "costImplications": "Entra ID Premium P2: $30-50/user/month (per admin). PIM: included in Premium P2. Hardware MFA keys: $20-50 per unit.",
+      "connectorInfo": null
     },
     {
       "id": "change-management-four-eyes",
@@ -3224,10 +3703,14 @@
         "four-eyes"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Azure DevOps: free for up to 5 users/project. Git: no cost. Slack/Teams notifications: included. Process overhead: ~1-2 hours per change for approvals."
+      "costImplications": "Azure DevOps: free for up to 5 users/project. Git: no cost. Slack/Teams notifications: included. Process overhead: ~1-2 hours per change for approvals.",
+      "connectorInfo": null
     },
     {
       "id": "cross-border-data-residency",
@@ -3277,12 +3760,22 @@
         "sovereignty"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "Multi-region Fabric Capacity: 2-3x capacity cost (separate capacity per region). Premium P1 capacity: $16/hour per region. Cross-border OneLake replication: $0.02/GB/month."
+      "costImplications": "Multi-region Fabric Capacity: 2-3x capacity cost (separate capacity per region). Premium P1 capacity: $16/hour per region. Cross-border OneLake replication: $0.02/GB/month.",
+      "connectorInfo": null
     },
     {
       "id": "encryption-at-rest-cmk",
@@ -3333,12 +3826,22 @@
         "financial-services"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Azure Key Vault: $0.34/10k operations; CMK key storage $1/month. Key Vault calls add minimal overhead."
+      "costImplications": "Azure Key Vault: $0.34/10k operations; CMK key storage $1/month. Key Vault calls add minimal overhead.",
+      "connectorInfo": null
     },
     {
       "id": "dlp-policy-enforcement",
@@ -3391,12 +3894,22 @@
         "security"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Included in Purview premium license (part of Microsoft 365 E5 or standalone). DLP policy evaluation adds <1% query latency."
+      "costImplications": "Included in Purview premium license (part of Microsoft 365 E5 or standalone). DLP policy evaluation adds <1% query latency.",
+      "connectorInfo": null
     },
     {
       "id": "pii-tokenization",
@@ -3448,12 +3961,22 @@
         "presidio"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Presidio: open-source, no licensing cost. Key Vault storage: minimal. Spark compute: standard Fabric notebook rates."
+      "costImplications": "Presidio: open-source, no licensing cost. Key Vault storage: minimal. Spark compute: standard Fabric notebook rates.",
+      "connectorInfo": null
     },
     {
       "id": "data-retention-lifecycle",
@@ -3507,12 +4030,22 @@
         "data-deletion"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "5-7 weeks",
-      "costImplications": "Data Factory pipeline runs: $0.50 per execution. Fabric compute for Notebook purge jobs: standard rates. Storage savings from deletion: 10-30% reduction in employee data volume."
+      "costImplications": "Data Factory pipeline runs: $0.50 per execution. Fabric compute for Notebook purge jobs: standard rates. Storage savings from deletion: 10-30% reduction in employee data volume.",
+      "connectorInfo": null
     },
     {
       "id": "anonymization-k-anonymity",
@@ -3566,12 +4099,22 @@
         "compliance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "No licensing cost; implemented in Fabric Warehouse at standard query rates. Noise injection PySpark notebooks at standard compute rates."
+      "costImplications": "No licensing cost; implemented in Fabric Warehouse at standard query rates. Noise injection PySpark notebooks at standard compute rates.",
+      "connectorInfo": null
     },
     {
       "id": "audit-siem-integration",
@@ -3621,11 +4164,18 @@
         "security"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Log Analytics Workspace: $0.70/GB ingested. Azure Sentinel: $100+ per GB for first 100GB/day. Detection rule tuning requires SOC analyst time."
+      "costImplications": "Log Analytics Workspace: $0.70/GB ingested. Azure Sentinel: $100+ per GB for first 100GB/day. Detection rule tuning requires SOC analyst time.",
+      "connectorInfo": null
     },
     {
       "id": "dsr-fulfillment",
@@ -3679,12 +4229,22 @@
         "right-to-erasure"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "Purview Data Map: included in premium licensing. Data Factory DSR pipelines: $0.50 per execution. Estimated 100-200 DSR requests/year at $50 cost to process each."
+      "costImplications": "Purview Data Map: included in premium licensing. Data Factory DSR pipelines: $0.50 per execution. Estimated 100-200 DSR requests/year at $50 cost to process each.",
+      "connectorInfo": null
     },
     {
       "id": "disaster-recovery-geo",
@@ -3734,12 +4294,22 @@
         "failover"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "ZRS: no additional cost. Geo-replication: $0.02/GB/month for replication. Failover capacity: $16/hour standby, $96/hour active (Premium P1)."
+      "costImplications": "ZRS: no additional cost. Geo-replication: $0.02/GB/month for replication. Failover capacity: $16/hour standby, $96/hour active (Premium P1).",
+      "connectorInfo": null
     },
     {
       "id": "network-isolation-private-links",
@@ -3789,11 +4359,18 @@
         "compliance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Private Endpoint: $0.50/hour ($360/month per endpoint). VNet/NSG: no cost. ExpressRoute (if used): $0.30-0.50/hour depending on bandwidth."
+      "costImplications": "Private Endpoint: $0.50/hour ($360/month per endpoint). VNet/NSG: no cost. ExpressRoute (if used): $0.30-0.50/hour depending on bandwidth.",
+      "connectorInfo": null
     },
     {
       "id": "privileged-access-management",
@@ -3843,11 +4420,18 @@
         "compliance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/security/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/security/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Entra ID Premium P2: $30-50/user/month (per admin). PIM: included in Premium P2. Hardware MFA keys: $20-50 per unit."
+      "costImplications": "Entra ID Premium P2: $30-50/user/month (per admin). PIM: included in Premium P2. Hardware MFA keys: $20-50 per unit.",
+      "connectorInfo": null
     },
     {
       "id": "change-management-four-eyes",
@@ -3895,10 +4479,14 @@
         "four-eyes"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Azure DevOps: free for up to 5 users/project. Git: no cost. Slack/Teams notifications: included. Process overhead: ~1-2 hours per change for approvals."
+      "costImplications": "Azure DevOps: free for up to 5 users/project. Git: no cost. Slack/Teams notifications: included. Process overhead: ~1-2 hours per change for approvals.",
+      "connectorInfo": null
     },
     {
       "id": "cross-border-data-residency",
@@ -3948,12 +4536,22 @@
         "sovereignty"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "Multi-region Fabric Capacity: 2-3x capacity cost (separate capacity per region). Premium P1 capacity: $16/hour per region. Cross-border OneLake replication: $0.02/GB/month."
+      "costImplications": "Multi-region Fabric Capacity: 2-3x capacity cost (separate capacity per region). Premium P1 capacity: $16/hour per region. Cross-border OneLake replication: $0.02/GB/month.",
+      "connectorInfo": null
     },
     {
       "id": "fabric-data-agent-hr",
@@ -4024,12 +4622,22 @@
         "low-code"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/get-started/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "1-2 weeks",
-      "costImplications": "Requires F2+ capacity ($100-3000/month depending on org size). Cross-geo AI processing may incur additional costs. Usage-based LLM costs depend on query volume."
+      "costImplications": "Requires F2+ capacity ($100-3000/month depending on org size). Cross-geo AI processing may incur additional costs. Usage-based LLM costs depend on query volume.",
+      "connectorInfo": null
     },
     {
       "id": "hris-workday-ingestion",
@@ -4112,13 +4720,26 @@
         "hr-systems"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-factory/",
-        "https://learn.microsoft.com/en-us/fabric/data-factory/dataflow-gen2-overview",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/dataflow-gen2-overview",
+          "title": "Dataflow Gen2 Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Compute costs vary with extraction frequency; incremental loads reduce ingestion time. Workday API licensing may apply. Monitor OneLake storage for growth."
+      "costImplications": "Compute costs vary with extraction frequency; incremental loads reduce ingestion time. Workday API licensing may apply. Monitor OneLake storage for growth.",
+      "connectorInfo": "No native Fabric connector for Workday. Use Data Factory with REST API connector to call Workday RaaS/SOAP endpoints, or ingest via EIB flat-file exports to OneLake. Third-party options include CData or Workato connectors."
     },
     {
       "id": "qualtrics-survey-ingestion",
@@ -4201,13 +4822,26 @@
         "sentiment-analysis"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-factory/",
-        "https://learn.microsoft.com/en-us/fabric/data-factory/dataflow-gen2-overview",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/dataflow-gen2-overview",
+          "title": "Dataflow Gen2 Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Qualtrics API calls scale with response volume. OneLake storage scales with response history. PII detection/masking may incur additional Fabric compute costs."
+      "costImplications": "Qualtrics API calls scale with response volume. OneLake storage scales with response history. PII detection/masking may incur additional Fabric compute costs.",
+      "connectorInfo": null
     },
     {
       "id": "percipio-learning-ingestion",
@@ -4290,13 +4924,26 @@
         "skillsoft"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-factory/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+          "title": "Spark Notebook Overview"
+        }
       ],
       "estimatedImplementationEffort": "4-5 weeks",
-      "costImplications": "xAPI data volume drives OneLake storage costs. Spark Notebook compute for JSON parsing scales with learner count. Monitor SFTP bandwidth if using bulk exports."
+      "costImplications": "xAPI data volume drives OneLake storage costs. Spark Notebook compute for JSON parsing scales with learner count. Monitor SFTP bandwidth if using bulk exports.",
+      "connectorInfo": null
     },
     {
       "id": "pluralsight-skills-ingestion",
@@ -4378,13 +5025,26 @@
         "capability-planning"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-factory/",
-        "https://learn.microsoft.com/en-us/fabric/data-factory/dataflow-gen2-overview",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/dataflow-gen2-overview",
+          "title": "Dataflow Gen2 Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        }
       ],
       "estimatedImplementationEffort": "3-4 weeks",
-      "costImplications": "Skill assessment volume drives API calls and potential quota overages. OneLake storage for long-term skill history. Compute for skills taxonomy mapping."
+      "costImplications": "Skill assessment volume drives API calls and potential quota overages. OneLake storage for long-term skill history. Compute for skills taxonomy mapping.",
+      "connectorInfo": null
     },
     {
       "id": "filex-data-movement",
@@ -4468,12 +5128,22 @@
         "vendor-integration"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-factory/",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "FileX or MFT platform licensing. OneLake storage for file archives. Data Factory activity costs for validation and parsing."
+      "costImplications": "FileX or MFT platform licensing. OneLake storage for file archives. Data Factory activity costs for validation and parsing.",
+      "connectorInfo": null
     },
     {
       "id": "git-version-control",
@@ -4557,13 +5227,26 @@
         "collaboration"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/cicd/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-factory/",
-        "https://learn.microsoft.com/en-us/fabric/data-science/mlflow-integration"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/cicd/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+          "title": "Spark Notebook Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-science/mlflow-integration",
+          "title": "Mlflow Integration"
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "No additional cost beyond Fabric licenses. Azure Pipelines/GitHub Actions compute for CI/CD may incur minimal costs depending on build frequency."
+      "costImplications": "No additional cost beyond Fabric licenses. Azure Pipelines/GitHub Actions compute for CI/CD may incur minimal costs depending on build frequency.",
+      "connectorInfo": null
     },
     {
       "id": "alation-data-catalog",
@@ -4603,7 +5286,7 @@
         "6. Enable query log analysis: connect to Azure SQL Server query logs for usage insights.",
         "7. Create data quality scorecards: freshness, completeness, accuracy metrics per dataset.",
         "8. Build trust badges: endorse high-quality, well-documented datasets.",
-        "9. Configure lineage visualization: show data flow from Workday \u2192 Bronze \u2192 Silver \u2192 Gold \u2192 Power BI.",
+        "9. Configure lineage visualization: show data flow from Workday → Bronze → Silver → Gold → Power BI.",
         "10. Create certification workflow: data stewards approve datasets before release to self-service.",
         "11. Integrate Alation with Slack/Teams: publish weekly data quality and governance updates.",
         "12. Train analysts to search Alation first before requesting data access from HR."
@@ -4622,7 +5305,7 @@
         "Employee dataset discovery: analysts search for headcount, compensation, performance data with business context.",
         "Attrition metric definition: business glossary defines attrition (12-month voluntary terminations) and calculation method.",
         "Compensation equity audit: data steward certifies salary dataset completeness and confidentiality controls.",
-        "Org health scorecard: lineage shows data flow from HRIS \u2192 Bronze \u2192 Silver \u2192 KPI \u2192 executive dashboard.",
+        "Org health scorecard: lineage shows data flow from HRIS → Bronze → Silver → KPI → executive dashboard.",
         "Data quality monitoring: query log shows heavy access to specific departments, triggering investigation of data freshness."
       ],
       "complexity": "High",
@@ -4647,13 +5330,26 @@
         "business-glossary"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-governance/"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
+          "title": "Purview Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-governance/",
+          "title": ""
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "Alation licensing (per-user or organization-wide). Integration/connector setup and support. Governance team effort for glossary management."
+      "costImplications": "Alation licensing (per-user or organization-wide). Integration/connector setup and support. Governance team effort for glossary management.",
+      "connectorInfo": null
     },
     {
       "id": "informatica-data-governance",
@@ -4692,7 +5388,7 @@
         "5. Set up CLAIRE AI profiling: run auto-profile on employee master to learn value distributions.",
         "6. Define data cleansing rules: standardize names (capitalization), locations (state abbreviations), job titles.",
         "7. Create MDM hub for employee golden records: define matching rules (SSN + name + DOB).",
-        "8. Build data factory pipeline: extract from Workday \u2192 IDMC for profiling/cleansing \u2192 Fabric Lakehouse Bronze.",
+        "8. Build data factory pipeline: extract from Workday → IDMC for profiling/cleansing → Fabric Lakehouse Bronze.",
         "9. Configure exception handling: flag records failing quality thresholds (e.g., >5% null in required fields).",
         "10. Set up data quality dashboards: daily quality metrics by data source and quality rule.",
         "11. Integrate Informatica metadata with Purview: quality scores and lineage visible in Fabric UI.",
@@ -4742,13 +5438,26 @@
         "master-data"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/",
-        "https://learn.microsoft.com/en-us/fabric/data-factory/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
-        "https://learn.microsoft.com/en-us/fabric/governance/purview-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
+          "title": "Purview Overview"
+        }
       ],
       "estimatedImplementationEffort": "8-12 weeks",
-      "costImplications": "Informatica IDMC licensing (data quality + MDM modules). Implementation services and data steward training. Ongoing support and rule maintenance."
+      "costImplications": "Informatica IDMC licensing (data quality + MDM modules). Implementation services and data steward training. Ongoing support and rule maintenance.",
+      "connectorInfo": null
     },
     {
       "id": "sandbox-upload-workspace",
@@ -4783,7 +5492,7 @@
         "1. Create dedicated Workspace with Sandbox naming (e.g., 'HR Analytics Sandbox').",
         "2. Create Lakehouse with folders: uploads, staging, shared_outputs.",
         "3. Enable Lakehouse auto-schema detection for uploads folder.",
-        "4. Create Power Query template for file upload: CSV/Excel \u2192 infer schema \u2192 Lakehouse table.",
+        "4. Create Power Query template for file upload: CSV/Excel → infer schema → Lakehouse table.",
         "5. In Spark Notebooks, build auto-schema detection: inspect first 1000 rows, infer types, alert on anomalies.",
         "6. Create shortcuts to production Gold tables (employee, org, compensation) in sandbox Lakehouse.",
         "7. Build pre-approval data sensitivity questionnaire: 'Does your upload contain PII? Salary? Email addresses?'",
@@ -4831,13 +5540,26 @@
         "ad-hoc"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
-        "https://learn.microsoft.com/en-us/fabric/onelake/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
-        "https://learn.microsoft.com/en-us/fabric/get-started/workspaces"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/onelake/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+          "title": "Spark Notebook Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/get-started/workspaces",
+          "title": "Workspaces"
+        }
       ],
       "estimatedImplementationEffort": "2-3 weeks",
-      "costImplications": "Storage for temporary uploads. Power BI Pro licenses for participating analysts. Minimal compute if using notebooks for transformation."
+      "costImplications": "Storage for temporary uploads. Power BI Pro licenses for participating analysts. Minimal compute if using notebooks for transformation.",
+      "connectorInfo": null
     },
     {
       "id": "adhoc-insight-engine",
@@ -4865,7 +5587,7 @@
         "Spark/Python skills required; not accessible to non-technical analysts.",
         "Output file generation (PDF, PowerPoint) requires additional libraries (reportlab, python-pptx).",
         "Statistical test interpretation requires domain expertise; risk of misuse.",
-        "Large result datasets (e.g., 100k employee records \u00d7 50 statistical tests) can exceed output size limits.",
+        "Large result datasets (e.g., 100k employee records × 50 statistical tests) can exceed output size limits.",
         "PDF/PowerPoint generation adds processing time and cost."
       ],
       "usageInstructions": [
@@ -4923,13 +5645,26 @@
         "reporting"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-activator/data-activator-overview",
-        "https://learn.microsoft.com/en-us/fabric/business-intelligence/power-bi-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+          "title": "Spark Notebook Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-activator/data-activator-overview",
+          "title": "Data Activator Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/business-intelligence/power-bi-overview",
+          "title": "Power Bi Overview"
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Spark Notebook compute for statistical tests. Storage for output files (PDF, Excel, PowerPoint). Potential licensing for external statistical libraries."
+      "costImplications": "Spark Notebook compute for statistical tests. Storage for output files (PDF, Excel, PowerPoint). Potential licensing for external statistical libraries.",
+      "connectorInfo": null
     },
     {
       "id": "llm-powered-analysis",
@@ -4970,7 +5705,7 @@
         "5. Implement confidence scoring: use OpenAI API response probabilities to indicate uncertainty.",
         "6. Create fact-checking layer: compare generated claims against ground truth (fact tables); flag mismatches.",
         "7. Build human review workflow: route high-stakes findings (e.g., pay equity findings) to HR for approval.",
-        "8. Implement output formatting: markdown \u2192 PowerPoint or email briefing.",
+        "8. Implement output formatting: markdown → PowerPoint or email briefing.",
         "9. Create example templates: attrition narrative, compensation trend narrative, engagement narrative.",
         "10. Schedule recurring narratives: e.g., weekly CEO briefing on org health.",
         "11. Log all generated narratives and human review decisions for audits.",
@@ -5016,13 +5751,26 @@
         "narrative-generation"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-science/ai-services/",
-        "https://learn.microsoft.com/en-us/azure/ai-services/openai/",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-science/ai-services/azure-ai-foundry-integration"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-science/ai-services/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/",
+          "title": ""
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+          "title": "Spark Notebook Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-science/ai-services/azure-ai-foundry-integration",
+          "title": "Azure Ai Foundry Integration"
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "Azure OpenAI API usage (per token). Fabric compute for fact extraction. Human review effort for governance. Optional fine-tuning costs."
+      "costImplications": "Azure OpenAI API usage (per token). Fabric compute for fact extraction. Human review effort for governance. Optional fine-tuning costs.",
+      "connectorInfo": null
     },
     {
       "id": "informatica-enterprise-data-catalog",
@@ -5109,12 +5857,22 @@
         "catalog"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
-        "https://learn.microsoft.com/en-us/fabric/governance/metadata-lineage",
-        "https://learn.microsoft.com/en-us/fabric/governance/sensitivity-labels"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
+          "title": "Purview Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/metadata-lineage",
+          "title": "Metadata Lineage"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/sensitivity-labels",
+          "title": "Sensitivity Labels"
+        }
       ],
       "estimatedImplementationEffort": "8-12 weeks",
-      "costImplications": "Informatica EDC licensing (enterprise tier). Metadata connector implementation. Business glossary stewardship and governance team overhead."
+      "costImplications": "Informatica EDC licensing (enterprise tier). Metadata connector implementation. Business glossary stewardship and governance team overhead.",
+      "connectorInfo": null
     },
     {
       "id": "informatica-axon-governance",
@@ -5200,12 +5958,22 @@
         "business-governance"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
-        "https://learn.microsoft.com/en-us/fabric/governance/endorsement",
-        "https://learn.microsoft.com/en-us/fabric/governance/row-level-security"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
+          "title": "Purview Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/endorsement",
+          "title": "Endorsement"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/row-level-security",
+          "title": "Row Level Security"
+        }
       ],
       "estimatedImplementationEffort": "10-14 weeks",
-      "costImplications": "Informatica Axon licensing (SaaS). Governance team training and change management. Integration services for Purview connectivity. Ongoing policy stewardship."
+      "costImplications": "Informatica Axon licensing (SaaS). Governance team training and change management. Integration services for Purview connectivity. Ongoing policy stewardship.",
+      "connectorInfo": null
     },
     {
       "id": "informatica-data-quality",
@@ -5292,12 +6060,22 @@
         "monitoring"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview",
+          "title": "Data Factory Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+          "title": "Spark Notebook Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview",
+          "title": "Lakehouse Overview"
+        }
       ],
       "estimatedImplementationEffort": "6-8 weeks",
-      "costImplications": "Informatica DQ licensing (volume-based). Data profiling and rule definition services. Integration development for Data Factory pipelines."
+      "costImplications": "Informatica DQ licensing (volume-based). Data profiling and rule definition services. Integration development for Data Factory pipelines.",
+      "connectorInfo": "For Informatica DQ integration: use the IDMC cloud connector with Fabric Data Warehouse endpoint."
     },
     {
       "id": "informatica-data-privacy",
@@ -5387,12 +6165,22 @@
         "data-protection"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/governance/sensitivity-labels",
-        "https://learn.microsoft.com/en-us/fabric/governance/endorsement",
-        "https://learn.microsoft.com/en-us/azure/active-directory/governance/access-reviews-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/sensitivity-labels",
+          "title": "Sensitivity Labels"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/governance/endorsement",
+          "title": "Endorsement"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/active-directory/governance/access-reviews-overview",
+          "title": "Access Reviews Overview"
+        }
       ],
       "estimatedImplementationEffort": "8-12 weeks",
-      "costImplications": "Informatica DPM licensing (enterprise tier). Integration services for data source connectivity. Privacy impact assessment consulting. Role-based access governance and testing."
+      "costImplications": "Informatica DPM licensing (enterprise tier). Integration services for data source connectivity. Privacy impact assessment consulting. Role-based access governance and testing.",
+      "connectorInfo": "For Informatica DPM: use the IDMC connector for data masking and privacy management."
     },
     {
       "id": "dataiku-dss-analytics",
@@ -5479,12 +6267,22 @@
         "dataiku"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-science/models-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-science/mlflow-integration",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-science/models-overview",
+          "title": "Models Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-science/mlflow-integration",
+          "title": "Mlflow Integration"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+          "title": "Spark Notebook Overview"
+        }
       ],
       "estimatedImplementationEffort": "6-10 weeks",
-      "costImplications": "Dataiku DSS licensing (SaaS, volume-based). Data scientist onboarding and training. Spark compute costs for model training. MLflow integration and monitoring infrastructure."
+      "costImplications": "Dataiku DSS licensing (SaaS, volume-based). Data scientist onboarding and training. Spark compute costs for model training. MLflow integration and monitoring infrastructure.",
+      "connectorInfo": null
     },
     {
       "id": "airflow-orchestration",
@@ -5572,12 +6370,22 @@
         "open-source"
       ],
       "referenceLinks": [
-        "https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview",
-        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
-        "https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities"
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview",
+          "title": "Data Factory Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+          "title": "Spark Notebook Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities",
+          "title": "Concepts Pipelines Activities"
+        }
       ],
       "estimatedImplementationEffort": "4-6 weeks",
-      "costImplications": "Airflow infrastructure (cloud-managed like Composer or self-hosted VMs). Compute for pipeline execution. Operational overhead for monitoring and support."
+      "costImplications": "Airflow infrastructure (cloud-managed like Composer or self-hosted VMs). Compute for pipeline execution. Operational overhead for monitoring and support.",
+      "connectorInfo": "Requires Apache Airflow. For Fabric integration: install the apache-airflow-microsoft-fabric-plugin and use FabricRunItemOperator."
     }
   ],
   "useCaseBlueprints": [
@@ -5592,25 +6400,25 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Establishes Bronze-Silver-Gold data layers for clean, aggregated HR data",
-          "dataFlow": "Raw HR systems \u2192 Bronze \u2192 enriched employee records \u2192 Silver"
+          "dataFlow": "Raw HR systems → Bronze → enriched employee records → Silver"
         },
         {
           "order": 2,
           "patternId": "feature-store-delta",
           "role": "Creates reusable ML features (tenure, engagement, salary growth) for model training",
-          "dataFlow": "Silver layer \u2192 feature engineering \u2192 feature store with Delta versioning"
+          "dataFlow": "Silver layer → feature engineering → feature store with Delta versioning"
         },
         {
           "order": 3,
           "patternId": "batch-inference-pipeline",
           "role": "Runs weekly ML inference to score attrition risk for all employees",
-          "dataFlow": "Feature store \u2192 ML model \u2192 risk scores per employee"
+          "dataFlow": "Feature store → ML model → risk scores per employee"
         },
         {
           "order": 4,
           "patternId": "fairness-bias-evaluation",
           "role": "Evaluates predictions across demographic groups to identify and flag bias",
-          "dataFlow": "Risk scores + demographics \u2192 fairness metrics \u2192 bias report"
+          "dataFlow": "Risk scores + demographics → fairness metrics → bias report"
         },
         {
           "order": 5,
@@ -5622,13 +6430,13 @@
           "order": 6,
           "patternId": "directlake-power-bi",
           "role": "Enables real-time Power BI dashboards on risk scores with no copy",
-          "dataFlow": "Gold layer tables \u2192 DirectLake \u2192 Power BI dashboards"
+          "dataFlow": "Gold layer tables → DirectLake → Power BI dashboards"
         },
         {
           "order": 7,
           "patternId": "data-activator-reflex",
           "role": "Triggers automated alerts when risk scores exceed thresholds",
-          "dataFlow": "Risk scores \u2192 Reflex rules \u2192 alerts to HR and managers"
+          "dataFlow": "Risk scores → Reflex rules → alerts to HR and managers"
         }
       ],
       "architectureNarrative": "This blueprint orchestrates a complete ML-powered attrition prevention system. Employee data flows through the medallion architecture's Bronze and Silver layers where it's enriched and deduplicated. The feature store then engineers critical ML features (tenure, compensation trends, engagement indicators, promotion history) with full Delta version control for reproducibility. A weekly batch inference pipeline scores all employees using a trained attrition model, producing a risk percentile for each employee. Critically, the fairness evaluation pattern runs post-inference to audit the model's predictions across demographic groups (gender, age, ethnicity) and flags any disparate impact. These risk scores are modeled in the semantic layer with row-level security (RLS) enforcing that managers see only their team members' scores, while HR leadership sees organization-wide patterns. Power BI dashboards built on DirectLake provide zero-latency visualization of risk distributions, trends, and demographic breakdowns. Finally, Data Activator Reflex rules trigger real-time alerts whenever an employee's risk score crosses critical thresholds (e.g., >80th percentile), sending notifications to managers and HR business partners with recommended retention actions.",
@@ -5662,25 +6470,25 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Layers salary, role, and demographics data for secure processing",
-          "dataFlow": "Payroll systems \u2192 Bronze \u2192 normalized compensation records \u2192 Silver"
+          "dataFlow": "Payroll systems → Bronze → normalized compensation records → Silver"
         },
         {
           "order": 2,
           "patternId": "scd-type-2",
           "role": "Tracks salary history and job changes over time with effective dating",
-          "dataFlow": "Salary updates \u2192 SCD Type 2 \u2192 historical snapshots with valid_from/valid_to"
+          "dataFlow": "Salary updates → SCD Type 2 → historical snapshots with valid_from/valid_to"
         },
         {
           "order": 3,
           "patternId": "anonymization-k-anonymity",
           "role": "Generalizes data so groups of 5+ employees are indistinguishable",
-          "dataFlow": "Detailed salary records \u2192 quasi-identifiers generalization \u2192 anonymized salary groups"
+          "dataFlow": "Detailed salary records → quasi-identifiers generalization → anonymized salary groups"
         },
         {
           "order": 4,
           "patternId": "dynamic-data-masking",
           "role": "Real-time masking of exact salaries based on viewer permissions in Power BI",
-          "dataFlow": "Salary values \u2192 masking rules applied per user role \u2192 aggregated view only"
+          "dataFlow": "Salary values → masking rules applied per user role → aggregated view only"
         },
         {
           "order": 5,
@@ -5692,13 +6500,13 @@
           "order": 6,
           "patternId": "certified-semantic-model",
           "role": "Defines trusted salary metrics (median, quartiles, benchmarks) for consistent reporting",
-          "dataFlow": "Anonymized salary data \u2192 certified model \u2192 trusted metrics"
+          "dataFlow": "Anonymized salary data → certified model → trusted metrics"
         },
         {
           "order": 7,
           "patternId": "directlake-power-bi",
           "role": "Delivers interactive compensation dashboards with benchmark comparisons",
-          "dataFlow": "Semantic model \u2192 DirectLake \u2192 Power BI dashboards"
+          "dataFlow": "Semantic model → DirectLake → Power BI dashboards"
         }
       ],
       "architectureNarrative": "This blueprint creates a secure compensation analytics platform that protects individual privacy while enabling strategic insights. Payroll data enters the medallion architecture and is normalized in the Silver layer, then SCD Type 2 tracking captures salary history with effective dates to support trend analysis. The k-anonymity pattern generalizes quasi-identifiers (job level, department, age group, tenure band) so that no group of fewer than 5 employees can be uniquely identified, enabling safe sharing between departments. Dynamic data masking then provides an additional layer by allowing department leaders to see aggregate compensation metrics and benchmarks without viewing exact individual salaries. The semantic layer enforces row-level security so leaders see only their department's anonymized compensation data, while HR compensation specialists see organization-wide patterns. The certified semantic model codifies trusted salary metrics (median, 25th/75th percentiles, market benchmarks) that drive consistent reporting across the organization. Power BI dashboards leverage DirectLake to deliver interactive compensation analysis including pay equity ratios, market positioning by level, and salary distribution trends, all on anonymized data.",
@@ -5732,37 +6540,37 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Consolidates HR data from multiple sources into trusted layers",
-          "dataFlow": "Multiple HRIS systems \u2192 Bronze \u2192 deduplicated employee records \u2192 Silver"
+          "dataFlow": "Multiple HRIS systems → Bronze → deduplicated employee records → Silver"
         },
         {
           "order": 2,
           "patternId": "data-quality-validation",
           "role": "Validates demographic data completeness and accuracy before reporting",
-          "dataFlow": "Silver layer records \u2192 quality checks \u2192 flagged missing/invalid demographics"
+          "dataFlow": "Silver layer records → quality checks → flagged missing/invalid demographics"
         },
         {
           "order": 3,
           "patternId": "anonymization-k-anonymity",
           "role": "Generalizes demographic data for internal sharing while protecting individual privacy",
-          "dataFlow": "Raw demographics \u2192 quasi-identifier generalization \u2192 anonymized diversity metrics"
+          "dataFlow": "Raw demographics → quasi-identifier generalization → anonymized diversity metrics"
         },
         {
           "order": 4,
           "patternId": "paginated-reports",
           "role": "Generates formatted EEO-1 and pay equity audit reports with regulatory structure",
-          "dataFlow": "Anonymized metrics \u2192 template-driven report generation \u2192 paginated PDF/Excel"
+          "dataFlow": "Anonymized metrics → template-driven report generation → paginated PDF/Excel"
         },
         {
           "order": 5,
           "patternId": "sensitivity-labels",
           "role": "Marks reports as containing regulated diversity data requiring protection",
-          "dataFlow": "DEI metrics \u2192 sensitivity label application \u2192 high/medium classification"
+          "dataFlow": "DEI metrics → sensitivity label application → high/medium classification"
         },
         {
           "order": 6,
           "patternId": "dlp-policy-enforcement",
           "role": "Prevents accidental sharing or export of DEI reports outside secure channels",
-          "dataFlow": "Reports with sensitivity labels \u2192 DLP rules \u2192 block unauthorized export/sharing"
+          "dataFlow": "Reports with sensitivity labels → DLP rules → block unauthorized export/sharing"
         }
       ],
       "architectureNarrative": "This blueprint automates compliance reporting for diversity and equity metrics required by regulators like the EEOC (EEO-1) and pay equity audit bodies. Employee demographic and compensation data flows through the medallion architecture's Bronze and Silver layers where it's deduplicated and standardized. Data quality validation patterns ensure demographic fields are complete and accurately coded before being included in compliance reports. The anonymization pattern generalizes demographic categories to safe levels for internal sharing (e.g., age bands, tenure bands) while preserving aggregate diversity metrics. Paginated report generation creates formatted reports matching EEO-1 structure and pay equity audit requirements, with automated calculations of diversity percentages, pay ratios, and representation metrics. Sensitivity labels mark these reports as containing regulated data, and DLP policies prevent unauthorized copying, printing, or external sharing of the reports, ensuring only intended recipients (legal, CHRO, board) access compliance documentation.",
@@ -5796,40 +6604,40 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Provides clean HR data foundation for RAG context retrieval",
-          "dataFlow": "HR systems \u2192 Bronze \u2192 enriched records \u2192 Silver/Gold tables"
+          "dataFlow": "HR systems → Bronze → enriched records → Silver/Gold tables"
         },
         {
           "order": 2,
           "patternId": "certified-semantic-model",
           "role": "Defines consistent HR metrics and relationships for LLM grounding",
-          "dataFlow": "Gold layer tables \u2192 semantic model definitions \u2192 trusted metrics"
+          "dataFlow": "Gold layer tables → semantic model definitions → trusted metrics"
         },
         {
           "order": 3,
           "patternId": "rag-fabric-grounded",
           "role": "Grounds LLM responses in actual Fabric data, preventing hallucinations",
-          "dataFlow": "User question \u2192 semantic model query \u2192 LLM + context \u2192 grounded response"
+          "dataFlow": "User question → semantic model query → LLM + context → grounded response"
         },
         {
           "order": 4,
           "patternId": "secure-chat-rls",
           "role": "Enforces row-level security within chat context, restricting data per user",
-          "dataFlow": "Query context \u2192 RLS rules applied \u2192 filtered data \u2192 LLM response"
+          "dataFlow": "Query context → RLS rules applied → filtered data → LLM response"
         },
         {
           "order": 5,
           "patternId": "hr-ai-guardrails",
           "role": "Validates LLM responses and blocks harmful outputs before delivery",
-          "dataFlow": "LLM response \u2192 guardrail validation \u2192 approved/rejected"
+          "dataFlow": "LLM response → guardrail validation → approved/rejected"
         },
         {
           "order": 6,
           "patternId": "audit-siem-integration",
           "role": "Logs all user questions and data accessed through chatbot for compliance",
-          "dataFlow": "Chat interactions \u2192 audit logs \u2192 SIEM \u2192 compliance reporting"
+          "dataFlow": "Chat interactions → audit logs → SIEM → compliance reporting"
         }
       ],
-      "architectureNarrative": "This blueprint creates a secure, governed conversational interface to HR analytics. The medallion architecture provides clean, trusted HR data across Bronze/Silver/Gold layers. A certified semantic model defines consistent HR metrics and relationships (e.g., salary bands, benefit eligibility rules, organizational structures) that serve as ground truth for the LLM. When a user asks a question like 'What's the compensation benchmark for my role?', the RAG pattern grounds the LLM with actual data from the semantic model, ensuring answers are factual rather than hallucinated. Critically, row-level security is enforced within the chatbot context\u2014a user only retrieves data they're authorized to see (e.g., their department's benchmarks, never peer salaries). HR AI guardrails validate the LLM response to ensure it's accurate, non-discriminatory, and policy-compliant before it's returned to the user. All interactions are logged in the audit SIEM system, creating a compliance trail that tracks which users asked what questions and what data was retrieved, enabling HR and security teams to audit chatbot activity.",
+      "architectureNarrative": "This blueprint creates a secure, governed conversational interface to HR analytics. The medallion architecture provides clean, trusted HR data across Bronze/Silver/Gold layers. A certified semantic model defines consistent HR metrics and relationships (e.g., salary bands, benefit eligibility rules, organizational structures) that serve as ground truth for the LLM. When a user asks a question like 'What's the compensation benchmark for my role?', the RAG pattern grounds the LLM with actual data from the semantic model, ensuring answers are factual rather than hallucinated. Critically, row-level security is enforced within the chatbot context—a user only retrieves data they're authorized to see (e.g., their department's benchmarks, never peer salaries). HR AI guardrails validate the LLM response to ensure it's accurate, non-discriminatory, and policy-compliant before it's returned to the user. All interactions are logged in the audit SIEM system, creating a compliance trail that tracks which users asked what questions and what data was retrieved, enabling HR and security teams to audit chatbot activity.",
       "requiredGovernance": [
         "LLM response validation and guardrail testing before deployment",
         "Regular audit of chatbot interactions for policy violations",
@@ -5860,46 +6668,46 @@
           "order": 1,
           "patternId": "incremental-watermark",
           "role": "Captures only new/changed records from HR systems for efficient daily loading",
-          "dataFlow": "HR system changes \u2192 watermark tracking \u2192 incremental extraction"
+          "dataFlow": "HR system changes → watermark tracking → incremental extraction"
         },
         {
           "order": 2,
           "patternId": "scd-type-2",
           "role": "Maintains complete history of role, level, department, and salary changes",
-          "dataFlow": "Employee updates \u2192 SCD Type 2 \u2192 historical snapshots with effective dates"
+          "dataFlow": "Employee updates → SCD Type 2 → historical snapshots with effective dates"
         },
         {
           "order": 3,
           "patternId": "medallion-architecture",
           "role": "Layers lifecycle data for analytics with audit trail",
-          "dataFlow": "SCD tables \u2192 Bronze \u2192 enriched employee journey \u2192 Silver \u2192 analytics ready \u2192 Gold"
+          "dataFlow": "SCD tables → Bronze → enriched employee journey → Silver → analytics ready → Gold"
         },
         {
           "order": 4,
           "patternId": "data-quality-validation",
           "role": "Validates date sequences and data consistency across lifecycle events",
-          "dataFlow": "Lifecycle records \u2192 quality checks \u2192 flagged date anomalies/gaps"
+          "dataFlow": "Lifecycle records → quality checks → flagged date anomalies/gaps"
         },
         {
           "order": 5,
           "patternId": "hub-spoke-workspace",
           "role": "Organizes lifecycle analytics into shared workspace for cross-functional teams",
-          "dataFlow": "Gold layer tables \u2192 shared semantic models \u2192 distributed teams"
+          "dataFlow": "Gold layer tables → shared semantic models → distributed teams"
         },
         {
           "order": 6,
           "patternId": "directlake-power-bi",
           "role": "Visualizes employee journey and cohort trends in interactive dashboards",
-          "dataFlow": "Gold tables \u2192 DirectLake \u2192 Power BI career path visualizations"
+          "dataFlow": "Gold tables → DirectLake → Power BI career path visualizations"
         },
         {
           "order": 7,
           "patternId": "metrics-scorecard",
           "role": "Tracks key lifecycle metrics (time-to-productivity, promotion rate, retention rate)",
-          "dataFlow": "Lifecycle events \u2192 metric calculations \u2192 scorecard updates"
+          "dataFlow": "Lifecycle events → metric calculations → scorecard updates"
         }
       ],
-      "architectureNarrative": "This blueprint creates a comprehensive employee lifecycle analytics system with full audit trail. Daily extractions use incremental watermarking to efficiently capture only changes from the HR system (new hires, promotions, transfers, separations). Slowly Changing Dimension Type 2 modeling captures every career event with effective dates, preserving complete history\u2014an employee's SCD table might show them as 'Junior Analyst' in Boston from 2020-2021, 'Senior Analyst' in Boston from 2021-2023, 'Manager' in New York from 2023-present. This historical data flows through the medallion architecture's Bronze layer where it's deduplicated, then the Silver layer where career progression is enriched with performance data and compensation history, and finally the Gold layer where it's structured for analytics. Data quality validation ensures date sequences are logical (e.g., no negative tenure, start dates before hire dates). A hub-spoke workspace structure organizes these analytics so that talent leaders, compensation teams, and succession planners can each build on shared, trusted Gold layer tables. Power BI dashboards visualize employee journeys including time-in-role, promotion velocity, and departmental migration patterns. Finally, a metrics scorecard continuously calculates lifecycle KPIs (time-to-full-productivity for new hires, average promotion cycle, voluntary vs. involuntary separation rates), enabling leaders to monitor workforce health.",
+      "architectureNarrative": "This blueprint creates a comprehensive employee lifecycle analytics system with full audit trail. Daily extractions use incremental watermarking to efficiently capture only changes from the HR system (new hires, promotions, transfers, separations). Slowly Changing Dimension Type 2 modeling captures every career event with effective dates, preserving complete history—an employee's SCD table might show them as 'Junior Analyst' in Boston from 2020-2021, 'Senior Analyst' in Boston from 2021-2023, 'Manager' in New York from 2023-present. This historical data flows through the medallion architecture's Bronze layer where it's deduplicated, then the Silver layer where career progression is enriched with performance data and compensation history, and finally the Gold layer where it's structured for analytics. Data quality validation ensures date sequences are logical (e.g., no negative tenure, start dates before hire dates). A hub-spoke workspace structure organizes these analytics so that talent leaders, compensation teams, and succession planners can each build on shared, trusted Gold layer tables. Power BI dashboards visualize employee journeys including time-in-role, promotion velocity, and departmental migration patterns. Finally, a metrics scorecard continuously calculates lifecycle KPIs (time-to-full-productivity for new hires, average promotion cycle, voluntary vs. involuntary separation rates), enabling leaders to monitor workforce health.",
       "requiredGovernance": [
         "Audit trail preservation for separation events (legal hold periods)",
         "Data retention policies aligned with employment law requirements",
@@ -5930,46 +6738,46 @@
           "order": 1,
           "patternId": "encryption-at-rest-cmk",
           "role": "Encrypts executive compensation data using customer-managed keys",
-          "dataFlow": "Executive salary/bonus data \u2192 CMK encryption \u2192 encrypted storage"
+          "dataFlow": "Executive salary/bonus data → CMK encryption → encrypted storage"
         },
         {
           "order": 2,
           "patternId": "network-isolation-private-links",
           "role": "Routes executive compensation workspace through private network endpoints",
-          "dataFlow": "Authorized users \u2192 private network links \u2192 isolated workspace"
+          "dataFlow": "Authorized users → private network links → isolated workspace"
         },
         {
           "order": 3,
           "patternId": "row-level-security",
           "role": "Restricts executive records to only approved compensation committee members",
-          "dataFlow": "Executive comp data \u2192 RLS filter \u2192 authorized users only"
+          "dataFlow": "Executive comp data → RLS filter → authorized users only"
         },
         {
           "order": 4,
           "patternId": "dynamic-data-masking",
           "role": "Masks specific compensation elements (base, bonus, equity) based on role",
-          "dataFlow": "Full compensation records \u2192 masking rules \u2192 redacted view"
+          "dataFlow": "Full compensation records → masking rules → redacted view"
         },
         {
           "order": 5,
           "patternId": "privileged-access-management",
           "role": "Requires just-in-time approval and audit for access to executive compensation",
-          "dataFlow": "Access request \u2192 approval workflow \u2192 time-limited access \u2192 audit log"
+          "dataFlow": "Access request → approval workflow → time-limited access → audit log"
         },
         {
           "order": 6,
           "patternId": "audit-siem-integration",
           "role": "Logs all executive compensation access and data changes with SIEM monitoring",
-          "dataFlow": "All actions on executive data \u2192 detailed audit logs \u2192 SIEM alerts"
+          "dataFlow": "All actions on executive data → detailed audit logs → SIEM alerts"
         },
         {
           "order": 7,
           "patternId": "paginated-reports",
           "role": "Generates formal executive compensation reports for board review",
-          "dataFlow": "Authorized access \u2192 report generation \u2192 signed PDFs to board"
+          "dataFlow": "Authorized access → report generation → signed PDFs to board"
         }
       ],
-      "architectureNarrative": "This blueprint implements maximum security isolation for executive compensation data, recognizing its strategic and sensitive nature. Executive compensation data is encrypted at rest using customer-managed keys (CMK) controlled by the organization's security team, not Microsoft. Network isolation routes access through private network endpoints (Azure Private Link), so authorized users connect through a private network backbone rather than the public internet, preventing packet sniffing or man-in-the-middle attacks. The semantic layer applies strict row-level security that ensures even Finance VP cannot see another executive's compensation. Dynamic masking layers on top, allowing some approved users to see aggregated benchmarks without seeing individual amounts. Privileged access management (PAM) wraps all of this in a just-in-time approval workflow\u2014a board member requesting executive compensation data must have that request approved by the board chair, and access is time-limited (e.g., 1 hour). Every action (access grant, data view, download) is logged with full audit detail (timestamp, user, IP, action) and streamed to the SIEM for monitoring and alerting on anomalous behavior (e.g., after-hours access). Finally, formal paginated reports are generated for board compensation committee review, with digital signatures and distribution tracking ensuring legal defensibility.",
+      "architectureNarrative": "This blueprint implements maximum security isolation for executive compensation data, recognizing its strategic and sensitive nature. Executive compensation data is encrypted at rest using customer-managed keys (CMK) controlled by the organization's security team, not Microsoft. Network isolation routes access through private network endpoints (Azure Private Link), so authorized users connect through a private network backbone rather than the public internet, preventing packet sniffing or man-in-the-middle attacks. The semantic layer applies strict row-level security that ensures even Finance VP cannot see another executive's compensation. Dynamic masking layers on top, allowing some approved users to see aggregated benchmarks without seeing individual amounts. Privileged access management (PAM) wraps all of this in a just-in-time approval workflow—a board member requesting executive compensation data must have that request approved by the board chair, and access is time-limited (e.g., 1 hour). Every action (access grant, data view, download) is logged with full audit detail (timestamp, user, IP, action) and streamed to the SIEM for monitoring and alerting on anomalous behavior (e.g., after-hours access). Finally, formal paginated reports are generated for board compensation committee review, with digital signatures and distribution tracking ensuring legal defensibility.",
       "requiredGovernance": [
         "CMK key rotation policies and segregation from standard keys",
         "Documented executive compensation access approval process",
@@ -6000,40 +6808,40 @@
           "order": 1,
           "patternId": "purview-data-map",
           "role": "Catalogs all HR data sources and their lineage for privacy compliance",
-          "dataFlow": "HR systems \u2192 Purview scanning \u2192 data asset catalog with classifications"
+          "dataFlow": "HR systems → Purview scanning → data asset catalog with classifications"
         },
         {
           "order": 2,
           "patternId": "sensitivity-labels",
           "role": "Tags PII, health data, and other regulated information with privacy labels",
-          "dataFlow": "Catalog assets \u2192 sensitivity classification \u2192 labels applied"
+          "dataFlow": "Catalog assets → sensitivity classification → labels applied"
         },
         {
           "order": 3,
           "patternId": "dlp-policy-enforcement",
           "role": "Blocks unauthorized export, copy, or sharing of privacy-labeled data",
-          "dataFlow": "Labeled data \u2192 DLP rules \u2192 prevent exfiltration"
+          "dataFlow": "Labeled data → DLP rules → prevent exfiltration"
         },
         {
           "order": 4,
           "patternId": "data-retention-lifecycle",
           "role": "Automatically deletes data per privacy retention schedules after employee separation",
-          "dataFlow": "Retention dates per regulation \u2192 automated deletion schedule \u2192 purged records"
+          "dataFlow": "Retention dates per regulation → automated deletion schedule → purged records"
         },
         {
           "order": 5,
           "patternId": "dsr-fulfillment",
           "role": "Orchestrates automated fulfillment of data subject access requests",
-          "dataFlow": "DSR request received \u2192 data query \u2192 subject data compiled \u2192 encrypted delivery"
+          "dataFlow": "DSR request received → data query → subject data compiled → encrypted delivery"
         },
         {
           "order": 6,
           "patternId": "audit-siem-integration",
           "role": "Logs all privacy-related data access and deletion for compliance audits",
-          "dataFlow": "All privacy actions \u2192 audit logs \u2192 regulatory audit trail"
+          "dataFlow": "All privacy actions → audit logs → regulatory audit trail"
         }
       ],
-      "architectureNarrative": "This blueprint implements a comprehensive privacy compliance system aligned with GDPR, PIPEDA, CCPA, and other global privacy regulations. Purview scans all HR data sources and builds a complete data asset catalog, identifying what employee data exists, where it's stored, and how it flows through the organization. Sensitivity labels are applied to all personal data (names, IDs, health information, biometrics), marking them as PII or regulated health data. DLP policies leverage these labels to prevent unauthorized exfiltration\u2014attempting to copy a table with PII-labeled columns triggers a policy block, and attempting to download or email sensitive data triggers alerts and blocks. Data retention lifecycle policies encode the legal retention requirements for different data types (e.g., payroll records retained 3 years, health records deleted upon separation after applicable hold periods), and automated deletion tasks purge data when retention periods expire. When a data subject (employee or applicant) submits a DSR request asking 'give me all my data,' the DSR fulfillment pattern orchestrates rapid compliance: it queries all systems in the catalog, compiles relevant employee records, creates a secure export, and delivers it to the requester via encrypted link within the required timeframe (typically 30 days). Comprehensive audit logging tracks all sensitive data access, modifications, and deletions, creating an audit trail that demonstrates compliance during regulatory inspections.",
+      "architectureNarrative": "This blueprint implements a comprehensive privacy compliance system aligned with GDPR, PIPEDA, CCPA, and other global privacy regulations. Purview scans all HR data sources and builds a complete data asset catalog, identifying what employee data exists, where it's stored, and how it flows through the organization. Sensitivity labels are applied to all personal data (names, IDs, health information, biometrics), marking them as PII or regulated health data. DLP policies leverage these labels to prevent unauthorized exfiltration—attempting to copy a table with PII-labeled columns triggers a policy block, and attempting to download or email sensitive data triggers alerts and blocks. Data retention lifecycle policies encode the legal retention requirements for different data types (e.g., payroll records retained 3 years, health records deleted upon separation after applicable hold periods), and automated deletion tasks purge data when retention periods expire. When a data subject (employee or applicant) submits a DSR request asking 'give me all my data,' the DSR fulfillment pattern orchestrates rapid compliance: it queries all systems in the catalog, compiles relevant employee records, creates a secure export, and delivers it to the requester via encrypted link within the required timeframe (typically 30 days). Comprehensive audit logging tracks all sensitive data access, modifications, and deletions, creating an audit trail that demonstrates compliance during regulatory inspections.",
       "requiredGovernance": [
         "Annual privacy impact assessment (DPIA) on HR data processing",
         "Documented data retention schedules aligned with jurisdiction requirements",
@@ -6064,43 +6872,43 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Structures historical HR and business data for ML training",
-          "dataFlow": "HR + business data \u2192 Bronze \u2192 enriched records \u2192 Silver \u2192 features \u2192 Gold"
+          "dataFlow": "HR + business data → Bronze → enriched records → Silver → features → Gold"
         },
         {
           "order": 2,
           "patternId": "feature-store-delta",
           "role": "Engineers and versions time-series features (headcount, attrition, hiring rates, business drivers)",
-          "dataFlow": "Silver records \u2192 feature engineering \u2192 feature store with Delta versioning"
+          "dataFlow": "Silver records → feature engineering → feature store with Delta versioning"
         },
         {
           "order": 3,
           "patternId": "mlflow-model-registry",
           "role": "Manages model versions, tracks experiments, and promotes best-performing forecast model",
-          "dataFlow": "Trained models \u2192 MLflow registry \u2192 versioned, promoted models"
+          "dataFlow": "Trained models → MLflow registry → versioned, promoted models"
         },
         {
           "order": 4,
           "patternId": "batch-inference-pipeline",
           "role": "Runs monthly forecast inference to predict headcount 12 months forward",
-          "dataFlow": "Latest features \u2192 forecast model \u2192 12-month predictions per role"
+          "dataFlow": "Latest features → forecast model → 12-month predictions per role"
         },
         {
           "order": 5,
           "patternId": "model-drift-detection",
           "role": "Monitors forecast accuracy and alerts when model performance degrades",
-          "dataFlow": "Monthly actuals vs. forecasts \u2192 drift detection \u2192 retraining triggers"
+          "dataFlow": "Monthly actuals vs. forecasts → drift detection → retraining triggers"
         },
         {
           "order": 6,
           "patternId": "directlake-power-bi",
           "role": "Visualizes headcount forecasts with confidence intervals and scenario analysis",
-          "dataFlow": "Forecast results \u2192 DirectLake \u2192 Power BI planning dashboards"
+          "dataFlow": "Forecast results → DirectLake → Power BI planning dashboards"
         },
         {
           "order": 7,
           "patternId": "data-activator-reflex",
           "role": "Alerts when forecasts differ significantly from plans",
-          "dataFlow": "Forecast vs. budget \u2192 Reflex alerts \u2192 planning team notification"
+          "dataFlow": "Forecast vs. budget → Reflex alerts → planning team notification"
         }
       ],
       "architectureNarrative": "This blueprint implements end-to-end ML-powered workforce planning. Historical HR data (headcount by role/level/department, attrition rates, hiring rates) flows through the medallion architecture to create a clean, enriched Silver layer. The feature store engineers time-series features capturing headcount trends, attrition seasonality, and business driver relationships (e.g., revenue growth correlation with hiring). MLflow manages multiple forecast model experiments (regression, time-series, ensemble), tracking hyperparameters, performance metrics, and artifacts. The best-performing model is promoted to production in the MLflow registry. A monthly batch inference pipeline applies this model to the latest feature set, generating 12-month headcount forecasts at the role/department level, including confidence intervals (e.g., 'we forecast 45 Software Engineers in 2027 Q2, 95% confidence interval 40-50'). Model drift detection continuously compares actual hiring and attrition against prior forecasts, alerting data scientists when forecast accuracy drops below acceptable thresholds, triggering retraining. Power BI dashboards layer forecasts over actual headcount, showing how well recent predictions performed and enabling scenario analysis (e.g., 'if attrition increases to 15%, what headcount impact?'). Data Activator rules alert the workforce planning team when actual headcount diverges meaningfully from forecasts, enabling them to adjust hiring plans or investigate root causes of variance.",
@@ -6133,46 +6941,46 @@
           "order": 1,
           "patternId": "cross-border-data-residency",
           "role": "Routes employee data to country-specific Azure regions per regulation",
-          "dataFlow": "France employee data \u2192 France region; Germany \u2192 Germany region; US \u2192 US region"
+          "dataFlow": "France employee data → France region; Germany → Germany region; US → US region"
         },
         {
           "order": 2,
           "patternId": "medallion-architecture",
           "role": "Layers HR data independently in each country-specific workspace",
-          "dataFlow": "Local HR systems \u2192 country workspace Bronze \u2192 Silver \u2192 Gold"
+          "dataFlow": "Local HR systems → country workspace Bronze → Silver → Gold"
         },
         {
           "order": 3,
           "patternId": "anonymization-k-anonymity",
           "role": "Anonymizes data for safe cross-border aggregation to global headquarters",
-          "dataFlow": "Country-level detailed data \u2192 anonymization \u2192 safe for aggregation"
+          "dataFlow": "Country-level detailed data → anonymization → safe for aggregation"
         },
         {
           "order": 4,
           "patternId": "onelake-shortcuts",
           "role": "Creates virtual links to country-specific medallion tables without copying data",
-          "dataFlow": "Local storage \u2192 OneLake shortcuts \u2192 global aggregation without duplication"
+          "dataFlow": "Local storage → OneLake shortcuts → global aggregation without duplication"
         },
         {
           "order": 5,
           "patternId": "certified-semantic-model",
           "role": "Defines consistent global HR metrics while respecting country models",
-          "dataFlow": "Country semantic models \u2192 global model \u2192 consistent metrics"
+          "dataFlow": "Country semantic models → global model → consistent metrics"
         },
         {
           "order": 6,
           "patternId": "row-level-security",
           "role": "Ensures users see only data from their country or anonymized global summaries",
-          "dataFlow": "User country context \u2192 RLS filter \u2192 country-scoped or anonymized data"
+          "dataFlow": "User country context → RLS filter → country-scoped or anonymized data"
         },
         {
           "order": 7,
           "patternId": "directlake-power-bi",
           "role": "Delivers localized dashboards per country and global rollup dashboards",
-          "dataFlow": "Country + global semantic models \u2192 DirectLake \u2192 localized Power BI"
+          "dataFlow": "Country + global semantic models → DirectLake → localized Power BI"
         }
       ],
-      "architectureNarrative": "This blueprint enables global HR analytics while respecting data residency regulations that require employee data to stay within specific countries (GDPR in EU, data localization in China, etc.). Each country maintains its own Azure workspace in a region that meets legal requirements\u2014France employee data stays in the France region, Germany employee data in the Germany region, etc. Within each country workspace, the medallion architecture (Bronze-Silver-Gold) independently layers HR data. For cross-border aggregation to global headquarters, the anonymization pattern generalizes employee records so that no individual is identifiable, enabling safe sharing of aggregate diversity metrics, compensation benchmarks, and organizational structures across borders. OneLake shortcuts create virtual links to country-specific Gold layer tables without physically moving data, allowing global dashboards to aggregate anonymized insights. The certified semantic model defines consistent global HR metrics (e.g., total headcount, attrition rate, average tenure) while each country maintains local model variations reflecting local employment law requirements. Row-level security ensures a France-based user sees detailed France data plus anonymized global rollups, while HQ sees only anonymized country-level summaries. Power BI dashboards are delivered in multiple flavors: country leaders use localized dashboards with detailed data; global HR leadership uses dashboards with anonymized country rollups and global trends.",
+      "architectureNarrative": "This blueprint enables global HR analytics while respecting data residency regulations that require employee data to stay within specific countries (GDPR in EU, data localization in China, etc.). Each country maintains its own Azure workspace in a region that meets legal requirements—France employee data stays in the France region, Germany employee data in the Germany region, etc. Within each country workspace, the medallion architecture (Bronze-Silver-Gold) independently layers HR data. For cross-border aggregation to global headquarters, the anonymization pattern generalizes employee records so that no individual is identifiable, enabling safe sharing of aggregate diversity metrics, compensation benchmarks, and organizational structures across borders. OneLake shortcuts create virtual links to country-specific Gold layer tables without physically moving data, allowing global dashboards to aggregate anonymized insights. The certified semantic model defines consistent global HR metrics (e.g., total headcount, attrition rate, average tenure) while each country maintains local model variations reflecting local employment law requirements. Row-level security ensures a France-based user sees detailed France data plus anonymized global rollups, while HQ sees only anonymized country-level summaries. Power BI dashboards are delivered in multiple flavors: country leaders use localized dashboards with detailed data; global HR leadership uses dashboards with anonymized country rollups and global trends.",
       "requiredGovernance": [
         "Legal review of data residency requirements per jurisdiction",
         "Documentation of data flow and storage locations for compliance audits",
@@ -6203,51 +7011,51 @@
           "order": 1,
           "patternId": "cdc-change-capture",
           "role": "Captures real-time employee data changes (terminations, promotions, absences) from HR system",
-          "dataFlow": "HR system changes \u2192 CDC \u2192 streaming events"
+          "dataFlow": "HR system changes → CDC → streaming events"
         },
         {
           "order": 2,
           "patternId": "medallion-architecture",
           "role": "Ingests real-time changes into medallion architecture for aggregation",
-          "dataFlow": "CDC events \u2192 Bronze real-time layer \u2192 Silver aggregated metrics \u2192 Gold health scorecards"
+          "dataFlow": "CDC events → Bronze real-time layer → Silver aggregated metrics → Gold health scorecards"
         },
         {
           "order": 3,
           "patternId": "data-quality-validation",
           "role": "Validates real-time data quality and flags anomalies",
-          "dataFlow": "Real-time metrics \u2192 quality checks \u2192 flagged inconsistencies"
+          "dataFlow": "Real-time metrics → quality checks → flagged inconsistencies"
         },
         {
           "order": 4,
           "patternId": "metrics-scorecard",
           "role": "Calculates org health KPIs (headcount, attrition rate, engagement score) in real-time",
-          "dataFlow": "Real-time employee events \u2192 metric aggregation \u2192 live scorecard"
+          "dataFlow": "Real-time employee events → metric aggregation → live scorecard"
         },
         {
           "order": 5,
           "patternId": "data-activator-reflex",
           "role": "Evaluates health metrics against thresholds and triggers alerts",
-          "dataFlow": "Real-time metrics \u2192 threshold evaluation \u2192 alert triggers"
+          "dataFlow": "Real-time metrics → threshold evaluation → alert triggers"
         },
         {
           "order": 6,
           "patternId": "power-automate-triggers",
           "role": "Initiates notification and escalation workflows based on alert severity",
-          "dataFlow": "Alert \u2192 severity assessment \u2192 notification workflow"
+          "dataFlow": "Alert → severity assessment → notification workflow"
         },
         {
           "order": 7,
           "patternId": "escalation-routing",
           "role": "Routes critical alerts to appropriate leaders based on escalation rules",
-          "dataFlow": "Alert + severity + scope \u2192 routing rules \u2192 CHRO, CFO, COO notification"
+          "dataFlow": "Alert + severity + scope → routing rules → CHRO, CFO, COO notification"
         }
       ],
-      "architectureNarrative": "This blueprint creates a real-time organizational health monitoring system that keeps executives informed of critical workforce changes. Change Data Capture (CDC) from the HR system streams real-time events\u2014employee terminations, promotions, unplanned absences, new hires\u2014creating a real-time feed of workforce changes. These events feed into the medallion architecture's Bronze layer in real-time, where they're deduplicated and enriched. The Silver layer continuously aggregates these events to maintain real-time metrics: current headcount by department, rolling 30-day attrition count, unplanned absence rate. The Gold layer calculates high-level org health scorecards combining multiple metrics into composite health signals (e.g., org health score from 0-100 factoring headcount stability, attrition trends, and engagement indicators). A metrics scorecard layer exposes key metrics (total headcount, monthly attrition count, engagement index) for real-time consumption. Data Activator continuously evaluates these metrics against business thresholds (e.g., 'alert if daily attrition count > 5', 'alert if any department headcount drops >10%'), and when thresholds are breached, fires alerts. Power Automate workflows respond to alerts, routing escalations based on severity and scope: a critical alert (e.g., VP-level termination) routes immediately to the CHRO and CEO; a moderate alert (e.g., headcount drop in a department) routes to the department head and HR business partner. Escalation routing ensures time-sensitive alerts reach the right people within minutes, enabling rapid response.",
+      "architectureNarrative": "This blueprint creates a real-time organizational health monitoring system that keeps executives informed of critical workforce changes. Change Data Capture (CDC) from the HR system streams real-time events—employee terminations, promotions, unplanned absences, new hires—creating a real-time feed of workforce changes. These events feed into the medallion architecture's Bronze layer in real-time, where they're deduplicated and enriched. The Silver layer continuously aggregates these events to maintain real-time metrics: current headcount by department, rolling 30-day attrition count, unplanned absence rate. The Gold layer calculates high-level org health scorecards combining multiple metrics into composite health signals (e.g., org health score from 0-100 factoring headcount stability, attrition trends, and engagement indicators). A metrics scorecard layer exposes key metrics (total headcount, monthly attrition count, engagement index) for real-time consumption. Data Activator continuously evaluates these metrics against business thresholds (e.g., 'alert if daily attrition count > 5', 'alert if any department headcount drops >10%'), and when thresholds are breached, fires alerts. Power Automate workflows respond to alerts, routing escalations based on severity and scope: a critical alert (e.g., VP-level termination) routes immediately to the CHRO and CEO; a moderate alert (e.g., headcount drop in a department) routes to the department head and HR business partner. Escalation routing ensures time-sensitive alerts reach the right people within minutes, enabling rapid response.",
       "requiredGovernance": [
         "Threshold definition and approval by HR leadership for all alerts",
         "Escalation routing governance and approval by executive team",
         "Data quality validation rules for real-time metrics before alerting",
-        "Alert fatigue monitoring\u2014regular review of false positive rates",
+        "Alert fatigue monitoring—regular review of false positive rates",
         "Privacy controls for real-time termination alerts",
         "On-call rotation and response SLA for critical org health alerts"
       ],
