@@ -1125,7 +1125,7 @@
                     <li>Real-world HR analytics use cases</li>
                 </ul>
 
-                <h2>Domains (8) total)</h2>
+                <h2>Domains (8 total)</h2>
                 <div class="domain-list">
                     <div class="domain-item">
                         <div class="domain-name">Alerting, Automation, and Operational Intelligence</div>
@@ -1162,14 +1162,65 @@
                 </div>
 
                 <h2>How to Use This Catalog</h2>
+                <p>This catalog has three working tabs — <strong>Browse Catalog</strong>, <strong>Pattern Builder</strong>, and <strong>Use Case Blueprints</strong> — plus a <strong>Technology Stack Filter</strong> that works across all three. Here's how to get the most out of each.</p>
+
+                <h2>Step 1: Set Your Technology Stack (Start Here)</h2>
+                <p>Before browsing or building, tell the catalog which Fabric components your organization actually has available. This ensures you only see patterns that are viable for your environment.</p>
                 <ul>
-                    <li><strong>Browse Catalog:</strong> Explore all patterns, filter by domain and technology stack</li>
-                    <li><strong>Pattern Builder:</strong> Design custom solutions by combining patterns</li>
-                    <li><strong>Use Case Blueprints:</strong> Follow pre-built solutions for common HR analytics scenarios</li>
+                    <li><strong>Where to find it:</strong> Click on any tab other than this Guide (Browse Catalog, Pattern Builder, or Blueprints). You'll see a teal <strong>"🔧 Technology Stack Filter"</strong> bar appear below the header. Click the bar to expand it.</li>
+                    <li><strong>What you'll see:</strong> Toggle chips organized into 6 categories — Core Storage, Compute & Processing, BI & Reporting, AI & ML, Governance, and Integration. All chips start <strong>selected</strong> (highlighted) by default.</li>
+                    <li><strong>How to use it:</strong> Click any chip to <strong>deselect</strong> a technology your org doesn't have. For example, if you don't have Copilot Studio licensed, click "Copilot Studio" to deselect it. Click again to re-select.</li>
+                    <li><strong>Use "Select All" / "Clear All"</strong> buttons to quickly reset or start from scratch.</li>
+                </ul>
+                <p><strong>What happens when you deselect a technology:</strong></p>
+                <ul>
+                    <li><strong>In Browse Catalog:</strong> Patterns that require the deselected technology are <strong>dimmed</strong> (faded out with a red border) and show a badge listing the missing components. You can still expand and read them, but they're clearly marked as unavailable for your stack.</li>
+                    <li><strong>In Pattern Builder:</strong> If you try to add a dimmed pattern to your stack, you'll get a warning explaining which technologies are missing. This prevents you from building solutions that won't work in your environment.</li>
+                    <li><strong>In Blueprints:</strong> When viewing a blueprint's details, any pattern in the blueprint that requires missing technology shows a ⚠️ warning. A summary banner at the top tells you how many patterns in that blueprint are affected (e.g., "3 of 7 patterns require technologies not in your stack"). This helps you quickly see if a blueprint is feasible or needs alternatives.</li>
+                </ul>
+                <p><em>Tip: Set your technology stack first, then browse and build. The filter state carries across all tabs, so you only need to set it once per session.</em></p>
+
+                <h2>Step 2: Browse the Catalog</h2>
+                <p>The <strong>Browse Catalog</strong> tab shows all 85 patterns in a searchable, filterable grid.</p>
+                <ul>
+                    <li><strong>Filter by domain:</strong> Use the domain chips on the left sidebar to show only patterns from specific domains (e.g., "Data Governance and Security"). Click "All" to show everything, "Clear" to deselect all.</li>
+                    <li><strong>Search:</strong> Type in the search box to filter by pattern name, description, or tags.</li>
+                    <li><strong>View details:</strong> Click any pattern card to expand it and see the full description, Fabric components, pros/cons, step-by-step usage instructions, governance considerations, people analytics use cases, compatible patterns, reference links, and estimated effort.</li>
+                    <li><strong>Export a pattern:</strong> Inside the expanded detail view, use the "Export as HTML" button to download that single pattern as a standalone file you can share.</li>
+                    <li><strong>Add to Builder:</strong> Click "Add to Stack" on any pattern card to add it to your Pattern Builder stack for solution design.</li>
                 </ul>
 
-                <h2>Technology Stack</h2>
-                <p>The catalog covers patterns across the complete Microsoft Fabric platform, including:</p>
+                <h2>Step 3: Build a Custom Solution</h2>
+                <p>The <strong>Pattern Builder</strong> tab lets you assemble patterns into a custom solution stack.</p>
+                <ul>
+                    <li><strong>Add patterns</strong> from the Browse tab using the "Add to Stack" button on each card.</li>
+                    <li><strong>Compatibility checking:</strong> The builder automatically checks your stack. Green ✓ means compatible, red ✗ means incompatible (two patterns that don't work together), and yellow ⚠ means a prerequisite is missing — it will tell you <strong>which</strong> prerequisite and let you <strong>click it to auto-add</strong> the missing pattern.</li>
+                    <li><strong>Pattern links:</strong> Pattern names in your stack are clickable — click one to jump back to its full details in the Browse tab.</li>
+                    <li><strong>Export options:</strong> Export your stack as JSON (for documentation) or as a Markdown architecture brief (for stakeholder review).</li>
+                </ul>
+
+                <h2>Step 4: Explore Use Case Blueprints</h2>
+                <p>The <strong>Use Case Blueprints</strong> tab provides 12 pre-built pattern combinations for common People Analytics scenarios.</p>
+                <ul>
+                    <li><strong>Browse blueprints:</strong> Click any blueprint card to see its full detail — including which patterns are included, how they connect (pattern flow), estimated effort, governance requirements, and editable notes.</li>
+                    <li><strong>Team roles:</strong> Each blueprint includes a "Team Roles & Responsibilities" section showing what Data Engineers, Analytics Engineers, and Business SMEs are each responsible for.</li>
+                    <li><strong>Alternatives:</strong> For each pattern in a blueprint, you can expand an "Alternatives" section to see other patterns from the same domain that could substitute. If a pattern is unavailable due to your tech stack, alternatives that <em>are</em> available are highlighted with a green dot. Use "Use Instead" to swap a pattern before loading.</li>
+                    <li><strong>Load to Builder:</strong> Click "Load to Builder" to send a blueprint's patterns (with any swaps you've made) directly into the Pattern Builder for further customization.</li>
+                    <li><strong>Editable notes:</strong> Each blueprint has a notes field you can edit to capture your organization-specific customizations and decisions.</li>
+                </ul>
+
+                <h2>Tips & Best Practices</h2>
+                <ul>
+                    <li><strong>Start with your tech stack.</strong> Setting the technology filter first saves time — you won't chase patterns your org can't implement.</li>
+                    <li><strong>Use blueprints as starting points.</strong> Pick the blueprint closest to your use case, swap alternatives for any unavailable patterns, then load it into the Builder and customize from there.</li>
+                    <li><strong>Always include governance patterns.</strong> When working with employee PII, include Row-Level Security, Column-Level Security, and Sensitivity Labels at minimum.</li>
+                    <li><strong>Check compatibility warnings.</strong> Yellow prerequisite warnings in the Builder mean you're missing a foundational pattern — click the name to auto-add it.</li>
+                    <li><strong>Export your architecture brief.</strong> The Markdown export from the Builder gives you a stakeholder-ready document summarizing your planned solution.</li>
+                    <li><strong>Review role assignments.</strong> Blueprint role assignments help clarify handoffs between data engineering, analytics engineering, and business teams.</li>
+                </ul>
+
+                <h2>Technology Stack Reference</h2>
+                <p>The catalog covers patterns across the complete Microsoft Fabric platform. The Technology Stack Filter groups components into these categories:</p>
                 <ul>
                     <li><strong>Core Storage:</strong> Lakehouse, Warehouse, OneLake, Delta Lake</li>
                     <li><strong>Compute & Processing:</strong> Spark Notebooks, Data Factory, Dataflow Gen2</li>
@@ -1177,6 +1228,19 @@
                     <li><strong>AI & ML:</strong> MLflow, Azure OpenAI, Azure AI Foundry, Copilot Studio, Fabric Data Agent</li>
                     <li><strong>Governance:</strong> Purview, Entra ID, Sensitivity Labels, Azure Key Vault</li>
                     <li><strong>Integration:</strong> Git, Deployment Pipelines, Power Automate, Data Activator, Shortcuts</li>
+                </ul>
+
+                <h2>Reference Resources</h2>
+                <p>For deeper dives into the technologies referenced in these patterns:</p>
+                <ul>
+                    <li><a href="https://learn.microsoft.com/en-us/fabric/get-started/" target="_blank">Microsoft Fabric Documentation</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/" target="_blank">Data Engineering in Fabric</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/" target="_blank">Data Integration (Data Factory)</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/fabric/governance/" target="_blank">Governance & Compliance</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/fabric/data-science/" target="_blank">Data Science & AI</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/power-bi/" target="_blank">Power BI Documentation</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/fabric/onelake/" target="_blank">OneLake</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/fabric/security/" target="_blank">Security</a></li>
                 </ul>
             </div>
 
