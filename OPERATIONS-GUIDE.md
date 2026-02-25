@@ -39,7 +39,7 @@ The **HR Analytics Fabric Catalog** is a comprehensive collection of tested patt
 
 The catalog includes:
 
-- **73 Patterns** - Tested, documented approaches across 8 domain areas with:
+- **91 Patterns** - Tested, documented approaches across 8 domain areas with:
   - Implementation complexity assessments (Low/Medium/High)
   - Maturity levels (GA/Preview/Emerging)
   - Governance and compliance considerations
@@ -48,7 +48,7 @@ The catalog includes:
   - Cost implications
   - Pattern dependencies and compatibility
 
-- **8 Use Case Blueprints** - Complete implementation roadmaps combining multiple patterns into cohesive solutions:
+- **12 Use Case Blueprints** - Complete implementation roadmaps combining multiple patterns into cohesive solutions, each with business case summaries and role assignments:
   - Workforce Analytics Dashboard (Foundation)
   - Employee Attrition Risk Prediction Pipeline
   - Succession Planning and Career Development Analytics
@@ -57,11 +57,17 @@ The catalog includes:
   - Operational HR KPI Dashboard
   - GDPR and Data Residency Compliance Pipeline
   - Real-time HR Metrics and Alerts System
+  - Recruitment Funnel Analytics
+  - Employee Engagement Pulse Analytics
+  - Workforce Planning and Scenario Modeling
+  - HR Data Quality and Master Data Management
 
-- **Interactive HTML App** (`pattern-builder.html`) - Single-file web application with three tabs:
-  - Browse Catalog - Explore all patterns by domain
+- **Interactive HTML App** (`pattern-builder.html`) - Single-file web application with four tabs:
+  - Browse Catalog - Explore all patterns by domain, with technology stack filter
   - Pattern Builder - Construct custom stacks and detect conflicts
-  - Use Case Blueprints - Pre-designed implementation paths
+  - Use Case Blueprints - Pre-designed implementation paths with business cases
+  - Technology Stack - Definitions and descriptions for all 32 technologies used across patterns
+  - Guide - In-app usage instructions including technology filter documentation
 
 - **Streamlit Application** - Alternative Python-based explorer with pattern relationships and dependency visualization
 
@@ -89,11 +95,11 @@ The catalog includes:
 
 ```
 Repository Name:    hr-analytics-fabric-catalog
-GitHub Username:    Barlowtech
-Repository URL:     https://github.com/Barlowtech/hr-analytics-fabric-catalog
-GitHub Pages URL:   https://barlowtech.github.io/hr-analytics-fabric-catalog/pattern-builder.html
+GitHub Username:    WARLAB01
+Repository URL:     https://github.com/WARLAB01/hr-analytics-fabric-catalog
+GitHub Pages URL:   https://warlab01.github.io/hr-analytics-fabric-catalog/pattern-builder.html
 Branch:             main
-Local Config:       /sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-catalog/.git/
+Remote Name:        warlab (not origin)
 ```
 
 ### Git Configuration
@@ -103,13 +109,15 @@ The repository is configured with:
 ```
 user.name=Wes Barlow
 user.email=wes.barlow@gmail.com
-remote.origin.url=https://Barlowtech:<PASTE_BARLOWTECH_PAT_HERE>@github.com/Barlowtech/hr-analytics-fabric-catalog.git
+remote.warlab.url=https://WARLAB01:<PASTE_WARLAB01_PAT_HERE>@github.com/WARLAB01/hr-analytics-fabric-catalog.git
 ```
+
+**Note:** The active remote is `warlab`, not `origin`. Use `git push warlab main` for pushes.
 
 ### GitHub Pages
 
 The HTML app is automatically published to GitHub Pages when pushed to main. Access it at:
-https://barlowtech.github.io/hr-analytics-fabric-catalog/pattern-builder.html
+https://warlab01.github.io/hr-analytics-fabric-catalog/pattern-builder.html
 
 ---
 
@@ -124,8 +132,8 @@ https://barlowtech.github.io/hr-analytics-fabric-catalog/pattern-builder.html
 ├── research-notes.md                            # Pattern summary by domain
 ├── execution-log.md                             # Implementation execution log
 │
-├── patterns.json                                # MASTER DATA: All 73 patterns (4921 lines)
-├── blueprints.json                              # MASTER DATA: All 8 blueprints (506 lines)
+├── patterns.json                                # MASTER DATA: All 91 patterns
+├── blueprints.json                              # MASTER DATA: All 12 blueprints (with business cases)
 │
 ├── pattern-builder.html                         # MAIN APPLICATION: Single-file interactive app (1840 lines)
 │
@@ -244,6 +252,9 @@ Each blueprint in `blueprints.json` is a JSON object combining multiple patterns
 | `estimatedTotalEffort` | string | Total implementation effort estimate |
 | `keyGovernanceRequirements` | array[string] | Governance requirements for this blueprint |
 | `tags` | array[string] | Searchable tags |
+| `businessCase` | string | Business justification and ROI summary for executive sponsors |
+| `roleAssignments` | object | Role assignments: `sponsor`, `lead`, `contributors` array |
+| `alternatives` | array[string] | IDs of alternative/related blueprints |
 
 ### 4.3 Domain List with IDs and Colors
 
@@ -314,19 +325,21 @@ The `pattern-builder.html` is a **single-file, self-contained web application** 
 - Renders a modern dark-themed UI with Tailwind CSS-inspired styling
 - Exports patterns and stacks as HTML documents and JSON
 
-### 5.2 Three Main Tabs
+### 5.2 Main Tabs
 
 #### Tab 1: Browse Catalog
 
-- **Purpose:** Explore all 73 patterns with search and filtering
+- **Purpose:** Explore all 91 patterns with search and filtering
 - **Features:**
   - Search by pattern name, description, or summary
   - Filter by domain
   - Filter by complexity (Low/Medium/High)
   - Filter by maturity (GA/Preview/Emerging)
+  - Filter by technology stack (32 technologies, multi-select)
   - Click any pattern to see full details in a modal
   - View compatible/incompatible patterns
   - Export individual pattern as HTML
+  - Markdown export with supported use cases per pattern
 - **Key Function:** `setupBrowseTab()` initializes filters; `filterPatterns()` applies search/filters; `renderCatalog()` displays results
 
 #### Tab 2: Pattern Builder
@@ -335,24 +348,46 @@ The `pattern-builder.html` is a **single-file, self-contained web application** 
 - **Features:**
   - Drag-and-drop (or click to add) patterns to a working stack
   - Real-time conflict detection (incompatible patterns)
-  - Prerequisite suggestions
+  - Prerequisite suggestions (with named prerequisites)
   - Summary table showing all selected patterns
   - Export as JSON for programmatic use
+  - Export as Markdown with use cases
   - Generate a brief text summary of the stack
   - Print-friendly view of the stack
 - **Key Function:** `setupBuilderTab()` initializes interface; `addPatternToStack()` adds pattern; `checkIncompatible()` validates; `exportStackJSON()` exports data
 
 #### Tab 3: Use Case Blueprints
 
-- **Purpose:** View pre-designed implementation paths
+- **Purpose:** View pre-designed implementation paths with business justification
 - **Features:**
-  - Browse all 8 use case blueprints
+  - Browse all 12 use case blueprints
   - View pattern flow diagram with descriptions
   - See governance requirements
+  - View business case summary with ROI justification
+  - See role assignments (sponsor, lead, contributors)
+  - View alternative blueprint suggestions
   - Load a blueprint into Pattern Builder to modify
   - Export blueprint as HTML document
   - Jump to individual patterns from blueprint
 - **Key Function:** `setupBlueprintsTab()` initializes; `renderBlueprintsGrid()` displays blueprints; `loadBlueprintToBuilder()` populates builder
+
+#### Tab 4: Technology Stack
+
+- **Purpose:** Reference definitions for all 32 technologies used across patterns
+- **Features:**
+  - Searchable list of all technologies
+  - Descriptions explaining what each technology is and how it fits in the catalog
+  - Categories: Microsoft Fabric native, third-party tools, open-source
+- **Key Technologies Include:** Lakehouse, Warehouse, Data Factory, Power BI, Spark Notebooks, OneLake, Synapse Data Engineering, Real-Time Intelligence, Copilot, FileX, Informatica EDC/Axon/DQ/DPM, Dataiku DSS, Apache Airflow, and more
+
+#### Tab 5: Guide
+
+- **Purpose:** In-app usage instructions
+- **Features:**
+  - How to use the Browse Catalog and technology filter
+  - How to use the Pattern Builder
+  - How to use Blueprints
+  - Technology filter step-by-step instructions
 
 ### 5.3 How Data is Embedded
 
@@ -369,8 +404,9 @@ The build process works as follows:
 2. **HTML template embeds as JavaScript constants:**
    ```html
    <script>
-       const PATTERNS_DATA = [...all 73 patterns...];
-       const BLUEPRINTS_DATA = [...all 8 blueprints...];
+       const PATTERNS_DATA = [...all 91 patterns...];
+       const BLUEPRINTS_DATA = [...all 12 blueprints...];
+       const TECH_DEFINITIONS = {...all 32 technology definitions...};
    </script>
    ```
 
@@ -391,7 +427,7 @@ Core functions in `pattern-builder.html`:
 |----------|---------|
 | `initApp()` | Initializes the application on page load |
 | `setupTabs()` | Sets up tab switching functionality |
-| `switchTab(tabName)` | Switches between Browse, Builder, and Blueprints tabs |
+| `switchTab(tabName)` | Switches between Browse, Builder, Blueprints, Tech Stack, and Guide tabs |
 | `setupBrowseTab()` | Initializes the catalog browser tab |
 | `setupFilters()` | Creates domain, complexity, and maturity filter dropdowns |
 | `filterPatterns()` | Applies all active filters to pattern list |
@@ -531,12 +567,12 @@ Creates a concise text summary of all selected patterns with descriptions.
    cd /sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-catalog
    git add patterns.json pattern-builder.html docs/
    git commit -m "Add pattern: {pattern-name}"
-   git push origin main
+   git push warlab main
    ```
 
 6. **Verify GitHub Pages update**
    - Wait 1-2 minutes for GitHub Pages to rebuild
-   - Check: https://barlowtech.github.io/hr-analytics-fabric-catalog/pattern-builder.html
+   - Check: https://warlab01.github.io/hr-analytics-fabric-catalog/pattern-builder.html
 
 ### 6.2 Adding a New Blueprint
 
@@ -581,12 +617,12 @@ Creates a concise text summary of all selected patterns with descriptions.
    cd /sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-catalog
    git add blueprints.json pattern-builder.html
    git commit -m "Add blueprint: {blueprint-name}"
-   git push origin main
+   git push warlab main
    ```
 
 ### 6.3 Modifying the HTML App
 
-The HTML app is generated from a Python script. **Do not edit pattern-builder.html directly** — edit the build script instead.
+**Important:** As of the latest updates, `pattern-builder.html` is edited directly (all 91 patterns, 12 blueprints, 32 tech definitions, and all JS/CSS are embedded in the single file). The build scripts are available for full regeneration from JSON but are not required for incremental changes.
 
 **To modify HTML functionality:**
 
@@ -620,7 +656,7 @@ The HTML app is generated from a Python script. **Do not edit pattern-builder.ht
    cd /sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-catalog
    git add pattern-builder.html
    git commit -m "Update HTML app: {description}"
-   git push origin main
+   git push warlab main
    ```
 
 ### 6.4 Updating Documentation
@@ -654,7 +690,7 @@ The markdown documentation is **automatically generated** from patterns.json.
    cd /sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-catalog
    git add docs/pattern-descriptions/
    git commit -m "Regenerate documentation from patterns"
-   git push origin main
+   git push warlab main
    ```
 
 ### 6.5 Git Workflow for Updates
@@ -683,7 +719,7 @@ git commit -m "Add pattern: Feature Store Implementation
 - Includes governance considerations for feature versioning"
 
 # Push to main branch
-git push origin main
+git push warlab main
 
 # Verify push succeeded
 git status
@@ -691,7 +727,7 @@ git status
 
 The remote is configured as:
 ```
-https://Barlowtech:<PASTE_BARLOWTECH_PAT_HERE>@github.com/Barlowtech/hr-analytics-fabric-catalog.git
+https://WARLAB01:<PASTE_WARLAB01_PAT_HERE>@github.com/WARLAB01/hr-analytics-fabric-catalog.git
 ```
 
 ---
@@ -728,7 +764,7 @@ python3 build_html.py
 ```
 Reading patterns.json...
 Reading blueprints.json...
-Loaded 73 patterns and 8 blueprints
+Loaded 91 patterns and 12 blueprints
 Writing /sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-catalog/pattern-builder.html...
 HTML generation complete!
 ```
@@ -736,11 +772,11 @@ HTML generation complete!
 ### 7.2 gen_patterns.py
 
 **Location:** `/sessions/zen-practical-faraday/gen_patterns.py`
-**Purpose:** Generate complete patterns.json with all 73 patterns
+**Purpose:** Generate complete patterns.json with all 91 patterns
 
 **How it works:**
 
-1. Defines all 73 patterns as Python dictionaries
+1. Defines all 91 patterns as Python dictionaries
 2. Organizes by domain (1-8)
 3. Includes all required fields
 4. Serializes to JSON format
@@ -762,11 +798,11 @@ Generates: `/sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-ca
 ### 7.3 gen_blueprints.py
 
 **Location:** `/sessions/zen-practical-faraday/gen_blueprints.py`
-**Purpose:** Generate complete blueprints.json with all 8 use case blueprints
+**Purpose:** Generate complete blueprints.json with all 12 use case blueprints
 
 **How it works:**
 
-1. Defines all 8 blueprints as Python dictionaries
+1. Defines all 12 blueprints as Python dictionaries
 2. Maps patterns to blueprints
 3. Defines patternFlow showing sequence
 4. Includes governance requirements
@@ -1160,7 +1196,14 @@ Use this template to add new blueprints to blueprints.json:
     "foundational",
     "security",
     "domain-specific-tag"
-  ]
+  ],
+  "businessCase": "2-3 sentence summary explaining the ROI, business value, and strategic justification for implementing this blueprint. Should be compelling for executive sponsors.",
+  "roleAssignments": {
+    "sponsor": "Executive role who champions this (e.g., 'CHRO / VP People Analytics')",
+    "lead": "Technical lead role (e.g., 'Senior Data Engineer')",
+    "contributors": ["Contributing role 1", "Contributing role 2"]
+  },
+  "alternatives": ["other-blueprint-id-1", "other-blueprint-id-2"]
 }
 ```
 
@@ -1174,6 +1217,9 @@ Use this template to add new blueprints to blueprints.json:
 - **estimatedTotalEffort**: Sum of individual pattern efforts plus integration complexity
 - **editableNotes**: Should mention specific metrics, roles, or configurations users can customize
 - **tags**: Include domain, use-case category, and 3-4 descriptive tags
+- **businessCase**: 2-3 sentence executive summary with ROI justification; compelling for sponsors
+- **roleAssignments**: Object with `sponsor` (executive role), `lead` (technical lead), `contributors` (array of supporting roles)
+- **alternatives**: Array of related blueprint IDs to suggest as alternatives
 
 ### Example Blueprint Structure
 
@@ -1183,6 +1229,8 @@ A complete blueprint would have:
 2. Pattern flow connecting all patterns logically
 3. Each governance requirement tied to a pattern or HR-specific need
 4. Clear customization guidance
+5. Business case summary for executive buy-in
+6. Role assignments showing who sponsors, leads, and contributes
 
 ---
 
@@ -1264,7 +1312,7 @@ git commit -m "Update: Brief description of changes"
 **Push to GitHub:**
 ```bash
 cd /sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-catalog && \
-git push origin main
+git push warlab main
 ```
 
 **View recent commits:**
@@ -1316,7 +1364,7 @@ streamlit run app.py
 **Open HTML app:**
 ```
 Open in browser: /sessions/zen-practical-faraday/mnt/WesBarlow/hr-analytics-fabric-catalog/pattern-builder.html
-Or via GitHub Pages: https://barlowtech.github.io/hr-analytics-fabric-catalog/pattern-builder.html
+Or via GitHub Pages: https://warlab01.github.io/hr-analytics-fabric-catalog/pattern-builder.html
 ```
 
 ---
@@ -1332,18 +1380,27 @@ When working with this project:
 5. **Troubleshooting:** Check section 8 for environment issues
 6. **Quick tasks:** Jump to section 12 for one-liner commands
 
+**Current state (as of 2026-02-25):**
+- 91 patterns across 8 domains
+- 12 blueprints with business case summaries and role assignments
+- 4 app tabs: Browse Catalog, Pattern Builder, Blueprints, Technology Stack (plus Guide)
+- 32 technology definitions in the Technology Stack tab
+- Technology filter on Browse Catalog (multi-select)
+- Markdown export includes supported use cases per pattern
+- Active remote is `warlab` (WARLAB01 GitHub account)
+
 **Key principles:**
-- patterns.json is the source of truth
-- Always validate JSON after edits
-- Always rebuild HTML after JSON changes
-- Always push to GitHub to publish changes
+- pattern-builder.html is currently the single source of truth (all data embedded directly)
+- patterns.json and blueprints.json exist but the HTML file has been updated directly for recent changes
+- Always push to `warlab` remote (not `origin`) to publish changes
 - Pattern relationships (compatibleWith, incompatibleWith, prerequisites) are critical for app functionality
+- GitHub Pages may cache aggressively — users should hard-refresh (Ctrl+Shift+R) after pushing
 
 **GitHub Pages:**
 Changes pushed to main branch appear at:
-https://barlowtech.github.io/hr-analytics-fabric-catalog/pattern-builder.html
+https://warlab01.github.io/hr-analytics-fabric-catalog/pattern-builder.html
 
-(2-minute delay for deployment)
+(2-minute delay for deployment; hard-refresh may be needed)
 
 ---
 
