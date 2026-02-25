@@ -4395,6 +4395,7 @@
       "summary": "Uses FileX or similar managed file transfer (MFT) tools for secure file movement into OneLake SFTP landing zones with automated validation and virus scanning.",
       "description": "This pattern establishes a secure file transfer mechanism for vendors and third-party systems that only support flat file exports (CSV, Excel, JSON, XML). It leverages FileX, Tresorit Secure File Transfer, or similar managed file transfer platforms to route files into OneLake SFTP landing zones. The pattern includes automated file arrival detection, schema validation, virus scanning, and orchestration into Lakehouse Bronze tables via Data Factory pipelines. It is ideal for legacy HR systems, payroll providers, and benefit administrators that cannot support modern APIs.",
       "fabricComponents": [
+        "FileX",
         "Data Factory",
         "Lakehouse",
         "OneLake"
@@ -4658,7 +4659,7 @@
       "id": "informatica-data-governance",
       "name": "Informatica IDMC Data Governance Integration",
       "domain": "Data Governance and Security",
-      "domainId": 3,
+      "domainId": 8,
       "category": "Data Governance",
       "summary": "Uses Informatica Intelligent Data Management Cloud (IDMC) for data quality, master data management (MDM), and data integration with Fabric via connectors/APIs.",
       "description": "This pattern integrates Informatica Intelligent Data Management Cloud (IDMC) as an enterprise data governance platform alongside Fabric. Informatica provides AI-powered data quality rules (CLAIRE), data profiling, data cleansing, and master data management (MDM) for employee golden records. IDMC connectors enable bidirectional data movement between Workday, SAP, Fabric Lakehouse, and other HR systems. CLAIRE AI learns data patterns and automatically detects quality anomalies, missing values, and outliers. MDM capabilities consolidate employee records across multiple HRIS systems (Workday + legacy systems) into a single source of truth.",
@@ -4718,10 +4719,14 @@
       "maturity": "GA",
       "compatibleWith": [
         "alation-data-catalog",
-        "purview-data-map",
-        "medallion-architecture",
         "data-quality-validation",
-        "hris-workday-ingestion"
+        "hris-workday-ingestion",
+        "informatica-axon-governance",
+        "informatica-data-privacy",
+        "informatica-data-quality",
+        "informatica-enterprise-data-catalog",
+        "medallion-architecture",
+        "purview-data-map"
       ],
       "incompatibleWith": [],
       "prerequisites": [
@@ -5018,6 +5023,561 @@
       ],
       "estimatedImplementationEffort": "6-8 weeks",
       "costImplications": "Azure OpenAI API usage (per token). Fabric compute for fact extraction. Human review effort for governance. Optional fine-tuning costs."
+    },
+    {
+      "id": "informatica-enterprise-data-catalog",
+      "name": "Informatica Enterprise Data Catalog Integration",
+      "domain": "Data Governance and Security",
+      "domainId": 8,
+      "category": "Data Governance",
+      "summary": "Uses Informatica Enterprise Data Catalog (EDC) for automated metadata harvesting, data lineage visualization, and sensitive data discovery across Microsoft Fabric and external sources.",
+      "description": "This pattern integrates Informatica Enterprise Data Catalog (EDC) as an enterprise metadata management and discovery platform that complements Microsoft Purview. EDC provides automated metadata extraction from Fabric Lakehouses, Warehouses, and external systems (Workday, SAP, databases) using native connectors. AI-powered lineage tracking visualizes end-to-end data flows from HR systems through Bronze/Silver/Gold layers to Power BI reports. Sensitive data discovery automatically identifies PII (employee names, SSNs, emails, phone numbers) across all registered data sources using pattern recognition and context analysis. Business glossary capabilities link technical metadata to business terms (\"Active Employee\", \"Salary\") enabling users to discover data by business concept rather than table names. Impact analysis shows downstream dependencies: if employee master data changes, users see which reports and analyses are affected.",
+      "fabricComponents": [
+        "Purview",
+        "Lakehouse",
+        "Warehouse",
+        "Informatica EDC"
+      ],
+      "pros": [
+        "Automated metadata harvesting eliminates manual data dictionary maintenance.",
+        "AI-powered lineage tracks data transformations end-to-end across systems.",
+        "Sensitive data discovery identifies PII without manual scanning.",
+        "Cross-platform integration discovers data across Fabric, Workday, SAP, and custom databases.",
+        "Business glossary enables business users to find data by business concept.",
+        "Impact analysis reduces risk of unintended consequences from data model changes."
+      ],
+      "cons": [
+        "Informatica EDC licensing is enterprise-focused with significant costs.",
+        "Initial metadata harvesting requires connector configuration for each data source.",
+        "Business glossary requires ongoing stewardship to maintain accuracy.",
+        "EDC and Purview have overlapping capabilities; organizations must decide governance model.",
+        "AI lineage learning may take time to achieve high accuracy with complex transformations."
+      ],
+      "usageInstructions": [
+        "1. Deploy Informatica EDC cloud instance with appropriate license tier.",
+        "2. Register Fabric Lakehouse, Warehouse, and OneLake sources in EDC catalog.",
+        "3. Configure EDC connectors for external systems: Workday, SAP, legacy databases.",
+        "4. Enable automated metadata scanning: schedule nightly harvesting of metadata changes.",
+        "5. Configure sensitive data discovery rules: identify columns matching SSN, email, phone patterns.",
+        "6. Build business glossary: define HR business terms (Active Employee, FTE, Salary Band).",
+        "7. Map technical attributes to business terms: link database columns to glossary.",
+        "8. Enable lineage tracing: configure Data Factory and Spark transformations for lineage capture.",
+        "9. Review auto-discovered lineage: validate and correct transformation paths if needed.",
+        "10. Configure impact analysis: enable analysis of downstream report dependencies.",
+        "11. Integrate EDC with Purview: surface EDC catalog in Fabric governance UI.",
+        "12. Create data discovery portal: expose EDC catalog to business users for self-service exploration."
+      ],
+      "governanceConsiderations": [
+        "Define catalog stewardship roles: data owner for each domain (HR, Finance, Operations).",
+        "Establish sensitive data classification: which data requires encryption, masking, or access restrictions.",
+        "Monitor automated discovery accuracy: validate that lineage and PII detection match organizational data.",
+        "Maintain business glossary: assign business glossary managers to review and approve business terms.",
+        "Implement catalog security: restrict access to sensitive technical metadata based on roles.",
+        "Document lineage assumptions: clarify where AI lineage is inferred vs. explicit.",
+        "Establish approval workflows: require data owner sign-off on data catalog metadata.",
+        "Plan for metadata growth: monitor catalog performance as metadata volume increases."
+      ],
+      "peopleAnalyticsUseCases": [
+        "Automated discovery of employee data across HR systems: find all employee tables in catalog.",
+        "Sensitive data mapping: identify all locations where SSN, salary, or health data exists.",
+        "Lineage tracking: understand how raw Workday data flows through transformations to compensation reports.",
+        "Impact analysis: determine which reports use employee data before modifying master data structure.",
+        "Business glossary: enable HR analyst to search for 'Active Employees' and discover all related data sources."
+      ],
+      "complexity": "High",
+      "maturity": "Established",
+      "compatibleWith": [
+        "informatica-data-governance",
+        "informatica-axon-governance",
+        "informatica-data-quality",
+        "purview-data-map",
+        "medallion-architecture",
+        "sensitivity-labels"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "Informatica EDC subscription with appropriate license tier",
+        "Native connectors for Microsoft Fabric and target HR systems",
+        "Metadata extraction permissions on all source systems"
+      ],
+      "tags": [
+        "data-governance",
+        "metadata",
+        "lineage",
+        "data-discovery",
+        "informatica",
+        "catalog"
+      ],
+      "referenceLinks": [
+        "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
+        "https://learn.microsoft.com/en-us/fabric/governance/metadata-lineage",
+        "https://learn.microsoft.com/en-us/fabric/governance/sensitivity-labels"
+      ],
+      "estimatedImplementationEffort": "8-12 weeks",
+      "costImplications": "Informatica EDC licensing (enterprise tier). Metadata connector implementation. Business glossary stewardship and governance team overhead."
+    },
+    {
+      "id": "informatica-axon-governance",
+      "name": "Informatica Axon Data Governance Framework",
+      "domain": "Data Governance and Security",
+      "domainId": 8,
+      "category": "Data Governance",
+      "summary": "Uses Informatica Axon for business-led data governance: data ownership assignment, policy management, stewardship workflows, and compliance tracking connecting business stakeholders to technical metadata.",
+      "description": "This pattern implements Informatica Axon as a business-centric data governance platform that sits above technical tools like Purview and Fabric. Axon enables business leaders (data owners, stewards) to define data policies, assign ownership, and track compliance without requiring technical knowledge. Role-based activities assign stewardship responsibilities: VP of HR becomes 'owner' of employee data, compensation managers become 'stewards' for salary data. Axon workflows route governance requests (access approvals, data quality exceptions) to appropriate business owners with automated escalation. Impact scoring flags high-risk data changes: modifying employee master data is high-impact and triggers business approval. Policy management enforces rules (e.g., 'All salary data must be encrypted at rest') and tracks compliance status across systems. Axon bridges business policy (\"We must protect employee privacy\") with technical implementation (Fabric sensitivity labels, Purview classifications).",
+      "fabricComponents": [
+        "Purview",
+        "Informatica Axon",
+        "Lakehouse"
+      ],
+      "pros": [
+        "Business-led governance: non-technical stakeholders can define policies and assign ownership.",
+        "Connects business policy to technical implementation through metadata mapping.",
+        "Stewardship workflows automate governance decisions with business owner sign-offs.",
+        "Impact scoring reduces risk by requiring approval of high-impact data changes.",
+        "Compliance tracking provides audit trails showing who approved what, when, and why.",
+        "Integrates with Fabric Purview for end-to-end governance visibility."
+      ],
+      "cons": [
+        "Informatica Axon requires organizational change: business leaders must engage in governance.",
+        "Licensing costs for Axon SaaS platform on top of Informatica and Fabric expenses.",
+        "Workflow implementation requires careful role definition and approval matrix design.",
+        "Initial adoption slow if business leaders perceive governance as IT burden.",
+        "Integration with Purview and other tools requires custom connectors and data mapping."
+      ],
+      "usageInstructions": [
+        "1. Deploy Informatica Axon cloud platform with appropriate licensing.",
+        "2. Define organizational governance roles: data owner, steward, custodian, user.",
+        "3. Assign data owners: VP HR owns 'Employee Data', compensation manager owns 'Salary Data'.",
+        "4. Create stewardship teams: cross-functional teams responsible for specific data domains.",
+        "5. Define data policies: 'All salary data encrypted', 'Employee data retention 7 years', 'PII access logged'.",
+        "6. Configure stewardship workflows: approval chains for data access, policy exceptions, quality issues.",
+        "7. Map Axon policies to Fabric implementations: link 'Salary Encryption' policy to Fabric CMK configuration.",
+        "8. Set up impact assessment: define scoring for data change risk (master data changes = high).",
+        "9. Integrate with Purview: surface Axon ownership and policy status in Fabric governance UIs.",
+        "10. Create governance dashboard: show policy compliance status, pending approvals, audit trails.",
+        "11. Establish review cadence: quarterly policy reviews with data owners and stewards.",
+        "12. Build self-service data access portal: users request access, stewards approve, audit logged."
+      ],
+      "governanceConsiderations": [
+        "Define clear governance roles: avoid confusion between owner, steward, custodian responsibilities.",
+        "Establish escalation procedures: define timelines for stewardship decisions (e.g., must approve within 5 days).",
+        "Document policy compliance evidence: maintain records showing which Fabric configurations implement which policies.",
+        "Monitor policy exceptions: track which rules are frequently waived and why (may indicate unrealistic policies).",
+        "Audit stewardship approvals: ensure decisions are made fairly and documented.",
+        "Plan for governance maturity: start with core policies, evolve as organization matures.",
+        "Communicate policies to users: train employees on which policies affect them and why.",
+        "Align with legal/compliance: ensure policies reflect regulatory requirements and organizational risk tolerance."
+      ],
+      "peopleAnalyticsUseCases": [
+        "Data ownership: assign compensation manager as owner of salary data, enabling governance decisions.",
+        "Access approvals: steward approves analyst's access to employee performance data.",
+        "Policy enforcement: HR ensures all employee data complies with privacy policy requirements.",
+        "Impact assessment: identify downstream reports affected by employee master data structure change.",
+        "Compliance reporting: generate evidence that compensation data is handled per GDPR/CCPA requirements."
+      ],
+      "complexity": "High",
+      "maturity": "Established",
+      "compatibleWith": [
+        "informatica-data-governance",
+        "informatica-enterprise-data-catalog",
+        "informatica-data-privacy",
+        "purview-data-map",
+        "row-level-security",
+        "sensitivity-labels"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "Informatica Axon cloud subscription",
+        "Data governance organizational structure defined",
+        "Integration with Microsoft Purview configured"
+      ],
+      "tags": [
+        "data-governance",
+        "policy-management",
+        "stewardship",
+        "compliance",
+        "informatica",
+        "business-governance"
+      ],
+      "referenceLinks": [
+        "https://learn.microsoft.com/en-us/fabric/governance/purview-overview",
+        "https://learn.microsoft.com/en-us/fabric/governance/endorsement",
+        "https://learn.microsoft.com/en-us/fabric/governance/row-level-security"
+      ],
+      "estimatedImplementationEffort": "10-14 weeks",
+      "costImplications": "Informatica Axon licensing (SaaS). Governance team training and change management. Integration services for Purview connectivity. Ongoing policy stewardship."
+    },
+    {
+      "id": "informatica-data-quality",
+      "name": "Informatica Data Quality for HR Data",
+      "domain": "Data Transformation and Processing",
+      "domainId": 3,
+      "category": "Data Quality",
+      "summary": "Uses Informatica Data Quality rules engine for HR data profiling, cleansing, standardization, and enrichment with ongoing quality metric monitoring.",
+      "description": "This pattern implements Informatica Data Quality (DQ) for comprehensive HR data validation and cleansing. Data profiling analyzes employee tables (Workday extracts, legacy HRIS) to understand completeness, uniqueness, format compliance, and value distributions. Profiling identifies which fields have nulls (incomplete salary records), duplicates (duplicate employee IDs), or invalid formats (email without @). Cleansing rules standardize data: capitalize employee names, convert state abbreviations (CA -> California or keep short form consistently), format phone numbers (555-1234 -> 555-1234), normalize job titles (\"Engineer\" vs \"Engg\" vs \"ENG\"). Data enrichment adds missing values: validate employee ZIP code format, enriched location geography (region, country). Quality scorecards track metrics over time: percentage of employee records with valid email addresses, completeness of manager assignments, accuracy of employment status fields. Rules engine learns patterns and automatically detects anomalies: sudden spike in null salary fields triggers alerts. Monitoring dashboards show quality trends by source system (Workday vs legacy vs imports) enabling team to invest in highest-impact improvements.",
+      "fabricComponents": [
+        "Informatica DQ",
+        "Data Factory",
+        "Lakehouse",
+        "Spark Notebooks"
+      ],
+      "pros": [
+        "Comprehensive profiling identifies data quality issues before they impact analytics.",
+        "Standardization ensures consistent data formats (names, addresses, IDs) across sources.",
+        "Automated cleansing applies rules at scale without manual intervention.",
+        "Data enrichment adds missing values, improving analytics completeness.",
+        "Quality monitoring provides continuous visibility into data health trends.",
+        "Anomaly detection alerts teams to sudden data quality degradation.",
+        "Profiling-based rules adapt to data characteristics rather than static logic."
+      ],
+      "cons": [
+        "Informatica DQ licensing is expensive, especially for large volumes.",
+        "Rule definition and maintenance requires data domain expertise (HR processes, data structures).",
+        "Cleansing rules must be carefully tuned to avoid masking legitimate data variance.",
+        "Initial profiling on large employee tables can be time-consuming.",
+        "Integration with Data Factory and Spark pipelines requires custom development."
+      ],
+      "usageInstructions": [
+        "1. Deploy Informatica Data Quality cloud instance.",
+        "2. Configure data connections to Workday, legacy HRIS, and Fabric Lakehouse Bronze layer.",
+        "3. Run comprehensive data profiling on employee master tables: analyze completeness, uniqueness, format.",
+        "4. Review profile results: identify high-priority quality issues (nulls in required fields, invalid formats).",
+        "5. Define cleansing rules: standardize names, addresses, phone numbers, job titles, employment status.",
+        "6. Create validation rules: enforce constraints (email format, salary > 0, valid department codes).",
+        "7. Build data enrichment rules: validate and add missing geography or organizational codes.",
+        "8. Configure quality scorecards: track percentage of records passing validation, completeness by field.",
+        "9. Integrate with Data Factory: embed DQ rules in ETL pipeline Bronze -> Silver transformation.",
+        "10. Set up quality monitoring: daily/weekly quality metrics dashboards by source system.",
+        "11. Create alerting: notify data team when quality metrics fall below thresholds.",
+        "12. Document cleansing decisions: maintain mapping of original vs. standardized values for audit."
+      ],
+      "governanceConsiderations": [
+        "Define quality SLAs: e.g., '95% of employee records must pass validation to load to Silver layer'.",
+        "Maintain transformation audit trail: log which fields were cleansed, original vs. new values.",
+        "Balance cleansing rigor with accuracy: avoid over-aggressive cleansing that masks real data variance.",
+        "Align quality rules with business requirements: cleansing should reflect how data is actually used.",
+        "Monitor rule maintenance: rules must evolve as data sources and business processes change.",
+        "Classify data quality issues: separate critical (blocks load) from informational (may impact analysis).",
+        "Ensure PII protection: cleansing must preserve sensitivity labels and encryption.",
+        "Provide quality feedback to source systems: share profiling results with Workday/SAP teams."
+      ],
+      "peopleAnalyticsUseCases": [
+        "Employee master data quality: ensure all required fields (name, ID, email, status) complete before analytics.",
+        "Compensation data standardization: ensure salary and job level data consistent across HR systems.",
+        "Location normalization: standardize office locations, enabling accurate geographic analysis.",
+        "Manager assignment validation: ensure each employee has exactly one manager, catching hierarchy errors.",
+        "Employment status consistency: ensure terminated employees are marked consistently across all tables."
+      ],
+      "complexity": "Moderate",
+      "maturity": "Established",
+      "compatibleWith": [
+        "informatica-data-governance",
+        "medallion-architecture",
+        "data-quality-validation",
+        "spark-notebook-etl",
+        "hris-workday-ingestion"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "Informatica DQ cloud subscription",
+        "Data connections to HR source systems (Workday, legacy HRIS)",
+        "Data profiling expertise or data steward resources"
+      ],
+      "tags": [
+        "data-quality",
+        "data-cleansing",
+        "data-profiling",
+        "informatica",
+        "hr-data",
+        "monitoring"
+      ],
+      "referenceLinks": [
+        "https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview",
+        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+        "https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview"
+      ],
+      "estimatedImplementationEffort": "6-8 weeks",
+      "costImplications": "Informatica DQ licensing (volume-based). Data profiling and rule definition services. Integration development for Data Factory pipelines."
+    },
+    {
+      "id": "informatica-data-privacy",
+      "name": "Informatica Data Privacy Management",
+      "domain": "Data Governance and Security",
+      "domainId": 8,
+      "category": "Data Privacy",
+      "summary": "Uses Informatica Data Privacy Management (DPM) for automated PII discovery, data subject mapping, consent management, and privacy impact assessments supporting GDPR/CCPA/PIPEDA compliance.",
+      "description": "This pattern implements Informatica Data Privacy Management (DPM) as an enterprise platform for privacy-by-design. Automated PII discovery scans Fabric Lakehouses, Warehouses, and external systems to identify personally identifiable information: employee names, SSNs, email addresses, phone numbers, home addresses, health/benefits data. Discovery uses pattern matching and contextual analysis (field names like 'ssn', 'email'; data patterns like XXX-XX-XXXX). Data mapping creates a subject data map showing all locations where employee data is stored and how it flows through systems. Subject Access Requests (SARs) are fulfilled by querying the map: user requests their data, DPM automatically finds all records across systems. Consent management tracks employee consents: has employee consented to marketing emails? Is their data used for ML model training? Privacy policies are enforced programmatically. Privacy Impact Assessments (PIAs) analyze new projects: modifying compensation data triggers PIA to assess risks (can salary data be re-identified?). Integration with Fabric Purview and Microsoft Purview enables tagging all PII with 'confidential' sensitivity labels. Role Assignments specify which roles can access PII: only compensation managers can see salary, only benefits team sees health data.",
+      "fabricComponents": [
+        "Informatica DPM",
+        "Purview",
+        "Lakehouse",
+        "Entra ID"
+      ],
+      "pros": [
+        "Automated PII discovery identifies sensitive data across all systems without manual scanning.",
+        "Data subject mapping enables quick fulfillment of access/deletion requests.",
+        "Consent management provides evidence of customer/employee consent for audits.",
+        "Privacy impact assessment framework reduces privacy risks in new projects.",
+        "Integration with Purview enables consistent privacy policy enforcement in Fabric.",
+        "Supports multiple regulations: GDPR, CCPA, PIPEDA, LGPD with region-specific rules.",
+        "Automated data deletion workflows enable GDPR 'right to be forgotten' compliance."
+      ],
+      "cons": [
+        "Informatica DPM licensing is enterprise-focused with high costs for large deployments.",
+        "PII discovery rules must be carefully tuned to balance sensitivity and false positives.",
+        "Data subject mapping requires integration with identity systems (Entra ID, HR systems).",
+        "Privacy impact assessments require domain expertise in privacy regulations and risk.",
+        "Automated deletion workflows are complex and require careful testing before production use."
+      ],
+      "usageInstructions": [
+        "1. Deploy Informatica DPM cloud instance with appropriate licensing.",
+        "2. Register all data sources: Fabric Lakehouse, Warehouse, Workday, legacy HRIS, external databases.",
+        "3. Configure PII discovery rules: patterns for SSN, email, phone, address, health identifiers.",
+        "4. Run automated discovery: scan all registered sources for PII and sensitive data.",
+        "5. Review discovered PII: validate accuracy, refine patterns if too many false positives.",
+        "6. Map data subjects: link employee identities to all records containing their data across systems.",
+        "7. Tag PII in Purview: mark all discovered PII with 'confidential' sensitivity labels.",
+        "8. Define privacy policies: 'Employee data retained 3 years after termination', 'No salary data to third parties'.",
+        "9. Set up consent management: track which employees consented to what uses of their data.",
+        "10. Configure role-based access: ensure only authorized roles can access PII in Fabric.",
+        "11. Build SAR fulfillment workflow: create request form, DPM finds all subject data, provision secure download.",
+        "12. Create deletion workflows: define processes for removing data when rights-to-deletion requests arrive."
+      ],
+      "governanceConsiderations": [
+        "Define privacy policies aligned with applicable regulations: GDPR (EU), CCPA (California), PIPEDA (Canada).",
+        "Maintain consent records: document what each employee consented to and when.",
+        "Establish PII discovery governance: assign roles for validating and categorizing discovered data.",
+        "Plan for privacy impact assessments: define triggers (new projects using employee data, system changes).",
+        "Document data retention: specify retention periods for each category of employee data.",
+        "Implement data deletion testing: test deletion workflows on non-production data before production use.",
+        "Audit role-based access: ensure only authorized roles see PII in Fabric.",
+        "Track regulatory changes: update policies and rules when regulations change (e.g., new privacy law)."
+      ],
+      "peopleAnalyticsUseCases": [
+        "PII mapping: identify all locations where employee SSNs, salaries, or health data are stored.",
+        "Subject access requests: fulfill employee requests for their data by querying privacy-mapped locations.",
+        "Consent tracking: verify employees consented before using their data in ML models or analytics.",
+        "Privacy compliance: ensure GDPR, CCPA, PIPEDA requirements are met in HR analytics practices.",
+        "Deletion workflows: fulfill 'right to be forgotten' requests by deleting all employee records on termination."
+      ],
+      "complexity": "High",
+      "maturity": "Established",
+      "compatibleWith": [
+        "informatica-data-governance",
+        "informatica-enterprise-data-catalog",
+        "informatica-axon-governance",
+        "sensitivity-labels",
+        "encryption-at-rest-cmk",
+        "purview-data-map"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "Informatica DPM cloud subscription",
+        "Connections to all data sources (Fabric, Workday, identity systems)",
+        "Privacy policy framework defined",
+        "Entra ID or other identity system for subject mapping"
+      ],
+      "tags": [
+        "privacy",
+        "pii-management",
+        "compliance",
+        "gdpr",
+        "ccpa",
+        "informatica",
+        "data-protection"
+      ],
+      "referenceLinks": [
+        "https://learn.microsoft.com/en-us/fabric/governance/sensitivity-labels",
+        "https://learn.microsoft.com/en-us/fabric/governance/endorsement",
+        "https://learn.microsoft.com/en-us/azure/active-directory/governance/access-reviews-overview"
+      ],
+      "estimatedImplementationEffort": "8-12 weeks",
+      "costImplications": "Informatica DPM licensing (enterprise tier). Integration services for data source connectivity. Privacy impact assessment consulting. Role-based access governance and testing."
+    },
+    {
+      "id": "dataiku-dss-analytics",
+      "name": "Dataiku DSS Advanced Analytics Platform",
+      "domain": "Machine Learning and Traditional AI",
+      "domainId": 4,
+      "category": "Advanced Analytics",
+      "summary": "Uses Dataiku DSS for visual ML pipeline development, collaborative data science, AutoML, model monitoring, and governed model deployment integrated with Fabric.",
+      "description": "This pattern implements Dataiku DSS as an enterprise data science platform enabling both technical data scientists and business analysts to build, test, and deploy ML models. Visual workflow development eliminates low-level coding: analysts build ETL and ML pipelines by dragging components (read data, transform, train model, evaluate, deploy) rather than writing Python/Scala. AutoML capabilities automatically test multiple algorithms, feature engineering approaches, and hyperparameters to find best-performing models. Dataiku's built-in libraries provide pre-built models (churn prediction, clustering, anomaly detection) accelerating time-to-value. Collaborative notebooks enable team members to document reasoning and share insights. Model governance tracks which models are in production, who deployed them, performance metrics over time. Integration with Fabric via Spark and JDBC connectors enables Dataiku to read from Fabric Lakehouses and Warehouses as input data, and write trained models back to Fabric for serving. MLflow integration enables reproducibility and model registry. Monitoring dashboards track model performance: if employee churn model accuracy drops, alerts notify data science team to retrain.",
+      "fabricComponents": [
+        "Dataiku DSS",
+        "Spark Notebooks",
+        "Lakehouse",
+        "MLflow"
+      ],
+      "pros": [
+        "Visual workflow development enables business analysts to build models without coding.",
+        "AutoML automatically finds high-performing models, reducing expertise requirements.",
+        "Collaborative notebooks facilitate knowledge sharing and peer review.",
+        "Model governance provides audit trails for compliance and reproducibility.",
+        "Native integrations with Spark enable seamless Fabric data access.",
+        "Pre-built HR models (attrition, clustering, anomaly detection) accelerate deployment.",
+        "Model monitoring alerts on performance degradation requiring retraining."
+      ],
+      "cons": [
+        "Dataiku DSS licensing is expensive, especially for large data volumes or user counts.",
+        "Visual workflow approach may be limiting for highly custom algorithms.",
+        "Requires discipline on model governance: easy to deploy unvetted models without controls.",
+        "Integration with Fabric requires custom Spark/JDBC connectors (Dataiku provides templates).",
+        "Learning curve for business users: visual workflows still require data science thinking."
+      ],
+      "usageInstructions": [
+        "1. Deploy Dataiku DSS instance on cloud or on-premises infrastructure.",
+        "2. Configure connections to Fabric Lakehouse and Warehouse as data sources.",
+        "3. Create project for HR analytics (e.g., Employee Churn Prediction).",
+        "4. Load training data: read employee history from Fabric Lakehouse Gold layer.",
+        "5. Build data preparation workflow: handle missing values, create features (tenure, performance score).",
+        "6. Explore data: visualizations of feature distributions, correlations with target (churned yes/no).",
+        "7. Divide into train/test/validation sets: 60% training, 20% test, 20% validation.",
+        "8. Run AutoML: Dataiku tests logistic regression, random forest, gradient boosting, neural networks.",
+        "9. Evaluate models: review accuracy, precision, recall, AUC metrics on test set.",
+        "10. Review model interpretation: understand which features drive predictions (tenure, low salary = high churn risk).",
+        "11. Deploy winning model: push to MLflow registry, create REST API endpoint.",
+        "12. Set up monitoring: track model performance on new data weekly, alert if accuracy drops below threshold."
+      ],
+      "governanceConsiderations": [
+        "Establish model governance gates: require business sponsor approval before production deployment.",
+        "Document model assumptions: which employee segments is model valid for? When should it be retrained?.",
+        "Maintain feature lineage: track which Fabric tables/columns feed model inputs.",
+        "Monitor model fairness: track prediction accuracy across demographic groups (gender, race, age).",
+        "Set up retraining triggers: define when model must be retrained (monthly? quarterly? or if accuracy drops X%).",
+        "Create model versioning: maintain version history with performance metrics for each version.",
+        "Implement access controls: restrict model development to vetted data scientists, restrict deployment to trained team.",
+        "Plan for model obsolescence: define rules for retiring underperforming models."
+      ],
+      "peopleAnalyticsUseCases": [
+        "Employee churn prediction: build model predicting which employees likely to leave in 6 months.",
+        "Performance prediction: predict employee performance ratings based on historical patterns.",
+        "Compensation clustering: identify groups of employees with similar compensation vs. market.",
+        "Anomaly detection: flag employees with unusual attendance, leave, or compensation patterns.",
+        "Succession planning: identify high-potential employees likely for advancement."
+      ],
+      "complexity": "Moderate",
+      "maturity": "Established",
+      "compatibleWith": [
+        "medallion-architecture",
+        "spark-notebook-etl",
+        "mlflow-model-registry",
+        "direct-lake-semantic-model",
+        "row-level-security"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "Dataiku DSS subscription with appropriate license tier",
+        "Spark and JDBC connectors configured for Fabric connectivity",
+        "Training data prepared in Fabric Lakehouse Gold layer"
+      ],
+      "tags": [
+        "machine-learning",
+        "data-science",
+        "analytics",
+        "automl",
+        "model-governance",
+        "dataiku"
+      ],
+      "referenceLinks": [
+        "https://learn.microsoft.com/en-us/fabric/data-science/models-overview",
+        "https://learn.microsoft.com/en-us/fabric/data-science/mlflow-integration",
+        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview"
+      ],
+      "estimatedImplementationEffort": "6-10 weeks",
+      "costImplications": "Dataiku DSS licensing (SaaS, volume-based). Data scientist onboarding and training. Spark compute costs for model training. MLflow integration and monitoring infrastructure."
+    },
+    {
+      "id": "airflow-orchestration",
+      "name": "Apache Airflow Pipeline Orchestration",
+      "domain": "Data Transformation and Processing",
+      "domainId": 3,
+      "category": "Orchestration",
+      "summary": "Uses Apache Airflow for DAG-based workflow orchestration of complex multi-step ETL pipelines across Fabric and external systems, with scheduling, dependency management, retry logic, and SLA monitoring.",
+      "description": "This pattern implements Apache Airflow as an open-source workflow orchestration platform for managing complex multi-step data pipelines. DAGs (Directed Acyclic Graphs) define pipeline dependencies: 'Extract data from Workday' must complete before 'Transform employee data', which must complete before 'Load to Gold layer', which must complete before 'Refresh Power BI'. Airflow schedules pipelines using cron expressions (\"every day at 2am\"), triggers conditions (\"when Workday export file arrives\"), or manual kicks. Task dependencies ensure work happens in correct order; Airflow parallelizes independent tasks automatically (three employee data sources can extract in parallel). Retry logic automatically reruns failed tasks (e.g., if network timeout, retry up to 3 times). SLA monitoring alerts on missed deadlines: if daily Workday ETL doesn't complete by 8am, notify data team. Airflow UI provides real-time visibility into job status, logs, and performance. Sensors monitor external events (has file arrived? has API returned data?). Integration with Fabric via custom operators or standard HTTP/Python operators enables triggering Data Factory pipelines, querying Spark jobs, updating Warehouse tables. Alternative/complement to Data Factory for teams already invested in Airflow or managing pipelines across multiple cloud providers.",
+      "fabricComponents": [
+        "Apache Airflow",
+        "Data Factory",
+        "Lakehouse",
+        "Spark Notebooks"
+      ],
+      "pros": [
+        "DAG-based approach provides clear visibility into pipeline dependencies and execution order.",
+        "Scheduling via cron and custom triggers provides flexible workflow timing.",
+        "Automatic retry logic reduces manual intervention for transient failures.",
+        "SLA monitoring alerts on missed deadlines before they impact downstream processes.",
+        "Parallelization of independent tasks reduces overall pipeline execution time.",
+        "Rich UI provides real-time job status, logs, and performance metrics.",
+        "Open-source platform with large ecosystem of community operators and connectors.",
+        "Works across clouds: can orchestrate pipelines in AWS, Azure, GCP in single platform."
+      ],
+      "cons": [
+        "Airflow requires operational infrastructure: database, executor, scheduler must be kept running.",
+        "Learning curve: DAGs require Python coding; teams must learn Airflow concepts.",
+        "Scaling Airflow to thousands of pipelines requires careful infrastructure planning.",
+        "Data Factory integration requires custom operators or HTTP calls (not as tightly integrated as Azure-native).",
+        "Operational overhead: monitoring, logging, alerting must be configured and maintained."
+      ],
+      "usageInstructions": [
+        "1. Deploy Apache Airflow: cloud-managed (Composer, MWAA) or self-hosted.",
+        "2. Define DAG for HR ETL pipeline (Python file with @dag decorator).",
+        "3. Create tasks for each step: ExtractWorkday, TransformEmployee, LoadGoldLayer, RefreshPowerBI.",
+        "4. Define task dependencies: ExtractWorkday >> TransformEmployee >> LoadGoldLayer >> RefreshPowerBI.",
+        "5. Configure scheduling: @dag(schedule='0 2 * * *') = daily at 2am local time.",
+        "6. Add retry logic: Task(retries=3, retry_delay=timedelta(minutes=5)).",
+        "7. Set SLA: @dag(sla=timedelta(hours=6)) = pipeline must complete within 6 hours.",
+        "8. Configure sensors: FileSensor to wait for Workday export file before starting.",
+        "9. Add Data Factory integration: HttpOperator to trigger Data Factory pipeline.",
+        "10. Implement error handling: on_failure_callback to notify team on task failure.",
+        "11. Set up monitoring: configure alerts for SLA breaches, failed tasks, long-running jobs.",
+        "12. Test DAG: use Airflow CLI to validate syntax, test individual tasks locally."
+      ],
+      "governanceConsiderations": [
+        "Document DAG purpose and owner: each pipeline should have documented business purpose and owner.",
+        "Maintain versioning: track DAG changes, enable rollback if update causes issues.",
+        "Monitor resource usage: Airflow execution logs must show actual runtime for capacity planning.",
+        "Audit task changes: implement code review process for pipeline changes before deployment.",
+        "Set realistic SLAs: base on actual historical performance, not wishful thinking.",
+        "Plan for growth: design scalability; Airflow can struggle with thousands of pipelines.",
+        "Document troubleshooting: maintain runbooks for common failures (API timeout, file not found).",
+        "Establish on-call support: define who responds to SLA breaches and failed pipelines overnight."
+      ],
+      "peopleAnalyticsUseCases": [
+        "Daily employee data ETL: orchestrate multi-step pipeline from Workday extraction through Gold layer refresh.",
+        "Payroll processing: schedule complex transformations (tax calculations, deduction processing) with SLA monitoring.",
+        "Organizational network analysis: orchestrate graph database updates from org hierarchy data.",
+        "Cross-border compliance: manage multi-step pipelines respecting data residency constraints.",
+        "Real-time analytics: trigger updates when employee status changes (hire, promotion, termination)."
+      ],
+      "complexity": "Moderate",
+      "maturity": "Established",
+      "compatibleWith": [
+        "data-factory-hybrid",
+        "medallion-architecture",
+        "spark-notebook-etl",
+        "hris-workday-ingestion",
+        "monitoring-alerting-framework"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "Apache Airflow deployment (cloud or self-hosted)",
+        "Python knowledge for DAG development",
+        "Network connectivity to Fabric and external systems"
+      ],
+      "tags": [
+        "orchestration",
+        "workflow",
+        "scheduling",
+        "etl",
+        "airflow",
+        "open-source"
+      ],
+      "referenceLinks": [
+        "https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview",
+        "https://learn.microsoft.com/en-us/fabric/data-engineering/spark-notebook-overview",
+        "https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities"
+      ],
+      "estimatedImplementationEffort": "4-6 weeks",
+      "costImplications": "Airflow infrastructure (cloud-managed like Composer or self-hosted VMs). Compute for pipeline execution. Operational overhead for monitoring and support."
     }
   ],
   "useCaseBlueprints": [
