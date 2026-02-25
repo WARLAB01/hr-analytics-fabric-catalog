@@ -1565,7 +1565,7 @@
             </div>
 
             <div id="blueprints" class="tab-content blueprints-container">
-                <h2 style="font-size: 1.25rem; margin-bottom: 2rem; color: #0EA5E9;">Use Case Blueprints (12)</h2>
+                <h2 id="blueprints-heading" style="font-size: 1.25rem; margin-bottom: 2rem; color: #0EA5E9;">Use Case Blueprints</h2>
                 <div class="blueprints-grid" id="blueprints-grid"></div>
             </div>
         </div>
@@ -2004,6 +2004,8 @@
         function refreshBlueprintsTab() {
             const container = document.getElementById('blueprints-grid');
             container.innerHTML = '';
+            const heading = document.getElementById('blueprints-heading');
+            if (heading) heading.textContent = `Use Case Blueprints (${blueprints.length})`;
 
             blueprints.forEach(bp => {
                 const available = checkBlueprintAvailability(bp);
@@ -2015,8 +2017,8 @@
                     <div class="blueprint-title">${bp.name}</div>
                     <div class="blueprint-desc">${bp.description}</div>
                     <div class="blueprint-meta">
-                        <span class="blueprint-meta-tag">Audience: ${bp.audience}</span>
-                        <span class="blueprint-meta-tag">${bp.patterns.length} patterns</span>
+                        <span class="blueprint-meta-tag">${bp.category || ''}</span>
+                        <span class="blueprint-meta-tag">${(bp.patternFlow || []).length} patterns</span>
                     </div>
                 `;
                 container.appendChild(card);
@@ -2024,8 +2026,9 @@
         }
 
         function checkBlueprintAvailability(blueprint) {
-            return blueprint.patterns.every(pId => {
-                const pattern = patterns.find(p => p.id === pId);
+            const flow = blueprint.patternFlow || [];
+            return flow.every(step => {
+                const pattern = patterns.find(p => p.id === step.patternId);
                 return pattern && isPatternAvailable(pattern);
             });
         }
@@ -2038,9 +2041,9 @@
             document.getElementById('blueprint-detail-title').textContent = blueprint.name;
 
             const metaHtml = `
-                <strong>Audience:</strong> ${blueprint.audience} |
-                <strong>Patterns:</strong> ${blueprint.patterns.length} |
-                <strong>Effort:</strong> ${blueprint.estimatedTotalEffort}
+                <strong>Category:</strong> ${blueprint.category || 'N/A'} |
+                <strong>Patterns:</strong> ${(blueprint.patternFlow || []).length} |
+                <strong>Timeline:</strong> ${blueprint.estimatedTimeline || 'N/A'}
             `;
             document.getElementById('blueprint-detail-meta').innerHTML = metaHtml;
 
@@ -2052,13 +2055,12 @@
                 document.getElementById('blueprint-detail-unavailable').style.display = 'none';
             }
 
-            // CHANGE 2: Display businessCase
             let bodyHtml = '';
-            if (blueprint.businessCase) {
+            if (blueprint.businessValue) {
                 bodyHtml += `
                     <div class="business-case-callout">
-                        <div class="business-case-header">💼 Business Case</div>
-                        <div class="business-case-text">${blueprint.businessCase}</div>
+                        <div class="business-case-header">💼 Business Value</div>
+                        <div class="business-case-text">${blueprint.businessValue}</div>
                     </div>
                 `;
             }
@@ -2066,13 +2068,13 @@
             // Pattern Flow
             if (blueprint.patternFlow && blueprint.patternFlow.length > 0) {
                 bodyHtml += '<div class="pattern-flow-title">Pattern Flow</div><div class="pattern-flow">';
-                blueprint.patternFlow.forEach((flow, idx) => {
+                blueprint.patternFlow.sort((a, b) => a.order - b.order).forEach((flow, idx) => {
+                    const patternName = patterns.find(p => p.id === flow.patternId)?.name || flow.patternId;
                     bodyHtml += `
                         <div class="flow-item">
-                            <div class="flow-from">From: ${flow.from}</div>
-                            <div class="flow-arrow">↓</div>
-                            <div class="flow-to">To: ${flow.to}</div>
-                            <div class="flow-desc">${flow.description}</div>
+                            <div class="flow-from"><strong>Step ${flow.order}:</strong> ${patternName}</div>
+                            <div class="flow-desc">${flow.role}</div>
+                            ${flow.dataFlow ? `<div class="flow-to" style="font-size:0.8rem;color:#94A3B8;margin-top:4px;">📊 ${flow.dataFlow}</div>` : ''}
                         </div>
                     `;
                 });
@@ -2088,39 +2090,40 @@
                 `;
             }
 
-            if (blueprint.keyGovernanceRequirements && blueprint.keyGovernanceRequirements.length > 0) {
+            if (blueprint.architectureNarrative) {
                 bodyHtml += `
                     <div class="blueprint-section">
-                        <div class="blueprint-section-title">Key Governance Requirements</div>
+                        <div class="blueprint-section-title">Architecture Narrative</div>
+                        <p>${blueprint.architectureNarrative}</p>
+                    </div>
+                `;
+            }
+
+            if (blueprint.requiredGovernance) {
+                bodyHtml += `
+                    <div class="blueprint-section">
+                        <div class="blueprint-section-title">Required Governance</div>
+                        <p>${blueprint.requiredGovernance}</p>
+                    </div>
+                `;
+            }
+
+            if (blueprint.stakeholders && blueprint.stakeholders.length > 0) {
+                bodyHtml += `
+                    <div class="blueprint-section">
+                        <div class="blueprint-section-title">Key Stakeholders</div>
                         <ul>
-                            ${blueprint.keyGovernanceRequirements.map(r => `<li>${r}</li>`).join('')}
+                            ${blueprint.stakeholders.map(s => `<li>${s}</li>`).join('')}
                         </ul>
                     </div>
                 `;
             }
 
-            if (blueprint.roleAssignments && Object.keys(blueprint.roleAssignments).length > 0) {
+            if (blueprint.estimatedTimeline) {
                 bodyHtml += `
                     <div class="blueprint-section">
-                        <div class="blueprint-section-title">Role Assignments</div>
-                        <div class="role-assignments">
-                `;
-                for (const [role, patterns_str] of Object.entries(blueprint.roleAssignments)) {
-                    bodyHtml += `
-                        <div class="role-card">
-                            <div class="role-name">${role}</div>
-                            <div class="role-patterns">${patterns_str}</div>
-                        </div>
-                    `;
-                }
-                bodyHtml += '</div></div>';
-            }
-
-            if (blueprint.editableNotes) {
-                bodyHtml += `
-                    <div class="blueprint-section">
-                        <div class="blueprint-section-title">Notes</div>
-                        <p>${blueprint.editableNotes}</p>
+                        <div class="blueprint-section-title">Estimated Timeline</div>
+                        <p>${blueprint.estimatedTimeline}</p>
                     </div>
                 `;
             }
