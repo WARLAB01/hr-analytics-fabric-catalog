@@ -112,17 +112,16 @@
         .tech-filter-panel {
             background: #1E293B;
             border-bottom: 1px solid #334155;
-            padding: 0;
+        }
+
+        .tech-filter-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
         }
 
-        .tech-filter-panel.expanded {
-            max-height: 300px;
-        }
-
-        .tech-filter-content {
+        .tech-filter-panel.expanded .tech-filter-content {
+            max-height: 500px;
             padding: 1.5rem;
         }
 
