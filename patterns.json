@@ -6583,16 +6583,8 @@
           "dataFlow": "Risk scores \u2192 Reflex rules \u2192 alerts to HR and managers"
         }
       ],
-      "architectureNarrative": "This blueprint orchestrates a complete ML-powered attrition prevention system. Employee data flows through the medallion architecture's Bronze and Silver layers where it's enriched and deduplicated. The feature store then engineers critical ML features (tenure, compensation trends, engagement indicators, promotion history) with full Delta version control for reproducibility. A weekly batch inference pipeline scores all employees using a trained attrition model, producing a risk percentile for each employee. Critically, the fairness evaluation pattern runs post-inference to audit the model's predictions across demographic groups (gender, age, ethnicity) and flags any disparate impact. These risk scores are modeled in the semantic layer with row-level security (RLS) enforcing that managers see only their team members' scores, while HR leadership sees organization-wide patterns. Power BI dashboards built on DirectLake provide zero-latency visualization of risk distributions, trends, and demographic breakdowns. Finally, Data Activator Reflex rules trigger real-time alerts whenever an employee's risk score crosses critical thresholds (e.g., >80th percentile), sending notifications to managers and HR business partners with recommended retention actions.",
-      "requiredGovernance": [
-        "Model validation and testing for bias before deployment",
-        "Quarterly fairness audits across protected classes",
-        "Data residency compliance for sensitive PII in feature store",
-        "Access logging for all users viewing risk scores",
-        "Regular model retraining and performance monitoring",
-        "Documentation of fairness thresholds and intervention triggers"
-      ],
-      "estimatedTimeline": "8-12 weeks for initial deployment including model training and fairness validation",
+      "architectureNarrative": "This blueprint orchestrates a complete ML-powered attrition prevention system. Employee data flows through the medallion architecture's Bronze and Silver layers where it's enriched and deduplicated. The feature store then engineers critical ML features (tenure, compensation trends, engagement indicators, promotion history) that feed into a batch inference pipeline running weekly predictions. Every prediction cycle passes through fairness evaluation to catch demographic bias before results reach stakeholders. Row-level security ensures managers see only their team's scores, while DirectLake provides instant dashboard access. Data Activator closes the loop by pushing real-time alerts when risk thresholds are breached.",
+      "requiredGovernance": "Model validation and testing for bias before deployment, Quarterly fairness audits across protected classes, Data residency compliance for sensitive PII in feature store, Access logging for all users viewing risk scores, Regular model retraining and performance monitoring, Documentation of fairness thresholds and intervention triggers",
       "stakeholders": [
         "Chief HR Officer",
         "Head of Talent",
@@ -6601,617 +6593,679 @@
         "Compliance & Legal",
         "IT Security"
       ],
+      "estimatedTimeline": "8-12 weeks for initial deployment including model training and fairness validation",
       "editable": true
     },
     {
-      "id": "compensation-benchmarking",
-      "name": "Secure Compensation Analytics & Market Benchmarking",
-      "category": "Compensation & Benefits",
-      "description": "Enables compensation analysis and market benchmarking while protecting individual salary data through k-anonymity and dynamic masking. Allows cross-department sharing of anonymized salary insights for equitable pay decisions.",
-      "businessValue": "Supports competitive compensation strategy and pay equity initiatives without exposing individual salaries. Reduces legal risk from inadvertent salary disclosure while enabling data-driven compensation decisions across the organization.",
+      "id": "automated-regulatory-reporting",
+      "name": "Automated Regulatory Reporting",
+      "category": "Compliance & Reporting",
+      "description": "Automates the generation of regulatory compliance reports including EEO-1, VETS-4212, AAP, ACA, OSHA, and state/local workforce disclosures. Validates data quality, applies required anonymization, generates paginated reports in mandated formats, and enforces data loss prevention policies throughout.",
+      "businessValue": "Eliminates manual report compilation that typically consumes weeks of analyst time per filing cycle. Ensures data accuracy and consistency across regulatory submissions, reduces compliance risk from missed deadlines or erroneous filings, and creates an auditable trail for all regulatory data transformations.",
       "patternFlow": [
         {
           "order": 1,
           "patternId": "medallion-architecture",
-          "role": "Layers salary, role, and demographics data for secure processing",
-          "dataFlow": "Payroll systems \u2192 Bronze \u2192 normalized compensation records \u2192 Silver"
-        },
-        {
-          "order": 2,
-          "patternId": "scd-type-2",
-          "role": "Tracks salary history and job changes over time with effective dating",
-          "dataFlow": "Salary updates \u2192 SCD Type 2 \u2192 historical snapshots with valid_from/valid_to"
-        },
-        {
-          "order": 3,
-          "patternId": "anonymization-k-anonymity",
-          "role": "Generalizes data so groups of 5+ employees are indistinguishable",
-          "dataFlow": "Detailed salary records \u2192 quasi-identifiers generalization \u2192 anonymized salary groups"
-        },
-        {
-          "order": 4,
-          "patternId": "dynamic-data-masking",
-          "role": "Real-time masking of exact salaries based on viewer permissions in Power BI",
-          "dataFlow": "Salary values \u2192 masking rules applied per user role \u2192 aggregated view only"
-        },
-        {
-          "order": 5,
-          "patternId": "row-level-security",
-          "role": "Ensures users see only compensation data for their department",
-          "dataFlow": "Salary data filtered by org hierarchy in semantic model"
-        },
-        {
-          "order": 6,
-          "patternId": "certified-semantic-model",
-          "role": "Defines trusted salary metrics (median, quartiles, benchmarks) for consistent reporting",
-          "dataFlow": "Anonymized salary data \u2192 certified model \u2192 trusted metrics"
-        },
-        {
-          "order": 7,
-          "patternId": "directlake-power-bi",
-          "role": "Delivers interactive compensation dashboards with benchmark comparisons",
-          "dataFlow": "Semantic model \u2192 DirectLake \u2192 Power BI dashboards"
-        }
-      ],
-      "architectureNarrative": "This blueprint creates a secure compensation analytics platform that protects individual privacy while enabling strategic insights. Payroll data enters the medallion architecture and is normalized in the Silver layer, then SCD Type 2 tracking captures salary history with effective dates to support trend analysis. The k-anonymity pattern generalizes quasi-identifiers (job level, department, age group, tenure band) so that no group of fewer than 5 employees can be uniquely identified, enabling safe sharing between departments. Dynamic data masking then provides an additional layer by allowing department leaders to see aggregate compensation metrics and benchmarks without viewing exact individual salaries. The semantic layer enforces row-level security so leaders see only their department's anonymized compensation data, while HR compensation specialists see organization-wide patterns. The certified semantic model codifies trusted salary metrics (median, 25th/75th percentiles, market benchmarks) that drive consistent reporting across the organization. Power BI dashboards leverage DirectLake to deliver interactive compensation analysis including pay equity ratios, market positioning by level, and salary distribution trends, all on anonymized data.",
-      "requiredGovernance": [
-        "Annual k-anonymity validation to ensure sufficient group sizes",
-        "Compensation committee review of benchmark decisions",
-        "Audit logging for all compensation data access",
-        "Regular review of masking rules to ensure appropriate confidentiality levels",
-        "Compliance with pay equity regulations (e.g., UK Gender Pay Gap, California pay transparency)",
-        "Data retention policies for historical salary records"
-      ],
-      "estimatedTimeline": "6-8 weeks for initial setup including anonymization validation and masking configuration",
-      "stakeholders": [
-        "Chief HR Officer",
-        "Compensation & Benefits Lead",
-        "HR Analytics Team",
-        "HR Business Partners",
-        "Finance",
-        "Legal & Compliance"
-      ],
-      "editable": true
-    },
-    {
-      "id": "regulatory-dei-reporting",
-      "name": "Automated Regulatory DEI Reporting",
-      "category": "DEI & Reporting",
-      "description": "Automates diversity, equity, and inclusion reporting for regulatory compliance (EEO-1, pay equity audits). Generates paginated compliance reports with sensitivity labeling and enforces data loss prevention policies.",
-      "businessValue": "Reduces compliance risk and reporting burden by automating DEI metrics generation. Ensures data accuracy and timeliness for regulatory submissions while protecting sensitive diversity data from unauthorized access.",
-      "patternFlow": [
-        {
-          "order": 1,
-          "patternId": "medallion-architecture",
-          "role": "Consolidates HR data from multiple sources into trusted layers",
-          "dataFlow": "Multiple HRIS systems \u2192 Bronze \u2192 deduplicated employee records \u2192 Silver"
+          "role": "Structures raw HR data into progressively refined layers for regulatory consumption",
+          "dataFlow": "HRIS/payroll/benefits systems \u2192 Bronze \u2192 Silver \u2192 Gold regulatory tables"
         },
         {
           "order": 2,
           "patternId": "data-quality-validation",
-          "role": "Validates demographic data completeness and accuracy before reporting",
-          "dataFlow": "Silver layer records \u2192 quality checks \u2192 flagged missing/invalid demographics"
+          "role": "Validates completeness and accuracy of all fields required by each regulatory form",
+          "dataFlow": "Gold tables \u2192 validation rules \u2192 quality scorecards \u2192 flagged exceptions"
         },
         {
           "order": 3,
           "patternId": "anonymization-k-anonymity",
-          "role": "Generalizes demographic data for internal sharing while protecting individual privacy",
-          "dataFlow": "Raw demographics \u2192 quasi-identifier generalization \u2192 anonymized diversity metrics"
+          "role": "Applies statistical anonymization where regulations require aggregate-only reporting",
+          "dataFlow": "Employee-level data \u2192 k-anonymity grouping \u2192 anonymized aggregates"
         },
         {
           "order": 4,
           "patternId": "paginated-reports",
-          "role": "Generates formatted EEO-1 and pay equity audit reports with regulatory structure",
-          "dataFlow": "Anonymized metrics \u2192 template-driven report generation \u2192 paginated PDF/Excel"
+          "role": "Generates pixel-perfect reports matching mandated regulatory formats (EEO-1, VETS, etc.)",
+          "dataFlow": "Validated Gold data \u2192 paginated report templates \u2192 formatted submissions"
         },
         {
           "order": 5,
           "patternId": "sensitivity-labels",
-          "role": "Marks reports as containing regulated diversity data requiring protection",
-          "dataFlow": "DEI metrics \u2192 sensitivity label application \u2192 high/medium classification"
+          "role": "Classifies regulatory data with appropriate sensitivity labels for handling",
+          "dataFlow": "Report artifacts \u2192 auto-classification \u2192 labeled documents"
         },
         {
           "order": 6,
           "patternId": "dlp-policy-enforcement",
-          "role": "Prevents accidental sharing or export of DEI reports outside secure channels",
-          "dataFlow": "Reports with sensitivity labels \u2192 DLP rules \u2192 block unauthorized export/sharing"
+          "role": "Prevents unauthorized sharing or export of regulatory filing data",
+          "dataFlow": "Labeled documents \u2192 DLP policies \u2192 controlled distribution"
+        },
+        {
+          "order": 7,
+          "patternId": "audit-siem-integration",
+          "role": "Logs all data access and report generation for regulatory audit trails",
+          "dataFlow": "All system events \u2192 audit logs \u2192 SIEM for compliance monitoring"
         }
       ],
-      "architectureNarrative": "This blueprint automates compliance reporting for diversity and equity metrics required by regulators like the EEOC (EEO-1) and pay equity audit bodies. Employee demographic and compensation data flows through the medallion architecture's Bronze and Silver layers where it's deduplicated and standardized. Data quality validation patterns ensure demographic fields are complete and accurately coded before being included in compliance reports. The anonymization pattern generalizes demographic categories to safe levels for internal sharing (e.g., age bands, tenure bands) while preserving aggregate diversity metrics. Paginated report generation creates formatted reports matching EEO-1 structure and pay equity audit requirements, with automated calculations of diversity percentages, pay ratios, and representation metrics. Sensitivity labels mark these reports as containing regulated data, and DLP policies prevent unauthorized copying, printing, or external sharing of the reports, ensuring only intended recipients (legal, CHRO, board) access compliance documentation.",
-      "requiredGovernance": [
-        "Annual validation of demographic data against source systems",
-        "Legal review of compliance report templates before deployment",
-        "Audit trail of all report generations and distributions",
-        "Secure storage and retention of compliance reports",
-        "Regular DLP policy updates to align with evolving regulations",
-        "Executive sign-off on DEI metrics before external submission"
-      ],
-      "estimatedTimeline": "8-10 weeks including regulatory template validation and DLP policy configuration",
+      "architectureNarrative": "This blueprint creates a fully automated regulatory reporting pipeline. Raw workforce data from HRIS, payroll, and benefits systems flows through the medallion architecture into regulatory-specific Gold tables that map directly to filing requirements. Data quality validation catches missing or inconsistent fields before they reach reports. Where regulations require aggregate reporting, k-anonymity ensures individual privacy. Paginated Reports generates submission-ready documents in mandated formats. Sensitivity labels and DLP policies protect the regulatory data throughout its lifecycle, while comprehensive audit logging satisfies regulatory examination requirements.",
+      "requiredGovernance": "Annual review of regulatory filing requirements and report templates, Data quality thresholds per regulatory form with exception handling procedures, Anonymization parameter tuning per regulation (e.g., minimum group sizes), Access restricted to authorized compliance personnel only, Audit log retention matching regulatory record-keeping requirements, Version control for all report templates and transformation logic",
       "stakeholders": [
-        "Chief Legal Officer",
-        "Chief HR Officer",
-        "Diversity & Inclusion Leader",
+        "Chief Compliance Officer",
+        "HR Operations",
+        "Legal Counsel",
         "HR Analytics Team",
-        "Compliance Officer",
-        "Board Secretary"
+        "External Auditors",
+        "Government Relations"
       ],
+      "estimatedTimeline": "6-10 weeks including template development for each regulatory form and validation rule configuration",
       "editable": true
     },
     {
       "id": "secure-hr-chatbot",
       "name": "Conversational HR Analytics with Secure Retrieval",
       "category": "Employee Experience",
-      "description": "Deploys a conversational AI agent that answers HR analytics questions grounded in Fabric data, with row-level security enforced per user. Employees can ask questions about benefits, compensation benchmarks, and organizational metrics with confidence their data access is governed.",
-      "businessValue": "Improves HR service delivery and employee self-service by enabling natural language access to HR analytics. Reduces HR team support tickets while maintaining strict data governance and ensuring users only see data they're authorized to access.",
+      "description": "A secure, AI-powered conversational interface that allows HR professionals and managers to ask natural language questions about workforce data. Uses retrieval-augmented generation grounded in Fabric data with row-level security enforcement, ensuring users only see data they're authorized to access.",
+      "businessValue": "Democratizes access to HR analytics by removing the need for technical query skills. Managers get instant answers about their team metrics while security controls prevent unauthorized data access. Reduces HR analytics team bottleneck for ad-hoc data requests by 60-80%.",
       "patternFlow": [
         {
           "order": 1,
           "patternId": "medallion-architecture",
-          "role": "Provides clean HR data foundation for RAG context retrieval",
-          "dataFlow": "HR systems \u2192 Bronze \u2192 enriched records \u2192 Silver/Gold tables"
+          "role": "Provides clean, trusted Gold-layer data for AI retrieval",
+          "dataFlow": "HR systems \u2192 Bronze \u2192 Silver \u2192 Gold analytics tables"
         },
         {
           "order": 2,
           "patternId": "certified-semantic-model",
-          "role": "Defines consistent HR metrics and relationships for LLM grounding",
-          "dataFlow": "Gold layer tables \u2192 semantic model definitions \u2192 trusted metrics"
+          "role": "Creates a governed semantic layer that the AI interface queries against",
+          "dataFlow": "Gold tables \u2192 certified semantic model \u2192 single source of truth"
         },
         {
           "order": 3,
           "patternId": "rag-fabric-grounded",
-          "role": "Grounds LLM responses in actual Fabric data, preventing hallucinations",
-          "dataFlow": "User question \u2192 semantic model query \u2192 LLM + context \u2192 grounded response"
+          "role": "Grounds AI responses in actual Fabric data rather than hallucinated content",
+          "dataFlow": "User question \u2192 vector search \u2192 relevant data chunks \u2192 grounded response"
         },
         {
           "order": 4,
           "patternId": "secure-chat-rls",
-          "role": "Enforces row-level security within chat context, restricting data per user",
-          "dataFlow": "Query context \u2192 RLS rules applied \u2192 filtered data \u2192 LLM response"
+          "role": "Enforces row-level security so users only retrieve their authorized data",
+          "dataFlow": "User identity \u2192 RLS filter \u2192 scoped data retrieval \u2192 filtered response"
         },
         {
           "order": 5,
           "patternId": "hr-ai-guardrails",
-          "role": "Validates LLM responses and blocks harmful outputs before delivery",
-          "dataFlow": "LLM response \u2192 guardrail validation \u2192 approved/rejected"
+          "role": "Prevents the AI from generating inappropriate, biased, or non-compliant responses",
+          "dataFlow": "AI response \u2192 guardrail checks \u2192 safe, compliant answer"
         },
         {
           "order": 6,
           "patternId": "audit-siem-integration",
-          "role": "Logs all user questions and data accessed through chatbot for compliance",
-          "dataFlow": "Chat interactions \u2192 audit logs \u2192 SIEM \u2192 compliance reporting"
+          "role": "Logs all queries and responses for compliance review and model improvement",
+          "dataFlow": "All interactions \u2192 audit log \u2192 SIEM dashboard \u2192 compliance review"
         }
       ],
-      "architectureNarrative": "This blueprint creates a secure, governed conversational interface to HR analytics. The medallion architecture provides clean, trusted HR data across Bronze/Silver/Gold layers. A certified semantic model defines consistent HR metrics and relationships (e.g., salary bands, benefit eligibility rules, organizational structures) that serve as ground truth for the LLM. When a user asks a question like 'What's the compensation benchmark for my role?', the RAG pattern grounds the LLM with actual data from the semantic model, ensuring answers are factual rather than hallucinated. Critically, row-level security is enforced within the chatbot context\u2014a user only retrieves data they're authorized to see (e.g., their department's benchmarks, never peer salaries). HR AI guardrails validate the LLM response to ensure it's accurate, non-discriminatory, and policy-compliant before it's returned to the user. All interactions are logged in the audit SIEM system, creating a compliance trail that tracks which users asked what questions and what data was retrieved, enabling HR and security teams to audit chatbot activity.",
-      "requiredGovernance": [
-        "LLM response validation and guardrail testing before deployment",
-        "Regular audit of chatbot interactions for policy violations",
-        "Role-based access control for sensitive HR topics (e.g., executive compensation)",
-        "Data residency compliance for all retrieved employee data",
-        "Incident response procedure for misclassified or harmful responses",
-        "User education on appropriate use of HR chatbot"
-      ],
-      "estimatedTimeline": "10-14 weeks including LLM fine-tuning, guardrail development, and security validation",
+      "architectureNarrative": "This blueprint delivers a secure conversational analytics experience built on Fabric's AI capabilities. Clean, trusted data from the medallion Gold layer feeds into a certified semantic model that serves as the AI's knowledge base. RAG (Retrieval-Augmented Generation) ensures every AI response is grounded in real data. Row-level security enforcement means the chatbot automatically scopes responses to what each user is authorized to see. HR-specific AI guardrails prevent inappropriate outputs, and comprehensive audit logging creates a full trail of every interaction for compliance review.",
+      "requiredGovernance": "Regular testing of RLS enforcement in conversational context, AI response quality monitoring and bias auditing, Guardrail rule updates as HR policies change, User feedback collection for continuous improvement, Quarterly review of audit logs for anomalous query patterns, Clear documentation of what the AI can and cannot answer",
       "stakeholders": [
-        "Chief HR Officer",
-        "HR Analytics Lead",
-        "AI/ML Engineering",
+        "CHRO",
+        "HR Business Partners",
+        "People Managers",
+        "HR Analytics Team",
         "IT Security",
-        "Data Governance",
-        "Legal & Compliance"
+        "Data Privacy Officer"
       ],
+      "estimatedTimeline": "10-14 weeks including AI model tuning, guardrail configuration, and user acceptance testing",
       "editable": true
     },
     {
       "id": "employee-lifecycle-360",
       "name": "Complete Employee Lifecycle Tracking",
       "category": "Workforce Planning",
-      "description": "Tracks employees through their complete lifecycle from hire to separation with full historical audit trail. Uses slowly changing dimensions to capture career progression, compensation changes, and organizational moves, enabling cohort analysis and retention studies.",
-      "businessValue": "Provides complete visibility into employee tenure and progression, enabling analytics on retention, promotion fairness, and career path effectiveness. Historical tracking supports litigation defense and succession planning.",
+      "description": "End-to-end tracking of every employee touchpoint from recruitment through offboarding. Captures hire, onboarding milestones, role changes, performance cycles, compensation adjustments, learning completions, and separation events in a unified timeline with slowly changing dimension history preservation.",
+      "businessValue": "Creates a single source of truth for the complete employee journey, enabling HR to identify patterns across the lifecycle (e.g., onboarding gaps correlating with early attrition). Supports both operational reporting and strategic workforce analysis with full historical context.",
       "patternFlow": [
         {
           "order": 1,
           "patternId": "incremental-watermark",
-          "role": "Captures only new/changed records from HR systems for efficient daily loading",
-          "dataFlow": "HR system changes \u2192 watermark tracking \u2192 incremental extraction"
+          "role": "Captures new and changed employee events incrementally from source systems",
+          "dataFlow": "HRIS/ATS/LMS/Perf systems \u2192 watermark-based incremental loads \u2192 Bronze"
         },
         {
           "order": 2,
           "patternId": "scd-type-2",
-          "role": "Maintains complete history of role, level, department, and salary changes",
-          "dataFlow": "Employee updates \u2192 SCD Type 2 \u2192 historical snapshots with effective dates"
+          "role": "Preserves full history of every employee attribute change over time",
+          "dataFlow": "Bronze events \u2192 SCD Type 2 processing \u2192 historical dimension tables"
         },
         {
           "order": 3,
           "patternId": "medallion-architecture",
-          "role": "Layers lifecycle data for analytics with audit trail",
-          "dataFlow": "SCD tables \u2192 Bronze \u2192 enriched employee journey \u2192 Silver \u2192 analytics ready \u2192 Gold"
+          "role": "Organizes lifecycle data into progressive refinement layers",
+          "dataFlow": "Raw events \u2192 Bronze \u2192 cleansed Silver \u2192 analytics-ready Gold"
         },
         {
           "order": 4,
           "patternId": "data-quality-validation",
-          "role": "Validates date sequences and data consistency across lifecycle events",
-          "dataFlow": "Lifecycle records \u2192 quality checks \u2192 flagged date anomalies/gaps"
+          "role": "Validates lifecycle events for completeness, consistency, and timeliness",
+          "dataFlow": "Silver data \u2192 validation rules \u2192 quality scores \u2192 exception alerts"
         },
         {
           "order": 5,
           "patternId": "hub-spoke-workspace",
-          "role": "Organizes lifecycle analytics into shared workspace for cross-functional teams",
-          "dataFlow": "Gold layer tables \u2192 shared semantic models \u2192 distributed teams"
+          "role": "Isolates lifecycle data domains while enabling cross-domain analysis",
+          "dataFlow": "Domain workspaces (recruit, perform, learn) \u2192 hub workspace \u2192 unified view"
         },
         {
           "order": 6,
           "patternId": "directlake-power-bi",
-          "role": "Visualizes employee journey and cohort trends in interactive dashboards",
-          "dataFlow": "Gold tables \u2192 DirectLake \u2192 Power BI career path visualizations"
+          "role": "Delivers real-time lifecycle dashboards without data duplication",
+          "dataFlow": "Gold lifecycle tables \u2192 DirectLake \u2192 Power BI lifecycle dashboards"
         },
         {
           "order": 7,
           "patternId": "metrics-scorecard",
-          "role": "Tracks key lifecycle metrics (time-to-productivity, promotion rate, retention rate)",
-          "dataFlow": "Lifecycle events \u2192 metric calculations \u2192 scorecard updates"
+          "role": "Tracks lifecycle KPIs (time-to-fill, onboarding completion, retention rates)",
+          "dataFlow": "Lifecycle metrics \u2192 Power BI scorecards \u2192 goal tracking \u2192 alerts"
         }
       ],
-      "architectureNarrative": "This blueprint creates a comprehensive employee lifecycle analytics system with full audit trail. Daily extractions use incremental watermarking to efficiently capture only changes from the HR system (new hires, promotions, transfers, separations). Slowly Changing Dimension Type 2 modeling captures every career event with effective dates, preserving complete history\u2014an employee's SCD table might show them as 'Junior Analyst' in Boston from 2020-2021, 'Senior Analyst' in Boston from 2021-2023, 'Manager' in New York from 2023-present. This historical data flows through the medallion architecture's Bronze layer where it's deduplicated, then the Silver layer where career progression is enriched with performance data and compensation history, and finally the Gold layer where it's structured for analytics. Data quality validation ensures date sequences are logical (e.g., no negative tenure, start dates before hire dates). A hub-spoke workspace structure organizes these analytics so that talent leaders, compensation teams, and succession planners can each build on shared, trusted Gold layer tables. Power BI dashboards visualize employee journeys including time-in-role, promotion velocity, and departmental migration patterns. Finally, a metrics scorecard continuously calculates lifecycle KPIs (time-to-full-productivity for new hires, average promotion cycle, voluntary vs. involuntary separation rates), enabling leaders to monitor workforce health.",
-      "requiredGovernance": [
-        "Audit trail preservation for separation events (legal hold periods)",
-        "Data retention policies aligned with employment law requirements",
-        "Access controls for sensitive lifecycle stages (medical leave, disciplinary action)",
-        "Validation of date fields against HR system source of truth",
-        "Regular reconciliation of headcount snapshots against official counts",
-        "Documentation of SCD effective date logic for reproducibility"
-      ],
-      "estimatedTimeline": "8-10 weeks for SCD modeling, incremental load setup, and validation",
+      "architectureNarrative": "This blueprint builds a comprehensive employee lifecycle data platform. Incremental loading captures changes from multiple HR systems as they happen. SCD Type 2 processing preserves the full history of every employee attribute \u2014 so you can always see what someone's role, manager, and compensation were at any point in time. The medallion architecture refines raw events into analytics-ready Gold tables. Data quality validation catches gaps in the lifecycle chain. Hub-spoke workspace design keeps domain data organized while enabling cross-domain analysis. DirectLake dashboards provide instant access to lifecycle views, and metrics scorecards track key lifecycle KPIs against organizational goals.",
+      "requiredGovernance": "Data classification and sensitivity labeling for all lifecycle stages, Retention policies aligned with employment law requirements per jurisdiction, Access controls differentiated by lifecycle stage (e.g., compensation vs. performance), Audit trail for all lifecycle data modifications, Regular reconciliation against source systems to ensure completeness",
       "stakeholders": [
-        "Chief HR Officer",
-        "Talent Director",
-        "HR Analytics Team",
-        "Succession Planning Lead",
-        "Legal & Compliance",
-        "Finance"
+        "CHRO",
+        "HR Operations",
+        "Talent Acquisition",
+        "Learning & Development",
+        "Compensation & Benefits",
+        "HRIS Team",
+        "HR Analytics"
       ],
-      "editable": true
-    },
-    {
-      "id": "executive-comp-isolation",
-      "name": "Executive Compensation Data with Maximum Security Isolation",
-      "category": "Compensation & Benefits",
-      "description": "Isolates executive compensation data (C-suite, board) with maximum security controls including encryption, network isolation, privileged access management, and comprehensive audit logging. Only pre-approved executives and compensation committee members access this data.",
-      "businessValue": "Protects highly sensitive executive data from unauthorized access, theft, or disclosure while enabling legitimate compensation governance and board oversight. Prevents insider trading through audit trails and demonstrates security controls to boards and regulators.",
-      "patternFlow": [
-        {
-          "order": 1,
-          "patternId": "encryption-at-rest-cmk",
-          "role": "Encrypts executive compensation data using customer-managed keys",
-          "dataFlow": "Executive salary/bonus data \u2192 CMK encryption \u2192 encrypted storage"
-        },
-        {
-          "order": 2,
-          "patternId": "network-isolation-private-links",
-          "role": "Routes executive compensation workspace through private network endpoints",
-          "dataFlow": "Authorized users \u2192 private network links \u2192 isolated workspace"
-        },
-        {
-          "order": 3,
-          "patternId": "row-level-security",
-          "role": "Restricts executive records to only approved compensation committee members",
-          "dataFlow": "Executive comp data \u2192 RLS filter \u2192 authorized users only"
-        },
-        {
-          "order": 4,
-          "patternId": "dynamic-data-masking",
-          "role": "Masks specific compensation elements (base, bonus, equity) based on role",
-          "dataFlow": "Full compensation records \u2192 masking rules \u2192 redacted view"
-        },
-        {
-          "order": 5,
-          "patternId": "privileged-access-management",
-          "role": "Requires just-in-time approval and audit for access to executive compensation",
-          "dataFlow": "Access request \u2192 approval workflow \u2192 time-limited access \u2192 audit log"
-        },
-        {
-          "order": 6,
-          "patternId": "audit-siem-integration",
-          "role": "Logs all executive compensation access and data changes with SIEM monitoring",
-          "dataFlow": "All actions on executive data \u2192 detailed audit logs \u2192 SIEM alerts"
-        },
-        {
-          "order": 7,
-          "patternId": "paginated-reports",
-          "role": "Generates formal executive compensation reports for board review",
-          "dataFlow": "Authorized access \u2192 report generation \u2192 signed PDFs to board"
-        }
-      ],
-      "architectureNarrative": "This blueprint implements maximum security isolation for executive compensation data, recognizing its strategic and sensitive nature. Executive compensation data is encrypted at rest using customer-managed keys (CMK) controlled by the organization's security team, not Microsoft. Network isolation routes access through private network endpoints (Azure Private Link), so authorized users connect through a private network backbone rather than the public internet, preventing packet sniffing or man-in-the-middle attacks. The semantic layer applies strict row-level security that ensures even Finance VP cannot see another executive's compensation. Dynamic masking layers on top, allowing some approved users to see aggregated benchmarks without seeing individual amounts. Privileged access management (PAM) wraps all of this in a just-in-time approval workflow\u2014a board member requesting executive compensation data must have that request approved by the board chair, and access is time-limited (e.g., 1 hour). Every action (access grant, data view, download) is logged with full audit detail (timestamp, user, IP, action) and streamed to the SIEM for monitoring and alerting on anomalous behavior (e.g., after-hours access). Finally, formal paginated reports are generated for board compensation committee review, with digital signatures and distribution tracking ensuring legal defensibility.",
-      "requiredGovernance": [
-        "CMK key rotation policies and segregation from standard keys",
-        "Documented executive compensation access approval process",
-        "Quarterly SIEM audit reviews for anomalous access patterns",
-        "Incident response plan for unauthorized executive data access",
-        "Board-level governance of executive compensation data policies",
-        "Compliance with SOX auditor requirements for executive data controls"
-      ],
-      "estimatedTimeline": "10-12 weeks for security infrastructure, PAM setup, and control validation",
-      "stakeholders": [
-        "Chief Security Officer",
-        "Chief HR Officer",
-        "Board Compensation Committee",
-        "General Counsel",
-        "IT Infrastructure",
-        "Internal Audit"
-      ],
+      "estimatedTimeline": "10-16 weeks depending on number of source systems and complexity of historical data migration",
       "editable": true
     },
     {
       "id": "gdpr-pipeda-compliance",
       "name": "Privacy Compliance & Data Subject Request Fulfillment",
       "category": "Compliance & Risk",
-      "description": "Implements full privacy compliance pipeline including data mapping, sensitivity labeling, DLP enforcement, and automated Data Subject Request (DSR) fulfillment. Ensures GDPR, PIPEDA, and other privacy regulations are met.",
-      "businessValue": "Reduces compliance risk and legal exposure from privacy violations. Enables rapid, accurate response to data subject requests, demonstrating regulatory compliance and building customer/employee trust in data handling practices.",
+      "description": "End-to-end privacy compliance framework covering data discovery, classification, retention management, and automated data subject request (DSR) fulfillment for GDPR, CCPA/CPRA, PIPEDA, and other privacy regulations. Provides complete visibility into where personal data resides and automates the response process for access, deletion, and portability requests.",
+      "businessValue": "Reduces DSR response time from weeks to hours, ensures consistent compliance across jurisdictions, and minimizes legal exposure from missed deadlines or incomplete fulfillment. Creates a defensible privacy posture with comprehensive audit trails.",
       "patternFlow": [
         {
           "order": 1,
           "patternId": "purview-data-map",
-          "role": "Catalogs all HR data sources and their lineage for privacy compliance",
-          "dataFlow": "HR systems \u2192 Purview scanning \u2192 data asset catalog with classifications"
+          "role": "Discovers and catalogs all personal data across the Fabric environment",
+          "dataFlow": "All data sources \u2192 automated scanning \u2192 data map with PII locations"
         },
         {
           "order": 2,
           "patternId": "sensitivity-labels",
-          "role": "Tags PII, health data, and other regulated information with privacy labels",
-          "dataFlow": "Catalog assets \u2192 sensitivity classification \u2192 labels applied"
+          "role": "Classifies discovered data by sensitivity level and applicable regulations",
+          "dataFlow": "Data map \u2192 auto-classification \u2192 sensitivity labels applied"
         },
         {
           "order": 3,
           "patternId": "dlp-policy-enforcement",
-          "role": "Blocks unauthorized export, copy, or sharing of privacy-labeled data",
-          "dataFlow": "Labeled data \u2192 DLP rules \u2192 prevent exfiltration"
+          "role": "Prevents unauthorized movement or sharing of classified personal data",
+          "dataFlow": "Labeled data \u2192 DLP policy evaluation \u2192 blocked/allowed actions"
         },
         {
           "order": 4,
           "patternId": "data-retention-lifecycle",
-          "role": "Automatically deletes data per privacy retention schedules after employee separation",
-          "dataFlow": "Retention dates per regulation \u2192 automated deletion schedule \u2192 purged records"
+          "role": "Automates retention and purge schedules based on regulatory requirements",
+          "dataFlow": "Classified data \u2192 retention rules \u2192 scheduled purge \u2192 deletion confirmation"
         },
         {
           "order": 5,
           "patternId": "dsr-fulfillment",
-          "role": "Orchestrates automated fulfillment of data subject access requests",
-          "dataFlow": "DSR request received \u2192 data query \u2192 subject data compiled \u2192 encrypted delivery"
+          "role": "Processes data subject requests (access, delete, portability) across all systems",
+          "dataFlow": "DSR intake \u2192 data discovery \u2192 fulfillment actions \u2192 response generation"
         },
         {
           "order": 6,
           "patternId": "audit-siem-integration",
-          "role": "Logs all privacy-related data access and deletion for compliance audits",
-          "dataFlow": "All privacy actions \u2192 audit logs \u2192 regulatory audit trail"
+          "role": "Creates tamper-proof audit trail of all privacy actions and decisions",
+          "dataFlow": "All privacy events \u2192 audit logs \u2192 SIEM \u2192 compliance dashboards"
         }
       ],
-      "architectureNarrative": "This blueprint implements a comprehensive privacy compliance system aligned with GDPR, PIPEDA, CCPA, and other global privacy regulations. Purview scans all HR data sources and builds a complete data asset catalog, identifying what employee data exists, where it's stored, and how it flows through the organization. Sensitivity labels are applied to all personal data (names, IDs, health information, biometrics), marking them as PII or regulated health data. DLP policies leverage these labels to prevent unauthorized exfiltration\u2014attempting to copy a table with PII-labeled columns triggers a policy block, and attempting to download or email sensitive data triggers alerts and blocks. Data retention lifecycle policies encode the legal retention requirements for different data types (e.g., payroll records retained 3 years, health records deleted upon separation after applicable hold periods), and automated deletion tasks purge data when retention periods expire. When a data subject (employee or applicant) submits a DSR request asking 'give me all my data,' the DSR fulfillment pattern orchestrates rapid compliance: it queries all systems in the catalog, compiles relevant employee records, creates a secure export, and delivers it to the requester via encrypted link within the required timeframe (typically 30 days). Comprehensive audit logging tracks all sensitive data access, modifications, and deletions, creating an audit trail that demonstrates compliance during regulatory inspections.",
-      "requiredGovernance": [
-        "Annual privacy impact assessment (DPIA) on HR data processing",
-        "Documented data retention schedules aligned with jurisdiction requirements",
-        "Privacy policy documentation specifying employee rights and procedures",
-        "DSR fulfillment SLA and escalation procedures",
-        "Regular DLP policy updates as privacy regulations evolve",
-        "Privacy training for all HR and IT staff handling employee data"
-      ],
-      "estimatedTimeline": "10-14 weeks including data mapping, DLP configuration, and DSR automation setup",
+      "architectureNarrative": "This blueprint implements a comprehensive privacy compliance framework. Purview Data Map provides continuous discovery of where personal data resides across the Fabric environment. Sensitivity labels automatically classify data based on content inspection and applicable regulations. DLP policies enforce handling rules that prevent unauthorized sharing. Automated retention management ensures data is purged according to regulatory schedules. When data subject requests arrive, the DSR fulfillment pipeline automatically locates all relevant data, executes the requested action (access, deletion, or portability), and generates the compliance response. Every action is logged to SIEM for a complete audit trail.",
+      "requiredGovernance": "Privacy impact assessments for new data processing activities, Regular data map refresh to catch new PII locations, DSR SLA monitoring (30 days GDPR, 45 days CCPA), Retention schedule review annually or when regulations change, Cross-border data transfer impact assessments, Privacy team training on system capabilities and limitations",
       "stakeholders": [
-        "Chief Privacy Officer",
-        "General Counsel",
-        "Chief HR Officer",
-        "Data Governance",
+        "Data Privacy Officer",
+        "Chief Compliance Officer",
+        "Legal Counsel",
+        "HR Operations",
         "IT Security",
-        "Compliance Officer"
+        "Employee Relations"
       ],
+      "estimatedTimeline": "8-12 weeks for core framework, plus 2-4 weeks per additional jurisdiction's specific requirements",
       "editable": true
     },
     {
       "id": "workforce-planning-ml",
       "name": "ML-Powered Workforce Planning & Headcount Forecasting",
       "category": "Workforce Planning",
-      "description": "Uses ML to forecast future headcount needs, attrition, and hiring by role and department. Captures historical patterns and business drivers to enable data-driven workforce planning with confidence intervals.",
-      "businessValue": "Improves strategic workforce planning accuracy and enables proactive hiring. Reduces over/under staffing costs and supports budget negotiations with data-driven headcount projections.",
+      "description": "Machine learning-driven workforce planning that forecasts headcount needs, identifies skill gaps, and models scenario-based workforce strategies. Uses historical workforce data, business growth projections, and external market signals to generate predictive forecasts with automated drift detection to ensure model accuracy over time.",
+      "businessValue": "Transforms workforce planning from reactive spreadsheet exercises into proactive, data-driven strategy. Enables HR and Finance to align on headcount investments 6-12 months ahead, reducing emergency hiring costs and improving talent pipeline readiness.",
       "patternFlow": [
         {
           "order": 1,
           "patternId": "medallion-architecture",
-          "role": "Structures historical HR and business data for ML training",
-          "dataFlow": "HR + business data \u2192 Bronze \u2192 enriched records \u2192 Silver \u2192 features \u2192 Gold"
+          "role": "Structures historical workforce and business data for ML consumption",
+          "dataFlow": "HRIS + Finance + market data \u2192 Bronze \u2192 Silver \u2192 Gold ML-ready tables"
         },
         {
           "order": 2,
           "patternId": "feature-store-delta",
-          "role": "Engineers and versions time-series features (headcount, attrition, hiring rates, business drivers)",
-          "dataFlow": "Silver records \u2192 feature engineering \u2192 feature store with Delta versioning"
+          "role": "Engineers and versions features like growth rates, attrition trends, skill distributions",
+          "dataFlow": "Gold tables \u2192 feature engineering \u2192 versioned feature store"
         },
         {
           "order": 3,
           "patternId": "mlflow-model-registry",
-          "role": "Manages model versions, tracks experiments, and promotes best-performing forecast model",
-          "dataFlow": "Trained models \u2192 MLflow registry \u2192 versioned, promoted models"
+          "role": "Tracks, versions, and manages all forecasting models in a central registry",
+          "dataFlow": "Trained models \u2192 MLflow registry \u2192 model versioning \u2192 deployment"
         },
         {
           "order": 4,
           "patternId": "batch-inference-pipeline",
-          "role": "Runs monthly forecast inference to predict headcount 12 months forward",
-          "dataFlow": "Latest features \u2192 forecast model \u2192 12-month predictions per role"
+          "role": "Runs periodic forecasting inference across all business units",
+          "dataFlow": "Feature store + registered model \u2192 batch predictions \u2192 forecast outputs"
         },
         {
           "order": 5,
           "patternId": "model-drift-detection",
-          "role": "Monitors forecast accuracy and alerts when model performance degrades",
-          "dataFlow": "Monthly actuals vs. forecasts \u2192 drift detection \u2192 retraining triggers"
+          "role": "Monitors forecast accuracy and triggers retraining when predictions degrade",
+          "dataFlow": "Predictions vs actuals \u2192 drift metrics \u2192 alerts \u2192 retraining triggers"
         },
         {
           "order": 6,
           "patternId": "directlake-power-bi",
-          "role": "Visualizes headcount forecasts with confidence intervals and scenario analysis",
-          "dataFlow": "Forecast results \u2192 DirectLake \u2192 Power BI planning dashboards"
+          "role": "Visualizes forecasts, scenarios, and variance analysis in interactive dashboards",
+          "dataFlow": "Forecast outputs \u2192 DirectLake \u2192 Power BI planning dashboards"
         },
         {
           "order": 7,
           "patternId": "data-activator-reflex",
-          "role": "Alerts when forecasts differ significantly from plans",
-          "dataFlow": "Forecast vs. budget \u2192 Reflex alerts \u2192 planning team notification"
+          "role": "Alerts leadership when forecasts indicate critical staffing gaps or surpluses",
+          "dataFlow": "Forecast thresholds \u2192 Reflex rules \u2192 alerts to HR and Finance leaders"
         }
       ],
-      "architectureNarrative": "This blueprint implements end-to-end ML-powered workforce planning. Historical HR data (headcount by role/level/department, attrition rates, hiring rates) flows through the medallion architecture to create a clean, enriched Silver layer. The feature store engineers time-series features capturing headcount trends, attrition seasonality, and business driver relationships (e.g., revenue growth correlation with hiring). MLflow manages multiple forecast model experiments (regression, time-series, ensemble), tracking hyperparameters, performance metrics, and artifacts. The best-performing model is promoted to production in the MLflow registry. A monthly batch inference pipeline applies this model to the latest feature set, generating 12-month headcount forecasts at the role/department level, including confidence intervals (e.g., 'we forecast 45 Software Engineers in 2027 Q2, 95% confidence interval 40-50'). Model drift detection continuously compares actual hiring and attrition against prior forecasts, alerting data scientists when forecast accuracy drops below acceptable thresholds, triggering retraining. Power BI dashboards layer forecasts over actual headcount, showing how well recent predictions performed and enabling scenario analysis (e.g., 'if attrition increases to 15%, what headcount impact?'). Data Activator rules alert the workforce planning team when actual headcount diverges meaningfully from forecasts, enabling them to adjust hiring plans or investigate root causes of variance.",
-      "requiredGovernance": [
-        "Quarterly model performance review and validation against actuals",
-        "Documentation of forecast methodology for HR leadership and budget teams",
-        "Confidence interval guidance to prevent over-interpretation of point forecasts",
-        "Scenario planning governance and approval of 'what-if' analyses",
-        "Regular retraining schedule (monthly or quarterly based on drift)",
-        "Stakeholder alignment on forecast use in budget planning vs. commitments"
-      ],
-      "estimatedTimeline": "10-14 weeks including feature engineering, model experimentation, and validation",
+      "architectureNarrative": "This blueprint builds an intelligent workforce planning engine. Historical workforce data, financial projections, and market signals flow through the medallion architecture into ML-ready Gold tables. The feature store engineers predictive features \u2014 growth rates, attrition velocity, skill distribution shifts \u2014 that feed into forecasting models managed through MLflow. Batch inference runs periodic predictions across all business units and roles. Model drift detection continuously monitors forecast accuracy against actual outcomes, triggering retraining when performance degrades. Interactive Power BI dashboards let planners explore forecasts and run what-if scenarios, while Data Activator pushes alerts when critical staffing thresholds are approaching.",
+      "requiredGovernance": "Model validation before production deployment with documented accuracy metrics, Quarterly forecast-vs-actual reconciliation reviews, Feature store access controls to prevent unauthorized feature modification, Model drift thresholds documented and reviewed semi-annually, Scenario modeling assumptions documented for audit trail, Finance-HR alignment meetings to validate forecast inputs",
       "stakeholders": [
-        "Chief HR Officer",
-        "Workforce Planning Lead",
+        "CHRO",
+        "CFO",
+        "Head of Workforce Planning",
+        "HR Analytics Team",
         "Data Science Team",
-        "Finance/Budget Planning",
-        "Department Leaders"
+        "Finance Planning & Analysis",
+        "Business Unit Leaders"
       ],
-      "editable": true
-    },
-    {
-      "id": "cross-border-hr-analytics",
-      "name": "Multi-Country HR Analytics with Data Residency Compliance",
-      "category": "Compliance & Risk",
-      "description": "Enables HR analytics across multiple countries while respecting data residency regulations. Routes employee data to country-specific storage regions, applies anonymization for cross-border aggregation, and maintains localized reporting.",
-      "businessValue": "Supports global HR strategy while maintaining regulatory compliance in each jurisdiction. Enables scale without violating data localization laws, reducing risk of fines and operational restrictions.",
-      "patternFlow": [
-        {
-          "order": 1,
-          "patternId": "cross-border-data-residency",
-          "role": "Routes employee data to country-specific Azure regions per regulation",
-          "dataFlow": "France employee data \u2192 France region; Germany \u2192 Germany region; US \u2192 US region"
-        },
-        {
-          "order": 2,
-          "patternId": "medallion-architecture",
-          "role": "Layers HR data independently in each country-specific workspace",
-          "dataFlow": "Local HR systems \u2192 country workspace Bronze \u2192 Silver \u2192 Gold"
-        },
-        {
-          "order": 3,
-          "patternId": "anonymization-k-anonymity",
-          "role": "Anonymizes data for safe cross-border aggregation to global headquarters",
-          "dataFlow": "Country-level detailed data \u2192 anonymization \u2192 safe for aggregation"
-        },
-        {
-          "order": 4,
-          "patternId": "onelake-shortcuts",
-          "role": "Creates virtual links to country-specific medallion tables without copying data",
-          "dataFlow": "Local storage \u2192 OneLake shortcuts \u2192 global aggregation without duplication"
-        },
-        {
-          "order": 5,
-          "patternId": "certified-semantic-model",
-          "role": "Defines consistent global HR metrics while respecting country models",
-          "dataFlow": "Country semantic models \u2192 global model \u2192 consistent metrics"
-        },
-        {
-          "order": 6,
-          "patternId": "row-level-security",
-          "role": "Ensures users see only data from their country or anonymized global summaries",
-          "dataFlow": "User country context \u2192 RLS filter \u2192 country-scoped or anonymized data"
-        },
-        {
-          "order": 7,
-          "patternId": "directlake-power-bi",
-          "role": "Delivers localized dashboards per country and global rollup dashboards",
-          "dataFlow": "Country + global semantic models \u2192 DirectLake \u2192 localized Power BI"
-        }
-      ],
-      "architectureNarrative": "This blueprint enables global HR analytics while respecting data residency regulations that require employee data to stay within specific countries (GDPR in EU, data localization in China, etc.). Each country maintains its own Azure workspace in a region that meets legal requirements\u2014France employee data stays in the France region, Germany employee data in the Germany region, etc. Within each country workspace, the medallion architecture (Bronze-Silver-Gold) independently layers HR data. For cross-border aggregation to global headquarters, the anonymization pattern generalizes employee records so that no individual is identifiable, enabling safe sharing of aggregate diversity metrics, compensation benchmarks, and organizational structures across borders. OneLake shortcuts create virtual links to country-specific Gold layer tables without physically moving data, allowing global dashboards to aggregate anonymized insights. The certified semantic model defines consistent global HR metrics (e.g., total headcount, attrition rate, average tenure) while each country maintains local model variations reflecting local employment law requirements. Row-level security ensures a France-based user sees detailed France data plus anonymized global rollups, while HQ sees only anonymized country-level summaries. Power BI dashboards are delivered in multiple flavors: country leaders use localized dashboards with detailed data; global HR leadership uses dashboards with anonymized country rollups and global trends.",
-      "requiredGovernance": [
-        "Legal review of data residency requirements per jurisdiction",
-        "Documentation of data flow and storage locations for compliance audits",
-        "Validation that cross-border anonymization meets local privacy standards",
-        "Regular review of country-specific employment law changes",
-        "Data transfer agreements (SCCs) for any cross-border metadata",
-        "Incident response procedures for data residency violations"
-      ],
-      "estimatedTimeline": "12-16 weeks including workspace setup, region configuration, and compliance validation",
-      "stakeholders": [
-        "Chief HR Officer",
-        "Chief Privacy Officer",
-        "General Counsel",
-        "Global HR Leaders",
-        "IT Infrastructure",
-        "Compliance Officer"
-      ],
+      "estimatedTimeline": "12-16 weeks including historical data preparation, model development, and stakeholder calibration",
       "editable": true
     },
     {
       "id": "real-time-org-health",
       "name": "Real-Time Organizational Health Monitoring & Automated Escalation",
       "category": "Executive Analytics",
-      "description": "Monitors organizational health metrics in real-time (headcount, engagement, turnover) with automated alerts and escalation routing. Executives see live dashboards with automatic notification of critical changes.",
-      "businessValue": "Enables rapid response to organizational health crises (sudden attrition spike, engagement drop) before they become serious. Reduces time spent in status meetings by automating metric delivery and flagging critical issues.",
+      "description": "Continuous monitoring of organizational health indicators \u2014 engagement scores, attrition spikes, absence patterns, overtime trends, and survey sentiment \u2014 with automated escalation when metrics breach defined thresholds. Provides executives with a real-time pulse on workforce health across all business units.",
+      "businessValue": "Shifts organizational health monitoring from lagging quarterly reviews to real-time awareness. Automated escalation ensures critical workforce issues (sudden attrition spikes, engagement drops, compliance risks) reach the right leaders within hours rather than weeks, enabling rapid intervention.",
       "patternFlow": [
         {
           "order": 1,
           "patternId": "cdc-change-capture",
-          "role": "Captures real-time employee data changes (terminations, promotions, absences) from HR system",
-          "dataFlow": "HR system changes \u2192 CDC \u2192 streaming events"
+          "role": "Captures workforce changes in near-real-time as they happen in source systems",
+          "dataFlow": "HRIS/survey/time systems \u2192 CDC streams \u2192 real-time event capture"
         },
         {
           "order": 2,
           "patternId": "medallion-architecture",
-          "role": "Ingests real-time changes into medallion architecture for aggregation",
-          "dataFlow": "CDC events \u2192 Bronze real-time layer \u2192 Silver aggregated metrics \u2192 Gold health scorecards"
+          "role": "Processes and refines streaming events into analytics-ready health metrics",
+          "dataFlow": "CDC events \u2192 Bronze \u2192 Silver \u2192 Gold health metric tables"
         },
         {
           "order": 3,
           "patternId": "data-quality-validation",
-          "role": "Validates real-time data quality and flags anomalies",
-          "dataFlow": "Real-time metrics \u2192 quality checks \u2192 flagged inconsistencies"
+          "role": "Validates health metrics for accuracy before they drive alerts",
+          "dataFlow": "Gold metrics \u2192 validation rules \u2192 quality-assured metrics"
         },
         {
           "order": 4,
           "patternId": "metrics-scorecard",
-          "role": "Calculates org health KPIs (headcount, attrition rate, engagement score) in real-time",
-          "dataFlow": "Real-time employee events \u2192 metric aggregation \u2192 live scorecard"
+          "role": "Displays organizational health KPIs with goal tracking and trend analysis",
+          "dataFlow": "Validated metrics \u2192 Power BI scorecards \u2192 executive health dashboard"
         },
         {
           "order": 5,
           "patternId": "data-activator-reflex",
-          "role": "Evaluates health metrics against thresholds and triggers alerts",
-          "dataFlow": "Real-time metrics \u2192 threshold evaluation \u2192 alert triggers"
+          "role": "Monitors metrics continuously and triggers alerts when thresholds are breached",
+          "dataFlow": "Health metrics \u2192 threshold rules \u2192 triggered alerts"
         },
         {
           "order": 6,
           "patternId": "power-automate-triggers",
-          "role": "Initiates notification and escalation workflows based on alert severity",
-          "dataFlow": "Alert \u2192 severity assessment \u2192 notification workflow"
+          "role": "Orchestrates escalation workflows including notifications and task creation",
+          "dataFlow": "Triggered alerts \u2192 Power Automate \u2192 emails, Teams messages, tasks"
         },
         {
           "order": 7,
           "patternId": "escalation-routing",
-          "role": "Routes critical alerts to appropriate leaders based on escalation rules",
-          "dataFlow": "Alert + severity + scope \u2192 routing rules \u2192 CHRO, CFO, COO notification"
+          "role": "Routes escalations to the correct leadership level based on severity and scope",
+          "dataFlow": "Alert severity + org scope \u2192 routing rules \u2192 appropriate leader notification"
         }
       ],
-      "architectureNarrative": "This blueprint creates a real-time organizational health monitoring system that keeps executives informed of critical workforce changes. Change Data Capture (CDC) from the HR system streams real-time events\u2014employee terminations, promotions, unplanned absences, new hires\u2014creating a real-time feed of workforce changes. These events feed into the medallion architecture's Bronze layer in real-time, where they're deduplicated and enriched. The Silver layer continuously aggregates these events to maintain real-time metrics: current headcount by department, rolling 30-day attrition count, unplanned absence rate. The Gold layer calculates high-level org health scorecards combining multiple metrics into composite health signals (e.g., org health score from 0-100 factoring headcount stability, attrition trends, and engagement indicators). A metrics scorecard layer exposes key metrics (total headcount, monthly attrition count, engagement index) for real-time consumption. Data Activator continuously evaluates these metrics against business thresholds (e.g., 'alert if daily attrition count > 5', 'alert if any department headcount drops >10%'), and when thresholds are breached, fires alerts. Power Automate workflows respond to alerts, routing escalations based on severity and scope: a critical alert (e.g., VP-level termination) routes immediately to the CHRO and CEO; a moderate alert (e.g., headcount drop in a department) routes to the department head and HR business partner. Escalation routing ensures time-sensitive alerts reach the right people within minutes, enabling rapid response.",
-      "requiredGovernance": [
-        "Threshold definition and approval by HR leadership for all alerts",
-        "Escalation routing governance and approval by executive team",
-        "Data quality validation rules for real-time metrics before alerting",
-        "Alert fatigue monitoring\u2014regular review of false positive rates",
-        "Privacy controls for real-time termination alerts",
-        "On-call rotation and response SLA for critical org health alerts"
+      "architectureNarrative": "This blueprint creates a real-time organizational health nervous system. Change data capture streams workforce events as they happen \u2014 terminations, survey submissions, absence records, overtime entries. These flow through the medallion architecture for rapid processing into health metrics. Data quality validation prevents false alarms from bad data. Power BI scorecards give executives an always-current view of organizational health. Data Activator continuously monitors metrics against defined thresholds. When breaches occur, Power Automate orchestrates the escalation workflow \u2014 sending the right notification to the right person at the right level of leadership based on the severity and organizational scope of the issue.",
+      "requiredGovernance": "Threshold definitions reviewed quarterly with executive stakeholders, Escalation routing rules updated when organizational structure changes, False positive monitoring to prevent alert fatigue, Data quality SLAs for real-time source systems, Privacy review of health metrics to ensure no individual identification in executive views, Escalation response SLAs tracked and reported",
+      "stakeholders": [
+        "CEO",
+        "CHRO",
+        "Chief Operating Officer",
+        "VP of People Operations",
+        "HR Business Partners",
+        "Business Unit Leaders",
+        "HR Analytics Team"
       ],
-      "estimatedTimeline": "8-10 weeks including CDC setup, threshold definition, and escalation automation",
+      "estimatedTimeline": "8-12 weeks including threshold calibration, escalation workflow design, and executive dashboard development",
+      "editable": true
+    },
+    {
+      "id": "compensation-benchmarking",
+      "name": "Secure Compensation Analytics & Market Benchmarking",
+      "category": "Compensation & Benefits",
+      "description": "Enables compensation analysis and market benchmarking while protecting individual salary details through k-anonymity and dynamic data masking. Allows cross-department sharing of anonymized salary insights for equitable pay decisions without exposing sensitive individual compensation data.",
+      "businessValue": "Provides data-driven compensation decisions while maintaining strict privacy. Enables pay equity analysis, market competitiveness benchmarking, and budget modeling without exposing individual salaries. Reduces pay equity litigation risk through documented, data-driven processes.",
+      "patternFlow": [
+        {
+          "order": 1,
+          "patternId": "medallion-architecture",
+          "role": "Structures compensation data from HRIS and survey sources into analysis-ready layers",
+          "dataFlow": "HRIS/payroll/survey data \u2192 Bronze \u2192 Silver \u2192 Gold comp tables"
+        },
+        {
+          "order": 2,
+          "patternId": "scd-type-2",
+          "role": "Preserves full compensation history for trend analysis and equity audits",
+          "dataFlow": "Compensation changes \u2192 SCD Type 2 \u2192 historical salary dimension"
+        },
+        {
+          "order": 3,
+          "patternId": "anonymization-k-anonymity",
+          "role": "Anonymizes compensation data for cross-department sharing and benchmarking",
+          "dataFlow": "Individual comp data \u2192 k-anonymity grouping \u2192 anonymized aggregates"
+        },
+        {
+          "order": 4,
+          "patternId": "dynamic-data-masking",
+          "role": "Masks individual salaries in real-time based on viewer authorization level",
+          "dataFlow": "Comp queries \u2192 dynamic masking rules \u2192 masked/unmasked results"
+        },
+        {
+          "order": 5,
+          "patternId": "row-level-security",
+          "role": "Restricts compensation visibility to authorized scope (own team, own department)",
+          "dataFlow": "User identity \u2192 RLS rules \u2192 scoped compensation data"
+        },
+        {
+          "order": 6,
+          "patternId": "certified-semantic-model",
+          "role": "Provides a single governed source for all compensation metrics and definitions",
+          "dataFlow": "Gold comp tables \u2192 certified semantic model \u2192 consistent metrics"
+        },
+        {
+          "order": 7,
+          "patternId": "directlake-power-bi",
+          "role": "Delivers interactive compensation dashboards with embedded security controls",
+          "dataFlow": "Semantic model \u2192 DirectLake \u2192 Power BI comp dashboards"
+        }
+      ],
+      "architectureNarrative": "This blueprint secures the full compensation analytics lifecycle. Raw compensation data from HRIS and payroll systems flows through the medallion architecture with SCD Type 2 processing to preserve complete salary history. K-anonymity ensures that any shared compensation data cannot be traced to individuals. Dynamic data masking provides real-time protection \u2014 analysts see masked values while authorized comp team members see actuals. Row-level security scopes visibility to each user's authorized population. A certified semantic model ensures everyone uses the same metric definitions, and DirectLake dashboards deliver interactive analytics with all security controls enforced in real-time.",
+      "requiredGovernance": "Minimum group sizes for anonymized reporting (typically 5-10 employees), Dynamic masking rules reviewed when roles or access policies change, Pay equity analysis methodology documented for legal defensibility, Compensation data access logged and reviewed quarterly, Market benchmarking data sourcing and refresh cadence documented, Audit trail for all compensation decision support queries",
       "stakeholders": [
         "Chief HR Officer",
-        "Chief Financial Officer",
-        "Chief Operations Officer",
-        "IT Infrastructure",
-        "HR Analytics Team",
-        "Business Continuity"
+        "VP of Total Rewards",
+        "Compensation Analysts",
+        "HR Business Partners",
+        "Finance",
+        "Legal Counsel"
       ],
+      "estimatedTimeline": "8-10 weeks including anonymization parameter tuning and security configuration",
+      "editable": true
+    },
+    {
+      "id": "analytic-sandbox",
+      "name": "Analytic Sandbox",
+      "category": "Self-Service Analytics",
+      "description": "A governed self-service environment where HR analysts and data scientists can upload ad-hoc datasets, combine them with trusted enterprise data, and perform statistical analysis, machine learning, and generative AI exploration. Provides Spark notebooks, Python/R environments, and LLM-powered analytical tools within a secure, isolated workspace that prevents data leakage while enabling creative exploration.",
+      "businessValue": "Empowers HR analytics teams to rapidly test hypotheses and explore data without waiting for IT pipeline development. Reduces ad-hoc analysis turnaround from weeks to hours. Provides a governed alternative to shadow analytics (unauthorized spreadsheets and personal tools) while maintaining data security standards.",
+      "patternFlow": [
+        {
+          "order": 1,
+          "patternId": "sandbox-upload-workspace",
+          "role": "Provides a governed workspace for analysts to upload and manage ad-hoc datasets",
+          "dataFlow": "CSV/Excel/JSON uploads \u2192 validated staging area \u2192 sandbox Lakehouse"
+        },
+        {
+          "order": 2,
+          "patternId": "medallion-architecture",
+          "role": "Provides trusted enterprise data that analysts can join with their uploaded data",
+          "dataFlow": "Enterprise Gold tables available as read-only references in sandbox"
+        },
+        {
+          "order": 3,
+          "patternId": "spark-notebook-etl",
+          "role": "Gives analysts Spark notebooks for statistical analysis and data transformation",
+          "dataFlow": "Sandbox + enterprise data \u2192 Spark notebooks \u2192 analysis outputs"
+        },
+        {
+          "order": 4,
+          "patternId": "adhoc-insight-engine",
+          "role": "Enables point-and-click insight generation for non-technical users",
+          "dataFlow": "Selected data \u2192 automated analysis \u2192 insight summaries and visualizations"
+        },
+        {
+          "order": 5,
+          "patternId": "llm-powered-analysis",
+          "role": "Provides generative AI tools for natural language querying and narrative generation",
+          "dataFlow": "Analyst questions \u2192 LLM analysis \u2192 narrative insights and recommendations"
+        },
+        {
+          "order": 6,
+          "patternId": "row-level-security",
+          "role": "Ensures analysts can only access enterprise data within their authorization scope",
+          "dataFlow": "Analyst identity \u2192 RLS rules \u2192 scoped enterprise data access"
+        },
+        {
+          "order": 7,
+          "patternId": "sensitivity-labels",
+          "role": "Auto-classifies uploaded data and prevents sensitive data from leaving the sandbox",
+          "dataFlow": "Uploaded data \u2192 content inspection \u2192 sensitivity labels \u2192 handling rules"
+        }
+      ],
+      "architectureNarrative": "This blueprint creates a secure analytical playground. The sandbox workspace provides a governed upload area where analysts can bring in ad-hoc datasets \u2014 survey exports, external benchmarks, project data \u2014 and combine them with trusted enterprise Gold layer data. Spark notebooks offer full Python/R/SQL capabilities for statistical modeling and data science. The ad-hoc insight engine provides a lower-code option for quick exploration. LLM-powered analysis tools allow natural language querying and automated narrative generation. Security is maintained through row-level security on enterprise data and sensitivity labels that auto-classify uploaded content and enforce handling rules, preventing accidental data leakage from the sandbox.",
+      "requiredGovernance": "Sandbox data retention policies (auto-purge after 90 days unless promoted), Upload size limits and prohibited file type enforcement, Enterprise data access scoped by analyst role and department, Sensitivity label policies for uploaded data auto-classification, Output review process before sandbox insights are shared externally, Resource quotas to prevent Spark cluster abuse",
+      "stakeholders": [
+        "HR Analytics Team",
+        "Data Scientists",
+        "HR Business Partners",
+        "HRIS Team",
+        "IT Security",
+        "Data Governance"
+      ],
+      "estimatedTimeline": "6-8 weeks for sandbox infrastructure, security configuration, and tool provisioning",
+      "editable": true
+    },
+    {
+      "id": "document-presentation-creation",
+      "name": "Document & Presentation Creation",
+      "category": "Productivity & Automation",
+      "description": "Leverages Fabric's data, AI, and automation capabilities to generate high-quality, template-following HR documents and presentations. Combines certified data from semantic models with LLM-generated narratives and Power BI visuals to auto-produce board decks, talent reviews, compensation summaries, workforce planning presentations, and compliance reports that adhere to organizational templates and branding standards.",
+      "businessValue": "Eliminates hours of manual copy-paste-format work for recurring HR deliverables. Ensures documents always use current, certified data and consistent formatting. Enables HR teams to produce executive-quality materials in minutes rather than days, with full data lineage and accuracy.",
+      "patternFlow": [
+        {
+          "order": 1,
+          "patternId": "certified-semantic-model",
+          "role": "Provides the single source of truth for all metrics included in documents",
+          "dataFlow": "Gold layer \u2192 certified semantic model \u2192 trusted metrics and KPIs"
+        },
+        {
+          "order": 2,
+          "patternId": "directlake-power-bi",
+          "role": "Generates charts and visualizations that are embedded in documents and slides",
+          "dataFlow": "Semantic model \u2192 Power BI visuals \u2192 exportable charts and tables"
+        },
+        {
+          "order": 3,
+          "patternId": "llm-auto-narrative",
+          "role": "Generates written narratives, executive summaries, and commentary from data",
+          "dataFlow": "Metrics + context \u2192 LLM prompt \u2192 narrative text sections"
+        },
+        {
+          "order": 4,
+          "patternId": "paginated-reports",
+          "role": "Produces formatted, print-ready documents following organizational templates",
+          "dataFlow": "Data + narratives + visuals \u2192 paginated report templates \u2192 formatted documents"
+        },
+        {
+          "order": 5,
+          "patternId": "power-automate-triggers",
+          "role": "Orchestrates the document assembly workflow and distribution",
+          "dataFlow": "Schedule/trigger \u2192 assemble components \u2192 generate document \u2192 distribute"
+        },
+        {
+          "order": 6,
+          "patternId": "sensitivity-labels",
+          "role": "Auto-classifies generated documents based on content sensitivity",
+          "dataFlow": "Generated document \u2192 content inspection \u2192 sensitivity label \u2192 handling rules"
+        },
+        {
+          "order": 7,
+          "patternId": "deployment-pipelines",
+          "role": "Manages template versioning and promotes approved templates across environments",
+          "dataFlow": "Template changes \u2192 dev \u2192 test \u2192 production pipeline"
+        }
+      ],
+      "architectureNarrative": "This blueprint automates HR document and presentation production. Certified semantic models ensure every document starts from trusted, governed data. Power BI generates the charts and visualizations. LLM-powered narrative generation produces executive summaries, commentary, and analysis text that contextualize the data. Paginated Reports assembles everything into template-following documents \u2014 whether that's a board deck, talent review packet, or compensation summary. Power Automate orchestrates the workflow: triggering assembly on schedule, combining components, and distributing the finished product. Sensitivity labels protect generated documents, and deployment pipelines manage template versioning so updates are tested before reaching production.",
+      "requiredGovernance": "Template approval workflow before production deployment, LLM output review process for generated narratives (human-in-the-loop), Certified data source validation \u2014 documents must only use certified semantic models, Branding and formatting standards enforced through locked template sections, Distribution lists reviewed quarterly, Version control for all document templates with change log",
+      "stakeholders": [
+        "CHRO",
+        "Chief of Staff",
+        "HR Business Partners",
+        "Executive Communications",
+        "HR Analytics Team",
+        "IT/Fabric Platform Team"
+      ],
+      "estimatedTimeline": "6-10 weeks including template design, LLM prompt engineering, and workflow automation setup",
+      "editable": true
+    },
+    {
+      "id": "real-estate-transaction-workflow",
+      "name": "Real Estate Transaction Workflow Automation",
+      "category": "Facilities & Operations",
+      "description": "Automates the real estate transaction lifecycle by extracting key information from lease agreements and checklist data, auto-populating required Excel forms (rent rolls, lease abstracts, approval matrices), orchestrating digital signature collection, and managing document archiving. Reduces manual data entry, accelerates transaction processing, and ensures compliance with real estate approval workflows.",
+      "businessValue": "Reduces lease processing time by 60-80% through automated data extraction and form population. Eliminates transcription errors in financial documents. Creates a complete digital audit trail for every transaction from lease review through execution and archiving. Enables portfolio-wide visibility into lease obligations and upcoming milestones.",
+      "patternFlow": [
+        {
+          "order": 1,
+          "patternId": "medallion-architecture",
+          "role": "Structures lease and property data into progressive refinement layers",
+          "dataFlow": "Lease PDFs + checklist data \u2192 Bronze (raw) \u2192 Silver (extracted) \u2192 Gold (structured)"
+        },
+        {
+          "order": 2,
+          "patternId": "azure-ai-foundry-integration",
+          "role": "Extracts key terms, dates, amounts, and clauses from lease agreement PDFs",
+          "dataFlow": "Lease PDFs \u2192 Azure AI Document Intelligence \u2192 extracted lease fields"
+        },
+        {
+          "order": 3,
+          "patternId": "data-quality-validation",
+          "role": "Validates extracted lease data against checklists and business rules",
+          "dataFlow": "Extracted fields + checklist data \u2192 validation rules \u2192 confirmed/flagged items"
+        },
+        {
+          "order": 4,
+          "patternId": "power-automate-triggers",
+          "role": "Orchestrates the full transaction workflow: form population, routing, signatures, archiving",
+          "dataFlow": "Validated data \u2192 form templates \u2192 populated forms \u2192 approval routing \u2192 signatures \u2192 archive"
+        },
+        {
+          "order": 5,
+          "patternId": "audit-siem-integration",
+          "role": "Logs every step of the transaction for compliance and audit trail",
+          "dataFlow": "All workflow events \u2192 audit log \u2192 transaction history \u2192 compliance reporting"
+        },
+        {
+          "order": 6,
+          "patternId": "directlake-power-bi",
+          "role": "Provides portfolio dashboards showing lease status, upcoming expirations, and financial exposure",
+          "dataFlow": "Gold lease data \u2192 DirectLake \u2192 real estate portfolio dashboards"
+        }
+      ],
+      "architectureNarrative": "This blueprint automates real estate transaction processing end-to-end. Lease agreements (PDFs) and checklist data are ingested into the Bronze layer. Azure AI Foundry's document intelligence capabilities extract key lease terms \u2014 dates, amounts, parties, clauses \u2014 into structured data in the Silver layer. Data quality validation cross-references extracted data against checklists and business rules, flagging discrepancies for human review. Once validated, Power Automate orchestrates the downstream workflow: populating required Excel forms (rent rolls, lease abstracts, approval matrices), routing for digital signatures, sending notifications at each approval stage, and archiving executed documents. Every transaction step is logged for audit compliance. DirectLake dashboards give real estate teams portfolio-wide visibility into lease obligations, upcoming expirations, and financial exposure.",
+      "requiredGovernance": "Document extraction accuracy thresholds with human review for low-confidence extractions, Digital signature authority matrix aligned with corporate approval policies, Archiving retention policies per jurisdiction and lease type, Financial data validation against accounting system reconciliation, Access controls restricting lease financial details to authorized personnel, Audit log retention matching legal hold and regulatory requirements",
+      "stakeholders": [
+        "VP of Real Estate",
+        "Facilities Management",
+        "Legal Counsel",
+        "Finance/Accounting",
+        "Procurement",
+        "IT/Fabric Platform Team"
+      ],
+      "estimatedTimeline": "10-14 weeks including document intelligence model training, form template development, and signature workflow configuration",
+      "editable": true
+    },
+    {
+      "id": "automated-learning-schedule",
+      "name": "Automated Schedule of Learning Sessions",
+      "category": "Learning & Development",
+      "description": "Automates the end-to-end scheduling of learning sessions including instructor-led classes, virtual training, and workshops. Manages room bookings, Teams meeting link generation, facilitator notifications, participant enrollment, and calendar updates through Outlook integration. Provides a unified dashboard of all scheduled sessions with automated reminders and post-session feedback collection.",
+      "businessValue": "Eliminates the manual coordination overhead of scheduling learning sessions \u2014 room conflicts, missing Teams links, forgotten facilitator notifications. Ensures 100% of sessions have proper resources (rooms, links, materials) booked before participants are notified. Reduces L&D administrative burden by 50-70%, letting the team focus on content quality rather than logistics.",
+      "patternFlow": [
+        {
+          "order": 1,
+          "patternId": "medallion-architecture",
+          "role": "Structures learning catalog, session, and enrollment data into managed layers",
+          "dataFlow": "LMS/course catalog/enrollment data \u2192 Bronze \u2192 Silver \u2192 Gold learning tables"
+        },
+        {
+          "order": 2,
+          "patternId": "data-quality-validation",
+          "role": "Validates session details: facilitator availability, room capacity, time conflicts",
+          "dataFlow": "Proposed sessions \u2192 conflict checks \u2192 validation results \u2192 cleared/flagged sessions"
+        },
+        {
+          "order": 3,
+          "patternId": "power-automate-triggers",
+          "role": "Orchestrates the full scheduling workflow: room booking, Teams link, calendar invites, reminders",
+          "dataFlow": "Cleared session \u2192 book room (Outlook) \u2192 create Teams link \u2192 send invites \u2192 schedule reminders"
+        },
+        {
+          "order": 4,
+          "patternId": "data-activator-reflex",
+          "role": "Monitors for schedule changes and triggers update notifications automatically",
+          "dataFlow": "Session changes \u2192 Reflex detection \u2192 update notifications to facilitators and participants"
+        },
+        {
+          "order": 5,
+          "patternId": "directlake-power-bi",
+          "role": "Provides a unified dashboard of all scheduled sessions, utilization, and attendance",
+          "dataFlow": "Gold learning data \u2192 DirectLake \u2192 learning schedule dashboards"
+        },
+        {
+          "order": 6,
+          "patternId": "metrics-scorecard",
+          "role": "Tracks L&D KPIs: session utilization, attendance rates, facilitator hours, room usage",
+          "dataFlow": "Session metrics \u2192 Power BI scorecards \u2192 goal tracking \u2192 trend analysis"
+        }
+      ],
+      "architectureNarrative": "This blueprint automates learning session logistics end-to-end. The learning catalog, facilitator profiles, room inventory, and enrollment data are structured through the medallion architecture into a unified Gold layer. When new sessions are proposed, data quality validation checks for conflicts \u2014 facilitator double-bookings, room capacity mismatches, time overlaps with existing sessions. Cleared sessions trigger a Power Automate workflow that books the meeting room through Outlook, generates a Teams meeting link, sends calendar invites to facilitators and enrolled participants, and schedules automated reminders (e.g., 1 week, 1 day, 1 hour before). Data Activator monitors for changes (cancellations, room switches, time adjustments) and automatically notifies all affected parties. DirectLake dashboards provide L&D teams with a real-time view of all scheduled sessions, room utilization, and attendance tracking. Metrics scorecards track key L&D KPIs against organizational learning goals.",
+      "requiredGovernance": "Facilitator availability calendar integration and conflict resolution rules, Room booking priority rules when conflicts arise, Minimum enrollment thresholds before session confirmation, Cancellation policy enforcement (minimum notice period), Post-session feedback collection and response rate monitoring, Budget tracking for external facilitator costs and room charges",
+      "stakeholders": [
+        "Head of Learning & Development",
+        "L&D Coordinators",
+        "Facilitators/Trainers",
+        "Facilities Management",
+        "HR Business Partners",
+        "IT (Outlook/Teams Administration)"
+      ],
+      "estimatedTimeline": "6-10 weeks including Outlook/Teams integration, room inventory setup, and notification workflow configuration",
       "editable": true
     }
   ]
