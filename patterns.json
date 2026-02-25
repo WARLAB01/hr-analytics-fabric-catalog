@@ -864,7 +864,8 @@
       "compatibleWith": [
         "medallion-architecture",
         "sensitivity-labels",
-        "certified-semantic-model"
+        "certified-semantic-model",
+        "fabric-data-agent-hr"
       ],
       "incompatibleWith": [],
       "prerequisites": [],
@@ -1780,7 +1781,8 @@
       "compatibleWith": [
         "medallion-architecture",
         "row-level-security",
-        "semantic-model-certification-pipeline"
+        "semantic-model-certification-pipeline",
+        "fabric-data-agent-hr"
       ],
       "incompatibleWith": [],
       "prerequisites": [
@@ -1836,7 +1838,8 @@
       "maturity": "Preview",
       "compatibleWith": [
         "row-level-security",
-        "rag-fabric-grounded"
+        "rag-fabric-grounded",
+        "fabric-data-agent-hr"
       ],
       "incompatibleWith": [],
       "prerequisites": [
@@ -1946,7 +1949,8 @@
       "maturity": "GA",
       "compatibleWith": [
         "certified-semantic-model",
-        "direct-lake-semantic-model"
+        "direct-lake-semantic-model",
+        "fabric-data-agent-hr"
       ],
       "incompatibleWith": [],
       "prerequisites": [],
@@ -2105,7 +2109,8 @@
       "maturity": "Emerging",
       "compatibleWith": [
         "rag-fabric-grounded",
-        "fairness-bias-evaluation"
+        "fairness-bias-evaluation",
+        "fabric-data-agent-hr"
       ],
       "incompatibleWith": [],
       "prerequisites": [],
@@ -2831,7 +2836,8 @@
         "medallion-architecture",
         "spark-notebook-etl",
         "data-quality-validation",
-        "dlp-policy-enforcement"
+        "dlp-policy-enforcement",
+        "fabric-data-agent-hr"
       ],
       "incompatibleWith": [],
       "prerequisites": [],
@@ -3618,7 +3624,8 @@
         "medallion-architecture",
         "spark-notebook-etl",
         "data-quality-validation",
-        "dlp-policy-enforcement"
+        "dlp-policy-enforcement",
+        "fabric-data-agent-hr"
       ],
       "incompatibleWith": [],
       "prerequisites": [],
@@ -4234,6 +4241,91 @@
       ],
       "estimatedImplementationEffort": "6-8 weeks",
       "costImplications": "Multi-region Fabric Capacity: 2-3x capacity cost (separate capacity per region). Premium P1 capacity: $16/hour per region. Cross-border OneLake replication: $0.02/GB/month."
+    },
+    {
+      "id": "fabric-data-agent-hr",
+      "name": "Fabric Data Agent for HR Self-Service",
+      "domain": "Generative AI and Conversational Interfaces",
+      "domainId": 6,
+      "category": "Generative AI",
+      "summary": "Native Fabric Data Agent converts natural language questions to SQL, DAX, or KQL queries for HR self-service, enabling employees to query compensation, benefits, and organizational data securely.",
+      "description": "Fabric Data Agents are native Fabric items that convert natural language questions into structured queries (SQL, DAX, KQL) against connected data sources. For HR self-service, employees can ask questions like 'What is my salary band?' or 'How many direct reports does my manager have?' and the Data Agent retrieves answers respecting row-level and column-level security automatically. Data Agents can connect up to 5 data sources simultaneously (Lakehouse, Warehouse, Power BI Semantic Models, KQL databases, ontologies) and run under the user's Microsoft Entra ID identity, automatically enforcing existing workspace and data permissions. Unlike RAG chatbots that require custom engineering, Data Agents are low-code and leverage Fabric's native query capabilities. Supports custom instructions (up to 15,000 characters) and example queries for few-shot learning. Has a publish/share lifecycle with draft and published versions.",
+      "fabricComponents": [
+        "Fabric Data Agent",
+        "Lakehouse",
+        "Warehouse",
+        "Power BI Semantic Model",
+        "KQL Database",
+        "Ontology",
+        "Microsoft Entra ID"
+      ],
+      "pros": [
+        "Native Fabric item type reduces custom development overhead vs RAG chatbots.",
+        "Runs under user identity so RLS and CLS enforced automatically without retrieval-layer complexity.",
+        "Supports 5 concurrent data sources enabling rich queries across org hierarchy, compensation, benefits.",
+        "Custom instructions and few-shot learning reduce hallucinations without guardrail overhead.",
+        "Low-code interface reduces time-to-value vs custom LLM implementations.",
+        "Read-only queries prevent accidental data modification.",
+        "Can ground responses in unstructured data (PDFs, docs) via Azure AI Search integration."
+      ],
+      "cons": [
+        "Requires F2+ capacity (expensive for large orgs) or P1+ with Fabric enabled.",
+        "Cross-geo AI processing/storing must be enabled, raising data residency considerations.",
+        "Query complexity limited compared to hand-optimized SQL; may be slow for complex analytical joins.",
+        "Limited customization vs building custom LLM agents.",
+        "Dependency on Fabric governance; organizational changes require Data Agent updates.",
+        "May hallucinate for edge case queries without sufficient examples."
+      ],
+      "usageInstructions": "1. Create new Data Agent in workspace (right-click workspace > Create > Data Agent). 2. Connect up to 5 data sources: select Lakehouse for org structure, Warehouse for compensation/benefits, semantic model for aggregates. 3. Verify F2+ capacity is enabled; enable cross-geo AI processing. 4. Add custom instructions (max 15,000 chars): 'Employees see only personal and team compensation data. Managers see direct reports. HR sees all. Always respond in plain English.' 5. Add example queries with expected results: 'What is my salary band?' -> [expected output], 'List my direct reports.' -> [expected output]. 6. Test with draft version: ask questions, validate security enforcement. 7. Publish to workspace for sharing. 8. Grant workspace access to employees; Data Agent inherits permissions. 9. Monitor query logs for slow/failed queries; update examples if needed.",
+      "governanceConsiderations": "Data Agent inherits RLS/CLS from semantic models and warehouse views automatically; verify enforcement in dev before production. Restrict Data Agent creation to HR analytics team (workspace contributor role). Custom instructions must reference approved data classification (public, internal, sensitive). Example queries must use anonymized/redacted values, never actual employee data. Audit Data Agent access logs monthly, especially for modified queries. If ontologies are used, ensure ontology governance aligns with HR data governance. Document query volume limits per user to prevent runaway costs. For cross-border orgs, enable cross-geo AI processing only with legal/compliance review.",
+      "peopleAnalyticsUseCases": [
+        "HR Self-Service Portal: employees ask 'What are my benefits eligibility dates?' or 'What is my current salary band?' Agent queries benefits and compensation Warehouse views, respecting employee RLS.",
+        "Manager Self-Service: managers ask 'What is my team's average tenure?' or 'List headcount by level in my org.' Agent queries org hierarchy and employee Lakehouse, enforcing manager RLS.",
+        "Talent Acquisition: recruiters ask 'How many employees have Python skills?' or 'Show me flight engineering leads.' Agent queries skills and title data, respecting recruiter workspace access.",
+        "Compensation Planning: HR asks 'What is 2024 salary spend by department?' Agent aggregates payroll Warehouse, enforcing HR-only access.",
+        "Learning and Development: ask 'Show training completion by competency last quarter.' Agent queries learning records and aggregates by department."
+      ],
+      "complexity": "Moderate",
+      "maturity": "Preview",
+      "compatibleWith": [
+        "secure-chat-rls",
+        "hr-ai-guardrails",
+        "copilot-studio-grounded",
+        "rag-fabric-grounded",
+        "row-level-security",
+        "dynamic-data-masking",
+        "pii-tokenization",
+        "medallion-architecture",
+        "certified-semantic-model"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "row-level-security"
+      ],
+      "tags": [
+        "data-agent",
+        "generative-ai",
+        "natural-language",
+        "self-service",
+        "hr-analytics",
+        "low-code"
+      ],
+      "referenceLinks": [
+        {
+          "label": "Fabric Data Agents (Preview)",
+          "url": "https://learn.microsoft.com/en-us/fabric/data-analytics/data-agent"
+        },
+        {
+          "label": "Microsoft Fabric Capacity",
+          "url": "https://learn.microsoft.com/en-us/fabric/enterprise/licenses"
+        },
+        {
+          "label": "AI Skilling for Fabric (formerly AI Skills)",
+          "url": "https://learn.microsoft.com/en-us/fabric/data-analytics/ai-skills-overview"
+        }
+      ],
+      "estimatedImplementationEffort": "1-2 weeks",
+      "costImplications": "Requires F2+ capacity ($100-3000/month depending on org size). Cross-geo AI processing may incur additional costs. Usage-based LLM costs depend on query volume."
     }
   ],
   "useCaseBlueprints": [
