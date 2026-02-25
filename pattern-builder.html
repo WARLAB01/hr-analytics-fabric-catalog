@@ -2140,8 +2140,8 @@
         function loadBlueprintToBuilder() {
             if (!appState.blueprintDetailsOpen) return;
             const blueprint = blueprints.find(b => b.id === appState.blueprintDetailsOpen);
-            if (blueprint) {
-                appState.selectedPatterns = [...blueprint.patterns];
+            if (blueprint && blueprint.patternFlow) {
+                appState.selectedPatterns = blueprint.patternFlow.map(step => step.patternId);
                 closeBlueprintDetails();
                 switchTab('builder');
                 refreshBuilderTab();
