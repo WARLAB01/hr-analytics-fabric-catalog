@@ -1543,11 +1543,15 @@
             }
         };
 
+        // Set of all technologies that appear in the Technology Stack UI
+        const allSelectableTechs = new Set();
+
         // Initialize selected technologies (all selected by default)
         function initializeTechnologies() {
             const techItems = document.querySelectorAll('.tech-item');
             techItems.forEach(item => {
                 const tech = item.getAttribute('data-tech');
+                allSelectableTechs.add(tech);
                 appState.selectedTechnologies.add(tech);
                 item.classList.add('selected');
             });
@@ -1598,9 +1602,13 @@
         }
 
         // Check if pattern is available based on selected technologies
+        // Only checks components that are in the selectable tech list;
+        // unlisted components (conceptual items like "RLS", "Monitoring") are ignored
         function isPatternAvailable(pattern) {
             if (appState.selectedTechnologies.size === 0) return true;
-            return pattern.fabricComponents.every(comp => appState.selectedTechnologies.has(comp));
+            const checkable = pattern.fabricComponents.filter(comp => allSelectableTechs.has(comp));
+            if (checkable.length === 0) return true;
+            return checkable.every(comp => appState.selectedTechnologies.has(comp));
         }
 
         // Switch between tabs
