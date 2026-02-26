@@ -630,6 +630,89 @@
       "connectorInfo": null
     },
     {
+      "id": "bitemporal-scd-type-2",
+      "name": "Bi-Temporal Type 2 Slowly Changing Dimension (SCD)",
+      "domain": "Data Transformation and Processing",
+      "domainId": 3,
+      "category": "Dimension Management",
+      "summary": "Extends Type 2 SCD with dual timelines \u2014 business effective time (when attributes are true in the real world) and system/knowledge time (when the warehouse became aware) \u2014 enabling as-of reporting, retroactive corrections, and full audit traceability.",
+      "description": "A bi-temporal Type 2 SCD captures two independent time dimensions for each record: Business Effective Time (when attribute values are true in the real world) and System Time (when the data warehouse became aware of those values). Each change results in a new versioned row with surrogate key, business effective dates (effective_from_date, effective_to_date), and system validity dates (valid_from_date, valid_to_date). This enables answering 'What did we believe at the time?' vs 'What do we now know was true?' \u2014 critical for HR scenarios with backdated promotions, retroactive compensation adjustments, late-arriving data, and organizational restructures. The pattern supports as-of reporting (system time), true historical reporting (business time), and full bi-temporal queries combining both. Includes soft-delete tombstoning for rescinded records, hash-based change detection, and current-record indicators.",
+      "fabricComponents": [
+        "Spark Notebooks",
+        "Delta Lake",
+        "Lakehouse",
+        "Warehouse"
+      ],
+      "pros": [
+        "Enables both historical-truth and historical-belief reporting from a single dimension.",
+        "Handles retroactive corrections, backdated changes, and late-arriving data without losing prior warehouse state.",
+        "Supports regulatory audit and reconciliation by preserving what was known at any point in time.",
+        "Soft-delete tombstoning keeps rescinded records queryable for complete audit trail.",
+        "Hash-based change detection (including derived effective_to) automatically captures boundary shifts from backdated inserts."
+      ],
+      "cons": [
+        "Significantly increased storage and row counts compared to standard Type 2 SCD.",
+        "More complex query logic \u2014 consumers must understand which time dimension to filter on.",
+        "Requires rigorous snapshot completeness validation to avoid false rescinds.",
+        "Business-time contiguity enforcement adds processing overhead.",
+        "Demands clear semantic documentation and pre-built views for common query patterns."
+      ],
+      "usageInstructions": "1. Design dimension with surrogate key, business key (employee_id + effective_from_date), business effective dates, system valid dates, soft_delete_flag, row_hash, current_record_ind, and current_job_ind. 2. Ingest full effective-dated history snapshot. 3. Derive effective_to_date using LEAD() for contiguous business-time intervals. 4. Compute row_hash over tracked attributes AND effective_to_date. 5. Classify deltas: NEW (stage exists, dim missing), CHANGED (hash differs), RESCINDED (dim exists, stage missing). 6. Close superseded rows (set valid_to = processing_date - 1). 7. Insert new versions for all delta types including soft-delete tombstones for rescinds. 8. Recompute current_record_ind and current_job_ind for impacted employees. 9. Run post-load validations: one current valid record per business key, one current_job_ind per employee, business-time contiguity.",
+      "governanceConsiderations": "Document bi-temporal semantics explicitly in the analytics layer. Provide semantic views for 'current state,' 'business-as-of,' and 'system-as-of' queries. Validate snapshot completeness before processing to prevent false rescinds. Enforce business-time contiguity (no overlaps, no gaps). Establish retention policies for historical system-time versions. Log all retroactive corrections for regulatory audit. Restrict direct table access \u2014 route consumers through governed views.",
+      "peopleAnalyticsUseCases": [
+        "Backdated promotion tracking \u2014 HR submits a January 1 promotion on March 15; both the original belief and correction are preserved.",
+        "Retroactive compensation adjustments with full audit trail of what was reported at each point in time.",
+        "Regulatory as-of reporting \u2014 recreate exactly what workforce reports showed on any historical date.",
+        "Late-arriving data handling \u2014 new employee records arriving after the effective date are correctly slotted into business time.",
+        "Organizational restructure analysis \u2014 compare what was believed about reporting lines vs what was later corrected.",
+        "Pay equity audits requiring point-in-time reconstruction of compensation data as it was known to the system."
+      ],
+      "complexity": "High",
+      "maturity": "GA",
+      "compatibleWith": [
+        "medallion-architecture",
+        "spark-notebook-etl",
+        "incremental-watermark",
+        "scd-type-2",
+        "data-quality-validation",
+        "audit-siem-integration",
+        "row-level-security"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "medallion-architecture",
+        "spark-notebook-etl"
+      ],
+      "tags": [
+        "bitemporal",
+        "scd",
+        "slowly-changing",
+        "temporal",
+        "audit",
+        "as-of-reporting",
+        "retroactive",
+        "worker-job",
+        "dimension-management"
+      ],
+      "referenceLinks": [
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-factory/slowly-changing-dimension-type-two",
+          "title": "Slowly changing dimension type 2 - Microsoft Fabric"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/dimensional-modeling-dimension-tables",
+          "title": "Modeling Dimension Tables in Warehouse"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl",
+          "title": "ETL Processing - Azure Architecture Guide"
+        }
+      ],
+      "estimatedImplementationEffort": "2-3 weeks (includes DDL, ETL pipeline, validation queries, and semantic views)",
+      "costImplications": "Storage 3-5x higher than standard SCD2 due to dual timeline versioning; compute costs increase for hash computation, contiguity validation, and indicator recomputation",
+      "connectorInfo": null
+    },
+    {
       "id": "cdc-change-capture",
       "name": "Change Data Capture (CDC) for Auditing",
       "domain": "Data Transformation and Processing",
