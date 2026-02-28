@@ -149,7 +149,7 @@
         "Performance strategies differ significantly.",
         "Teams must understand distinct capabilities."
       ],
-      "usageInstructions": "1. Assess workload type. 2. Structured HR reporting \u2192 Warehouse. 3. Exploratory analysis \u2192 Lakehouse. 4. Semi-structured \u2192 Lakehouse. 5. If both needed: Lakehouse Bronze/Silver, Warehouse for reporting. 6. Use shortcuts.",
+      "usageInstructions": "1. Assess workload type. 2. Structured HR reporting → Warehouse. 3. Exploratory analysis → Lakehouse. 4. Semi-structured → Lakehouse. 5. If both needed: Lakehouse Bronze/Silver, Warehouse for reporting. 6. Use shortcuts.",
       "governanceConsiderations": "Warehouse provides stricter governance through schema enforcement. Restrict Warehouse to certified analytics. Use Lakehouse for non-sensitive exploration.",
       "peopleAnalyticsUseCases": [
         "Operational HR dashboards in Warehouse.",
@@ -635,8 +635,8 @@
       "domain": "Data Transformation and Processing",
       "domainId": 3,
       "category": "Dimension Management",
-      "summary": "Extends Type 2 SCD with dual timelines \u2014 business effective time (when attributes are true in the real world) and system/knowledge time (when the warehouse became aware) \u2014 enabling as-of reporting, retroactive corrections, and full audit traceability.",
-      "description": "A bi-temporal Type 2 SCD captures two independent time dimensions for each record: Business Effective Time (when attribute values are true in the real world) and System Time (when the data warehouse became aware of those values). Each change results in a new versioned row with surrogate key, business effective dates (effective_from_date, effective_to_date), and system validity dates (valid_from_date, valid_to_date). This enables answering 'What did we believe at the time?' vs 'What do we now know was true?' \u2014 critical for HR scenarios with backdated promotions, retroactive compensation adjustments, late-arriving data, and organizational restructures. The pattern supports as-of reporting (system time), true historical reporting (business time), and full bi-temporal queries combining both. Includes soft-delete tombstoning for rescinded records, hash-based change detection, and current-record indicators.",
+      "summary": "Extends Type 2 SCD with dual timelines — business effective time (when attributes are true in the real world) and system/knowledge time (when the warehouse became aware) — enabling as-of reporting, retroactive corrections, and full audit traceability.",
+      "description": "A bi-temporal Type 2 SCD captures two independent time dimensions for each record: Business Effective Time (when attribute values are true in the real world) and System Time (when the data warehouse became aware of those values). Each change results in a new versioned row with surrogate key, business effective dates (effective_from_date, effective_to_date), and system validity dates (valid_from_date, valid_to_date). This enables answering 'What did we believe at the time?' vs 'What do we now know was true?' — critical for HR scenarios with backdated promotions, retroactive compensation adjustments, late-arriving data, and organizational restructures. The pattern supports as-of reporting (system time), true historical reporting (business time), and full bi-temporal queries combining both. Includes soft-delete tombstoning for rescinded records, hash-based change detection, and current-record indicators.",
       "fabricComponents": [
         "Spark Notebooks",
         "Delta Lake",
@@ -652,19 +652,19 @@
       ],
       "cons": [
         "Significantly increased storage and row counts compared to standard Type 2 SCD.",
-        "More complex query logic \u2014 consumers must understand which time dimension to filter on.",
+        "More complex query logic — consumers must understand which time dimension to filter on.",
         "Requires rigorous snapshot completeness validation to avoid false rescinds.",
         "Business-time contiguity enforcement adds processing overhead.",
         "Demands clear semantic documentation and pre-built views for common query patterns."
       ],
       "usageInstructions": "1. Design dimension with surrogate key, business key (employee_id + effective_from_date), business effective dates, system valid dates, soft_delete_flag, row_hash, current_record_ind, and current_job_ind. 2. Ingest full effective-dated history snapshot. 3. Derive effective_to_date using LEAD() for contiguous business-time intervals. 4. Compute row_hash over tracked attributes AND effective_to_date. 5. Classify deltas: NEW (stage exists, dim missing), CHANGED (hash differs), RESCINDED (dim exists, stage missing). 6. Close superseded rows (set valid_to = processing_date - 1). 7. Insert new versions for all delta types including soft-delete tombstones for rescinds. 8. Recompute current_record_ind and current_job_ind for impacted employees. 9. Run post-load validations: one current valid record per business key, one current_job_ind per employee, business-time contiguity.",
-      "governanceConsiderations": "Document bi-temporal semantics explicitly in the analytics layer. Provide semantic views for 'current state,' 'business-as-of,' and 'system-as-of' queries. Validate snapshot completeness before processing to prevent false rescinds. Enforce business-time contiguity (no overlaps, no gaps). Establish retention policies for historical system-time versions. Log all retroactive corrections for regulatory audit. Restrict direct table access \u2014 route consumers through governed views.",
+      "governanceConsiderations": "Document bi-temporal semantics explicitly in the analytics layer. Provide semantic views for 'current state,' 'business-as-of,' and 'system-as-of' queries. Validate snapshot completeness before processing to prevent false rescinds. Enforce business-time contiguity (no overlaps, no gaps). Establish retention policies for historical system-time versions. Log all retroactive corrections for regulatory audit. Restrict direct table access — route consumers through governed views.",
       "peopleAnalyticsUseCases": [
-        "Backdated promotion tracking \u2014 HR submits a January 1 promotion on March 15; both the original belief and correction are preserved.",
+        "Backdated promotion tracking — HR submits a January 1 promotion on March 15; both the original belief and correction are preserved.",
         "Retroactive compensation adjustments with full audit trail of what was reported at each point in time.",
-        "Regulatory as-of reporting \u2014 recreate exactly what workforce reports showed on any historical date.",
-        "Late-arriving data handling \u2014 new employee records arriving after the effective date are correctly slotted into business time.",
-        "Organizational restructure analysis \u2014 compare what was believed about reporting lines vs what was later corrected.",
+        "Regulatory as-of reporting — recreate exactly what workforce reports showed on any historical date.",
+        "Late-arriving data handling — new employee records arriving after the effective date are correctly slotted into business time.",
+        "Organizational restructure analysis — compare what was believed about reporting lines vs what was later corrected.",
         "Pay equity audits requiring point-in-time reconstruction of compensation data as it was known to the system."
       ],
       "complexity": "High",
@@ -1671,7 +1671,7 @@
       "domainId": 4,
       "category": "DevOps",
       "summary": "Automated promotion of BI artifacts from development through staging to production enabling controlled releases.",
-      "description": "Dev \u2192 Stage \u2192 Prod. Semantic models and reports tested in stage before prod deployment. Reduces errors in production.",
+      "description": "Dev → Stage → Prod. Semantic models and reports tested in stage before prod deployment. Reduces errors in production.",
       "fabricComponents": [
         "Power BI",
         "Deployment Pipelines",
@@ -2566,7 +2566,7 @@
       "domain": "Alerting, Automation, and Operational Intelligence",
       "domainId": 7,
       "category": "Automation",
-      "summary": "Automatic workflows triggered by data anomalies: high turnover in department \u2192 auto-email recruiter; forecast miss \u2192 escalate to VP.",
+      "summary": "Automatic workflows triggered by data anomalies: high turnover in department → auto-email recruiter; forecast miss → escalate to VP.",
       "description": "Monitor headcount by department. If any dept loses >10% of staff in a month, auto-trigger recruiting workflow. Alert manager.",
       "fabricComponents": [
         "Data Activator",
@@ -2587,10 +2587,10 @@
       "usageInstructions": "1. Create rule on metric. 2. Define trigger condition. 3. Select action (email, Power Automate). 4. Test. 5. Deploy. 6. Monitor.",
       "governanceConsiderations": "Rules must be approved. Test before prod. Monitor false positives. Log all actions. Disable poorly performing rules.",
       "peopleAnalyticsUseCases": [
-        "High turnover alert \u2192 send recruiter email.",
-        "Salary anomaly detection \u2192 escalate to manager.",
-        "Hiring target miss \u2192 VP alert.",
-        "Compliance violation \u2192 legal escalation."
+        "High turnover alert → send recruiter email.",
+        "Salary anomaly detection → escalate to manager.",
+        "Hiring target miss → VP alert.",
+        "Compliance violation → legal escalation."
       ],
       "complexity": "Medium",
       "maturity": "GA",
@@ -2623,7 +2623,7 @@
       ],
       "estimatedImplementationEffort": "1-2 weeks per reflex",
       "costImplications": "Minimal overhead; Power Automate action costs",
-      "connectorInfo": "Data Activator (Reflex) natively monitors Fabric Semantic Models and Eventstreams. Triggers Power Automate flows natively. For email/Teams notifications, Power Automate handles routing\u2014no additional connectors."
+      "connectorInfo": "Data Activator (Reflex) natively monitors Fabric Semantic Models and Eventstreams. Triggers Power Automate flows natively. For email/Teams notifications, Power Automate handles routing—no additional connectors."
     },
     {
       "id": "power-automate-triggers",
@@ -2632,7 +2632,7 @@
       "domainId": 7,
       "category": "Automation",
       "summary": "Power Automate workflows triggered by HR data changes automating notifications, approvals, and downstream processes.",
-      "description": "When new hire is added, automatically send welcome email, provision accounts, schedule onboarding. New termination \u2192 disable access.",
+      "description": "When new hire is added, automatically send welcome email, provision accounts, schedule onboarding. New termination → disable access.",
       "fabricComponents": [
         "Power Automate",
         "Warehouse",
@@ -2652,10 +2652,10 @@
       "usageInstructions": "1. Create flow. 2. Set Fabric data trigger. 3. Add actions (email, API call). 4. Test. 5. Enable. 6. Monitor.",
       "governanceConsiderations": "Flows must be approved. Sensitive actions require confirmation. Audit trail of executions. Disable unused flows.",
       "peopleAnalyticsUseCases": [
-        "New hire trigger \u2192 welcome email, account provisioning.",
-        "Termination trigger \u2192 disable access, exit survey.",
-        "Promotion trigger \u2192 new org reporting, email announcement.",
-        "Review due date \u2192 email reminder to managers."
+        "New hire trigger → welcome email, account provisioning.",
+        "Termination trigger → disable access, exit survey.",
+        "Promotion trigger → new org reporting, email announcement.",
+        "Review due date → email reminder to managers."
       ],
       "complexity": "Low",
       "maturity": "GA",
@@ -2819,7 +2819,7 @@
       "domain": "Alerting, Automation, and Operational Intelligence",
       "domainId": 7,
       "category": "Automation",
-      "summary": "Smart routing of alerts to appropriate teams based on severity and data ownership (high turnover \u2192 dept head; data quality issue \u2192 data team).",
+      "summary": "Smart routing of alerts to appropriate teams based on severity and data ownership (high turnover → dept head; data quality issue → data team).",
       "description": "High turnover alert goes to HR head. Data quality issue goes to data team. Ownership-based routing ensures right person acts.",
       "fabricComponents": [
         "Alerting",
@@ -2839,10 +2839,10 @@
       "usageInstructions": "1. Define alert types. 2. Map to owners. 3. Set routing rules. 4. Configure notifications. 5. Test. 6. Monitor effectiveness.",
       "governanceConsiderations": "Ownership assignments maintained. Routing rules reviewed. Escalation paths clear. Response SLAs defined.",
       "peopleAnalyticsUseCases": [
-        "High turnover \u2192 department head.",
-        "Data quality issue \u2192 data steward.",
-        "Salary anomaly \u2192 compensation manager.",
-        "Compliance issue \u2192 HR legal."
+        "High turnover → department head.",
+        "Data quality issue → data steward.",
+        "Salary anomaly → compensation manager.",
+        "Compliance issue → HR legal."
       ],
       "complexity": "Medium",
       "maturity": "GA",
@@ -4867,6 +4867,91 @@
       "connectorInfo": null
     },
     {
+      "id": "semantic-kernel-agent-framework",
+      "name": "Semantic Kernel / Agent Framework for Custom Conversational Agents",
+      "domain": "Generative AI and Conversational Interfaces",
+      "domainId": 6,
+      "category": "Generative AI",
+      "summary": "Build custom conversational agents in Fabric Notebooks using Microsoft Semantic Kernel (evolving into Agent Framework). Author NL-to-SQL plugins that query Lakehouse/Warehouse data with full control over governance, security, and conversation flow.",
+      "description": "Uses the Semantic Kernel SDK to create plugin classes that translate natural language questions into SQL queries against Fabric Warehouse or Lakehouse SQL endpoints. The LLM discovers available plugins via semantic descriptions and automatically calls the right functions to answer user questions. Unlike the preview-only Fabric Data Agent (which queries through DAX against semantic models with built-in RLS), this approach runs in Fabric Notebooks and gives you complete flexibility — but you must implement row-level security enforcement, SQL sanitization, audit logging, and guardrails in your plugin code. Supports multi-turn conversations via ChatHistory, multi-agent orchestration, and integration with Copilot Studio. Microsoft is evolving Semantic Kernel into the unified Agent Framework (GA Q1 2026), which preserves the plugin model while adding production-grade agent orchestration.",
+      "fabricComponents": [
+        "Spark Notebooks",
+        "Azure OpenAI",
+        "Lakehouse",
+        "Warehouse"
+      ],
+      "pros": [
+        "Full flexibility in agent behavior, conversation flows, and response formatting.",
+        "Complete control over NL-to-SQL translation logic and query optimization.",
+        "Can implement custom guardrails, business logic, and multi-step reasoning.",
+        "Runs natively in Fabric Notebooks — no external runtime or hosting needed.",
+        "Supports multi-turn conversations with state management via ChatHistory.",
+        "GA today (not preview-gated like Fabric Data Agent).",
+        "Plugin architecture enables modular, testable, reusable components."
+      ],
+      "cons": [
+        "Must implement RLS enforcement in plugin code yourself (no automatic inheritance).",
+        "SQL injection prevention and query sanitization are your responsibility.",
+        "Requires strong Python/C# skills plus understanding of Fabric SQL endpoints.",
+        "Audit logging and compliance monitoring must be custom-built.",
+        "No out-of-box governance features — all security is custom engineering work.",
+        "More complex to maintain than managed solutions like Fabric Data Agent."
+      ],
+      "usageInstructions": "1. Create a custom Fabric Spark environment with semantic-kernel installed via pip. 2. Define plugin classes with @kernel_function decorators — a GetSchema plugin to expose allowed tables/columns, and a QueryWarehouse plugin that generates, sanitizes, and executes SQL. 3. Inject user identity (Entra ID) into plugin context to enforce RLS via WHERE clauses. 4. Register plugins with the Kernel and configure Azure OpenAI chat completion. 5. Enable automatic function calling (FunctionChoiceBehavior.Auto). 6. Implement ChatHistory for multi-turn conversations. 7. Add audit logging to capture every query and response. 8. Test RLS enforcement across different user roles. 9. Optionally integrate with Copilot Studio for a polished chat UI.",
+      "governanceConsiderations": "Row-level security must be explicitly enforced in plugin code via parameterized WHERE clauses — there is no automatic RLS inheritance. Implement comprehensive query audit logging for all user interactions. Sanitize all generated SQL to prevent injection attacks. Restrict schema exposure per user role (only show authorized tables/columns). Implement query result size limits to prevent data exfiltration. Test RLS enforcement thoroughly across all organizational roles. Document all custom security implementations for compliance review. Consider implementing a query allowlist for sensitive compensation/PII tables.",
+      "peopleAnalyticsUseCases": [
+        "Custom HR chatbot with full control over org hierarchy queries and response formatting.",
+        "Compensation analytics bot that enforces salary visibility rules at query time via plugin-level RLS.",
+        "Multi-step workforce planning agent that combines headcount, budget, and attrition data across multiple queries.",
+        "Learning & development assistant that queries course completion data scoped to manager's team."
+      ],
+      "complexity": "High",
+      "maturity": "GA",
+      "compatibleWith": [
+        "rag-fabric-grounded",
+        "secure-chat-rls",
+        "hr-ai-guardrails",
+        "audit-siem-integration",
+        "medallion-architecture",
+        "certified-semantic-model",
+        "row-level-security",
+        "azure-ai-foundry"
+      ],
+      "incompatibleWith": [],
+      "prerequisites": [
+        "medallion-architecture"
+      ],
+      "tags": [
+        "generative-ai",
+        "agent-framework",
+        "semantic-kernel",
+        "custom-plugins",
+        "conversational-ai",
+        "nl-to-sql"
+      ],
+      "referenceLinks": [
+        {
+          "url": "https://learn.microsoft.com/en-us/semantic-kernel/overview/",
+          "title": "Microsoft Semantic Kernel Overview"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/semantic-kernel/concepts/plugins/",
+          "title": "Plugins in Semantic Kernel"
+        },
+        {
+          "url": "https://blog.fabric.microsoft.com/en-us/blog/chat-your-data-in-microsoft-fabric-with-semantic-kernel/",
+          "title": "Chat Your Data in Fabric with Semantic Kernel"
+        },
+        {
+          "url": "https://devblogs.microsoft.com/semantic-kernel/how-to-use-microsoft-fabric-with-semantic-kernel/",
+          "title": "How to Use Microsoft Fabric with Semantic Kernel"
+        }
+      ],
+      "estimatedImplementationEffort": "4-8 weeks depending on governance requirements",
+      "costImplications": "Notebook compute for agent execution; Azure OpenAI API costs scale with conversation volume; no additional licensing beyond existing Fabric capacity",
+      "connectorInfo": "Requires pip install semantic-kernel (or azure-agent-framework when GA) in a custom Fabric Spark environment. Uses the Fabric SQL endpoint connection string for Lakehouse/Warehouse queries. Azure OpenAI is accessible natively from Fabric Spark Notebooks via built-in Fabric authentication — no separate API key management needed."
+    },
+    {
       "id": "hris-workday-ingestion",
       "name": "Workday HRIS Data Ingestion Pipeline",
       "domain": "Data Organization and Structuring",
@@ -5513,7 +5598,7 @@
         "6. Enable query log analysis: connect to Azure SQL Server query logs for usage insights.",
         "7. Create data quality scorecards: freshness, completeness, accuracy metrics per dataset.",
         "8. Build trust badges: endorse high-quality, well-documented datasets.",
-        "9. Configure lineage visualization: show data flow from Workday \u2192 Bronze \u2192 Silver \u2192 Gold \u2192 Power BI.",
+        "9. Configure lineage visualization: show data flow from Workday → Bronze → Silver → Gold → Power BI.",
         "10. Create certification workflow: data stewards approve datasets before release to self-service.",
         "11. Integrate Alation with Slack/Teams: publish weekly data quality and governance updates.",
         "12. Train analysts to search Alation first before requesting data access from HR."
@@ -5532,7 +5617,7 @@
         "Employee dataset discovery: analysts search for headcount, compensation, performance data with business context.",
         "Attrition metric definition: business glossary defines attrition (12-month voluntary terminations) and calculation method.",
         "Compensation equity audit: data steward certifies salary dataset completeness and confidentiality controls.",
-        "Org health scorecard: lineage shows data flow from HRIS \u2192 Bronze \u2192 Silver \u2192 KPI \u2192 executive dashboard.",
+        "Org health scorecard: lineage shows data flow from HRIS → Bronze → Silver → KPI → executive dashboard.",
         "Data quality monitoring: query log shows heavy access to specific departments, triggering investigation of data freshness."
       ],
       "complexity": "High",
@@ -5615,7 +5700,7 @@
         "5. Set up CLAIRE AI profiling: run auto-profile on employee master to learn value distributions.",
         "6. Define data cleansing rules: standardize names (capitalization), locations (state abbreviations), job titles.",
         "7. Create MDM hub for employee golden records: define matching rules (SSN + name + DOB).",
-        "8. Build data factory pipeline: extract from Workday \u2192 IDMC for profiling/cleansing \u2192 Fabric Lakehouse Bronze.",
+        "8. Build data factory pipeline: extract from Workday → IDMC for profiling/cleansing → Fabric Lakehouse Bronze.",
         "9. Configure exception handling: flag records failing quality thresholds (e.g., >5% null in required fields).",
         "10. Set up data quality dashboards: daily quality metrics by data source and quality rule.",
         "11. Integrate Informatica metadata with Purview: quality scores and lineage visible in Fabric UI.",
@@ -5719,7 +5804,7 @@
         "1. Create dedicated Workspace with Sandbox naming (e.g., 'HR Analytics Sandbox').",
         "2. Create Lakehouse with folders: uploads, staging, shared_outputs.",
         "3. Enable Lakehouse auto-schema detection for uploads folder.",
-        "4. Create Power Query template for file upload: CSV/Excel \u2192 infer schema \u2192 Lakehouse table.",
+        "4. Create Power Query template for file upload: CSV/Excel → infer schema → Lakehouse table.",
         "5. In Spark Notebooks, build auto-schema detection: inspect first 1000 rows, infer types, alert on anomalies.",
         "6. Create shortcuts to production Gold tables (employee, org, compensation) in sandbox Lakehouse.",
         "7. Build pre-approval data sensitivity questionnaire: 'Does your upload contain PII? Salary? Email addresses?'",
@@ -5814,7 +5899,7 @@
         "Spark/Python skills required; not accessible to non-technical analysts.",
         "Output file generation (PDF, PowerPoint) requires additional libraries (reportlab, python-pptx).",
         "Statistical test interpretation requires domain expertise; risk of misuse.",
-        "Large result datasets (e.g., 100k employee records \u00d7 50 statistical tests) can exceed output size limits.",
+        "Large result datasets (e.g., 100k employee records × 50 statistical tests) can exceed output size limits.",
         "PDF/PowerPoint generation adds processing time and cost."
       ],
       "usageInstructions": [
@@ -5932,7 +6017,7 @@
         "5. Implement confidence scoring: use OpenAI API response probabilities to indicate uncertainty.",
         "6. Create fact-checking layer: compare generated claims against ground truth (fact tables); flag mismatches.",
         "7. Build human review workflow: route high-stakes findings (e.g., pay equity findings) to HR for approval.",
-        "8. Implement output formatting: markdown \u2192 PowerPoint or email briefing.",
+        "8. Implement output formatting: markdown → PowerPoint or email briefing.",
         "9. Create example templates: attrition narrative, compensation trend narrative, engagement narrative.",
         "10. Schedule recurring narratives: e.g., weekly CEO briefing on org health.",
         "11. Log all generated narratives and human review decisions for audits.",
@@ -6627,25 +6712,25 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Establishes Bronze-Silver-Gold data layers for clean, aggregated HR data",
-          "dataFlow": "Raw HR systems \u2192 Bronze \u2192 enriched employee records \u2192 Silver"
+          "dataFlow": "Raw HR systems → Bronze → enriched employee records → Silver"
         },
         {
           "order": 2,
           "patternId": "feature-store-delta",
           "role": "Creates reusable ML features (tenure, engagement, salary growth) for model training",
-          "dataFlow": "Silver layer \u2192 feature engineering \u2192 feature store with Delta versioning"
+          "dataFlow": "Silver layer → feature engineering → feature store with Delta versioning"
         },
         {
           "order": 3,
           "patternId": "batch-inference-pipeline",
           "role": "Runs weekly ML inference to score attrition risk for all employees",
-          "dataFlow": "Feature store \u2192 ML model \u2192 risk scores per employee"
+          "dataFlow": "Feature store → ML model → risk scores per employee"
         },
         {
           "order": 4,
           "patternId": "fairness-bias-evaluation",
           "role": "Evaluates predictions across demographic groups to identify and flag bias",
-          "dataFlow": "Risk scores + demographics \u2192 fairness metrics \u2192 bias report"
+          "dataFlow": "Risk scores + demographics → fairness metrics → bias report"
         },
         {
           "order": 5,
@@ -6657,13 +6742,13 @@
           "order": 6,
           "patternId": "directlake-power-bi",
           "role": "Enables real-time Power BI dashboards on risk scores with no copy",
-          "dataFlow": "Gold layer tables \u2192 DirectLake \u2192 Power BI dashboards"
+          "dataFlow": "Gold layer tables → DirectLake → Power BI dashboards"
         },
         {
           "order": 7,
           "patternId": "data-activator-reflex",
           "role": "Triggers automated alerts when risk scores exceed thresholds",
-          "dataFlow": "Risk scores \u2192 Reflex rules \u2192 alerts to HR and managers"
+          "dataFlow": "Risk scores → Reflex rules → alerts to HR and managers"
         }
       ],
       "architectureNarrative": "This blueprint orchestrates a complete ML-powered attrition prevention system. Employee data flows through the medallion architecture's Bronze and Silver layers where it's enriched and deduplicated. The feature store then engineers critical ML features (tenure, compensation trends, engagement indicators, promotion history) that feed into a batch inference pipeline running weekly predictions. Every prediction cycle passes through fairness evaluation to catch demographic bias before results reach stakeholders. Row-level security ensures managers see only their team's scores, while DirectLake provides instant dashboard access. Data Activator closes the loop by pushing real-time alerts when risk thresholds are breached.",
@@ -6690,43 +6775,43 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Structures raw HR data into progressively refined layers for regulatory consumption",
-          "dataFlow": "HRIS/payroll/benefits systems \u2192 Bronze \u2192 Silver \u2192 Gold regulatory tables"
+          "dataFlow": "HRIS/payroll/benefits systems → Bronze → Silver → Gold regulatory tables"
         },
         {
           "order": 2,
           "patternId": "data-quality-validation",
           "role": "Validates completeness and accuracy of all fields required by each regulatory form",
-          "dataFlow": "Gold tables \u2192 validation rules \u2192 quality scorecards \u2192 flagged exceptions"
+          "dataFlow": "Gold tables → validation rules → quality scorecards → flagged exceptions"
         },
         {
           "order": 3,
           "patternId": "anonymization-k-anonymity",
           "role": "Applies statistical anonymization where regulations require aggregate-only reporting",
-          "dataFlow": "Employee-level data \u2192 k-anonymity grouping \u2192 anonymized aggregates"
+          "dataFlow": "Employee-level data → k-anonymity grouping → anonymized aggregates"
         },
         {
           "order": 4,
           "patternId": "paginated-reports",
           "role": "Generates pixel-perfect reports matching mandated regulatory formats (EEO-1, VETS, etc.)",
-          "dataFlow": "Validated Gold data \u2192 paginated report templates \u2192 formatted submissions"
+          "dataFlow": "Validated Gold data → paginated report templates → formatted submissions"
         },
         {
           "order": 5,
           "patternId": "sensitivity-labels",
           "role": "Classifies regulatory data with appropriate sensitivity labels for handling",
-          "dataFlow": "Report artifacts \u2192 auto-classification \u2192 labeled documents"
+          "dataFlow": "Report artifacts → auto-classification → labeled documents"
         },
         {
           "order": 6,
           "patternId": "dlp-policy-enforcement",
           "role": "Prevents unauthorized sharing or export of regulatory filing data",
-          "dataFlow": "Labeled documents \u2192 DLP policies \u2192 controlled distribution"
+          "dataFlow": "Labeled documents → DLP policies → controlled distribution"
         },
         {
           "order": 7,
           "patternId": "audit-siem-integration",
           "role": "Logs all data access and report generation for regulatory audit trails",
-          "dataFlow": "All system events \u2192 audit logs \u2192 SIEM for compliance monitoring"
+          "dataFlow": "All system events → audit logs → SIEM for compliance monitoring"
         }
       ],
       "architectureNarrative": "This blueprint creates a fully automated regulatory reporting pipeline. Raw workforce data from HRIS, payroll, and benefits systems flows through the medallion architecture into regulatory-specific Gold tables that map directly to filing requirements. Data quality validation catches missing or inconsistent fields before they reach reports. Where regulations require aggregate reporting, k-anonymity ensures individual privacy. Paginated Reports generates submission-ready documents in mandated formats. Sensitivity labels and DLP policies protect the regulatory data throughout its lifecycle, while comprehensive audit logging satisfies regulatory examination requirements.",
@@ -6753,37 +6838,45 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Provides clean, trusted Gold-layer data for AI retrieval",
-          "dataFlow": "HR systems \u2192 Bronze \u2192 Silver \u2192 Gold analytics tables"
+          "dataFlow": "HR systems → Bronze → Silver → Gold analytics tables"
         },
         {
           "order": 2,
           "patternId": "certified-semantic-model",
           "role": "Creates a governed semantic layer that the AI interface queries against",
-          "dataFlow": "Gold tables \u2192 certified semantic model \u2192 single source of truth"
+          "dataFlow": "Gold tables → certified semantic model → single source of truth"
         },
         {
           "order": 3,
           "patternId": "rag-fabric-grounded",
           "role": "Grounds AI responses in actual Fabric data rather than hallucinated content",
-          "dataFlow": "User question \u2192 vector search \u2192 relevant data chunks \u2192 grounded response"
+          "dataFlow": "User question → vector search → relevant data chunks → grounded response",
+          "alternatives": [
+            {
+              "patternId": "semantic-kernel-agent-framework",
+              "label": "Agent Framework Approach (Full Control, Custom RLS)",
+              "role": "Custom NL-to-SQL agent built with Semantic Kernel plugins — full flexibility over query generation and response formatting, but governance (RLS, audit, sanitization) must be implemented in plugin code",
+              "dataFlow": "User question → LLM selects plugin → plugin generates parameterized SQL → Warehouse/Lakehouse query → results → LLM formats response"
+            }
+          ]
         },
         {
           "order": 4,
           "patternId": "secure-chat-rls",
           "role": "Enforces row-level security so users only retrieve their authorized data",
-          "dataFlow": "User identity \u2192 RLS filter \u2192 scoped data retrieval \u2192 filtered response"
+          "dataFlow": "User identity → RLS filter → scoped data retrieval → filtered response"
         },
         {
           "order": 5,
           "patternId": "hr-ai-guardrails",
           "role": "Prevents the AI from generating inappropriate, biased, or non-compliant responses",
-          "dataFlow": "AI response \u2192 guardrail checks \u2192 safe, compliant answer"
+          "dataFlow": "AI response → guardrail checks → safe, compliant answer"
         },
         {
           "order": 6,
           "patternId": "audit-siem-integration",
           "role": "Logs all queries and responses for compliance review and model improvement",
-          "dataFlow": "All interactions \u2192 audit log \u2192 SIEM dashboard \u2192 compliance review"
+          "dataFlow": "All interactions → audit log → SIEM dashboard → compliance review"
         }
       ],
       "architectureNarrative": "This blueprint delivers a secure conversational analytics experience built on Fabric's AI capabilities. Clean, trusted data from the medallion Gold layer feeds into a certified semantic model that serves as the AI's knowledge base. RAG (Retrieval-Augmented Generation) ensures every AI response is grounded in real data. Row-level security enforcement means the chatbot automatically scopes responses to what each user is authorized to see. HR-specific AI guardrails prevent inappropriate outputs, and comprehensive audit logging creates a full trail of every interaction for compliance review.",
@@ -6810,46 +6903,54 @@
           "order": 1,
           "patternId": "incremental-watermark",
           "role": "Captures new and changed employee events incrementally from source systems",
-          "dataFlow": "HRIS/ATS/LMS/Perf systems \u2192 watermark-based incremental loads \u2192 Bronze"
+          "dataFlow": "HRIS/ATS/LMS/Perf systems → watermark-based incremental loads → Bronze"
         },
         {
           "order": 2,
           "patternId": "scd-type-2",
           "role": "Preserves full history of every employee attribute change over time",
-          "dataFlow": "Bronze events \u2192 SCD Type 2 processing \u2192 historical dimension tables"
+          "dataFlow": "Bronze events → SCD Type 2 processing → historical dimension tables",
+          "alternatives": [
+            {
+              "patternId": "bitemporal-scd-type-2",
+              "label": "Bi-Temporal SCD (Business + System Time)",
+              "role": "Preserves full history with dual timelines — both when changes actually occurred in business terms and when the system became aware of them, enabling retroactive corrections and point-in-time analysis",
+              "dataFlow": "Bronze events → bi-temporal processing (effective + knowledge time) → contiguity-validated dimension tables"
+            }
+          ]
         },
         {
           "order": 3,
           "patternId": "medallion-architecture",
           "role": "Organizes lifecycle data into progressive refinement layers",
-          "dataFlow": "Raw events \u2192 Bronze \u2192 cleansed Silver \u2192 analytics-ready Gold"
+          "dataFlow": "Raw events → Bronze → cleansed Silver → analytics-ready Gold"
         },
         {
           "order": 4,
           "patternId": "data-quality-validation",
           "role": "Validates lifecycle events for completeness, consistency, and timeliness",
-          "dataFlow": "Silver data \u2192 validation rules \u2192 quality scores \u2192 exception alerts"
+          "dataFlow": "Silver data → validation rules → quality scores → exception alerts"
         },
         {
           "order": 5,
           "patternId": "hub-spoke-workspace",
           "role": "Isolates lifecycle data domains while enabling cross-domain analysis",
-          "dataFlow": "Domain workspaces (recruit, perform, learn) \u2192 hub workspace \u2192 unified view"
+          "dataFlow": "Domain workspaces (recruit, perform, learn) → hub workspace → unified view"
         },
         {
           "order": 6,
           "patternId": "directlake-power-bi",
           "role": "Delivers real-time lifecycle dashboards without data duplication",
-          "dataFlow": "Gold lifecycle tables \u2192 DirectLake \u2192 Power BI lifecycle dashboards"
+          "dataFlow": "Gold lifecycle tables → DirectLake → Power BI lifecycle dashboards"
         },
         {
           "order": 7,
           "patternId": "metrics-scorecard",
           "role": "Tracks lifecycle KPIs (time-to-fill, onboarding completion, retention rates)",
-          "dataFlow": "Lifecycle metrics \u2192 Power BI scorecards \u2192 goal tracking \u2192 alerts"
+          "dataFlow": "Lifecycle metrics → Power BI scorecards → goal tracking → alerts"
         }
       ],
-      "architectureNarrative": "This blueprint builds a comprehensive employee lifecycle data platform. Incremental loading captures changes from multiple HR systems as they happen. SCD Type 2 processing preserves the full history of every employee attribute \u2014 so you can always see what someone's role, manager, and compensation were at any point in time. The medallion architecture refines raw events into analytics-ready Gold tables. Data quality validation catches gaps in the lifecycle chain. Hub-spoke workspace design keeps domain data organized while enabling cross-domain analysis. DirectLake dashboards provide instant access to lifecycle views, and metrics scorecards track key lifecycle KPIs against organizational goals.",
+      "architectureNarrative": "This blueprint builds a comprehensive employee lifecycle data platform. Incremental loading captures changes from multiple HR systems as they happen. SCD Type 2 processing preserves the full history of every employee attribute — so you can always see what someone's role, manager, and compensation were at any point in time. The medallion architecture refines raw events into analytics-ready Gold tables. Data quality validation catches gaps in the lifecycle chain. Hub-spoke workspace design keeps domain data organized while enabling cross-domain analysis. DirectLake dashboards provide instant access to lifecycle views, and metrics scorecards track key lifecycle KPIs against organizational goals.",
       "requiredGovernance": "Data classification and sensitivity labeling for all lifecycle stages, Retention policies aligned with employment law requirements per jurisdiction, Access controls differentiated by lifecycle stage (e.g., compensation vs. performance), Audit trail for all lifecycle data modifications, Regular reconciliation against source systems to ensure completeness",
       "stakeholders": [
         "CHRO",
@@ -6874,37 +6975,37 @@
           "order": 1,
           "patternId": "purview-data-map",
           "role": "Discovers and catalogs all personal data across the Fabric environment",
-          "dataFlow": "All data sources \u2192 automated scanning \u2192 data map with PII locations"
+          "dataFlow": "All data sources → automated scanning → data map with PII locations"
         },
         {
           "order": 2,
           "patternId": "sensitivity-labels",
           "role": "Classifies discovered data by sensitivity level and applicable regulations",
-          "dataFlow": "Data map \u2192 auto-classification \u2192 sensitivity labels applied"
+          "dataFlow": "Data map → auto-classification → sensitivity labels applied"
         },
         {
           "order": 3,
           "patternId": "dlp-policy-enforcement",
           "role": "Prevents unauthorized movement or sharing of classified personal data",
-          "dataFlow": "Labeled data \u2192 DLP policy evaluation \u2192 blocked/allowed actions"
+          "dataFlow": "Labeled data → DLP policy evaluation → blocked/allowed actions"
         },
         {
           "order": 4,
           "patternId": "data-retention-lifecycle",
           "role": "Automates retention and purge schedules based on regulatory requirements",
-          "dataFlow": "Classified data \u2192 retention rules \u2192 scheduled purge \u2192 deletion confirmation"
+          "dataFlow": "Classified data → retention rules → scheduled purge → deletion confirmation"
         },
         {
           "order": 5,
           "patternId": "dsr-fulfillment",
           "role": "Processes data subject requests (access, delete, portability) across all systems",
-          "dataFlow": "DSR intake \u2192 data discovery \u2192 fulfillment actions \u2192 response generation"
+          "dataFlow": "DSR intake → data discovery → fulfillment actions → response generation"
         },
         {
           "order": 6,
           "patternId": "audit-siem-integration",
           "role": "Creates tamper-proof audit trail of all privacy actions and decisions",
-          "dataFlow": "All privacy events \u2192 audit logs \u2192 SIEM \u2192 compliance dashboards"
+          "dataFlow": "All privacy events → audit logs → SIEM → compliance dashboards"
         }
       ],
       "architectureNarrative": "This blueprint implements a comprehensive privacy compliance framework. Purview Data Map provides continuous discovery of where personal data resides across the Fabric environment. Sensitivity labels automatically classify data based on content inspection and applicable regulations. DLP policies enforce handling rules that prevent unauthorized sharing. Automated retention management ensures data is purged according to regulatory schedules. When data subject requests arrive, the DSR fulfillment pipeline automatically locates all relevant data, executes the requested action (access, deletion, or portability), and generates the compliance response. Every action is logged to SIEM for a complete audit trail.",
@@ -6931,46 +7032,46 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Structures historical workforce and business data for ML consumption",
-          "dataFlow": "HRIS + Finance + market data \u2192 Bronze \u2192 Silver \u2192 Gold ML-ready tables"
+          "dataFlow": "HRIS + Finance + market data → Bronze → Silver → Gold ML-ready tables"
         },
         {
           "order": 2,
           "patternId": "feature-store-delta",
           "role": "Engineers and versions features like growth rates, attrition trends, skill distributions",
-          "dataFlow": "Gold tables \u2192 feature engineering \u2192 versioned feature store"
+          "dataFlow": "Gold tables → feature engineering → versioned feature store"
         },
         {
           "order": 3,
           "patternId": "mlflow-model-registry",
           "role": "Tracks, versions, and manages all forecasting models in a central registry",
-          "dataFlow": "Trained models \u2192 MLflow registry \u2192 model versioning \u2192 deployment"
+          "dataFlow": "Trained models → MLflow registry → model versioning → deployment"
         },
         {
           "order": 4,
           "patternId": "batch-inference-pipeline",
           "role": "Runs periodic forecasting inference across all business units",
-          "dataFlow": "Feature store + registered model \u2192 batch predictions \u2192 forecast outputs"
+          "dataFlow": "Feature store + registered model → batch predictions → forecast outputs"
         },
         {
           "order": 5,
           "patternId": "model-drift-detection",
           "role": "Monitors forecast accuracy and triggers retraining when predictions degrade",
-          "dataFlow": "Predictions vs actuals \u2192 drift metrics \u2192 alerts \u2192 retraining triggers"
+          "dataFlow": "Predictions vs actuals → drift metrics → alerts → retraining triggers"
         },
         {
           "order": 6,
           "patternId": "directlake-power-bi",
           "role": "Visualizes forecasts, scenarios, and variance analysis in interactive dashboards",
-          "dataFlow": "Forecast outputs \u2192 DirectLake \u2192 Power BI planning dashboards"
+          "dataFlow": "Forecast outputs → DirectLake → Power BI planning dashboards"
         },
         {
           "order": 7,
           "patternId": "data-activator-reflex",
           "role": "Alerts leadership when forecasts indicate critical staffing gaps or surpluses",
-          "dataFlow": "Forecast thresholds \u2192 Reflex rules \u2192 alerts to HR and Finance leaders"
+          "dataFlow": "Forecast thresholds → Reflex rules → alerts to HR and Finance leaders"
         }
       ],
-      "architectureNarrative": "This blueprint builds an intelligent workforce planning engine. Historical workforce data, financial projections, and market signals flow through the medallion architecture into ML-ready Gold tables. The feature store engineers predictive features \u2014 growth rates, attrition velocity, skill distribution shifts \u2014 that feed into forecasting models managed through MLflow. Batch inference runs periodic predictions across all business units and roles. Model drift detection continuously monitors forecast accuracy against actual outcomes, triggering retraining when performance degrades. Interactive Power BI dashboards let planners explore forecasts and run what-if scenarios, while Data Activator pushes alerts when critical staffing thresholds are approaching.",
+      "architectureNarrative": "This blueprint builds an intelligent workforce planning engine. Historical workforce data, financial projections, and market signals flow through the medallion architecture into ML-ready Gold tables. The feature store engineers predictive features — growth rates, attrition velocity, skill distribution shifts — that feed into forecasting models managed through MLflow. Batch inference runs periodic predictions across all business units and roles. Model drift detection continuously monitors forecast accuracy against actual outcomes, triggering retraining when performance degrades. Interactive Power BI dashboards let planners explore forecasts and run what-if scenarios, while Data Activator pushes alerts when critical staffing thresholds are approaching.",
       "requiredGovernance": "Model validation before production deployment with documented accuracy metrics, Quarterly forecast-vs-actual reconciliation reviews, Feature store access controls to prevent unauthorized feature modification, Model drift thresholds documented and reviewed semi-annually, Scenario modeling assumptions documented for audit trail, Finance-HR alignment meetings to validate forecast inputs",
       "stakeholders": [
         "CHRO",
@@ -6988,53 +7089,53 @@
       "id": "real-time-org-health",
       "name": "Real-Time Organizational Health Monitoring & Automated Escalation",
       "category": "Executive Analytics",
-      "description": "Continuous monitoring of organizational health indicators \u2014 engagement scores, attrition spikes, absence patterns, overtime trends, and survey sentiment \u2014 with automated escalation when metrics breach defined thresholds. Provides executives with a real-time pulse on workforce health across all business units.",
+      "description": "Continuous monitoring of organizational health indicators — engagement scores, attrition spikes, absence patterns, overtime trends, and survey sentiment — with automated escalation when metrics breach defined thresholds. Provides executives with a real-time pulse on workforce health across all business units.",
       "businessValue": "Shifts organizational health monitoring from lagging quarterly reviews to real-time awareness. Automated escalation ensures critical workforce issues (sudden attrition spikes, engagement drops, compliance risks) reach the right leaders within hours rather than weeks, enabling rapid intervention.",
       "patternFlow": [
         {
           "order": 1,
           "patternId": "cdc-change-capture",
           "role": "Captures workforce changes in near-real-time as they happen in source systems",
-          "dataFlow": "HRIS/survey/time systems \u2192 CDC streams \u2192 real-time event capture"
+          "dataFlow": "HRIS/survey/time systems → CDC streams → real-time event capture"
         },
         {
           "order": 2,
           "patternId": "medallion-architecture",
           "role": "Processes and refines streaming events into analytics-ready health metrics",
-          "dataFlow": "CDC events \u2192 Bronze \u2192 Silver \u2192 Gold health metric tables"
+          "dataFlow": "CDC events → Bronze → Silver → Gold health metric tables"
         },
         {
           "order": 3,
           "patternId": "data-quality-validation",
           "role": "Validates health metrics for accuracy before they drive alerts",
-          "dataFlow": "Gold metrics \u2192 validation rules \u2192 quality-assured metrics"
+          "dataFlow": "Gold metrics → validation rules → quality-assured metrics"
         },
         {
           "order": 4,
           "patternId": "metrics-scorecard",
           "role": "Displays organizational health KPIs with goal tracking and trend analysis",
-          "dataFlow": "Validated metrics \u2192 Power BI scorecards \u2192 executive health dashboard"
+          "dataFlow": "Validated metrics → Power BI scorecards → executive health dashboard"
         },
         {
           "order": 5,
           "patternId": "data-activator-reflex",
           "role": "Monitors metrics continuously and triggers alerts when thresholds are breached",
-          "dataFlow": "Health metrics \u2192 threshold rules \u2192 triggered alerts"
+          "dataFlow": "Health metrics → threshold rules → triggered alerts"
         },
         {
           "order": 6,
           "patternId": "power-automate-triggers",
           "role": "Orchestrates escalation workflows including notifications and task creation",
-          "dataFlow": "Triggered alerts \u2192 Power Automate \u2192 emails, Teams messages, tasks"
+          "dataFlow": "Triggered alerts → Power Automate → emails, Teams messages, tasks"
         },
         {
           "order": 7,
           "patternId": "escalation-routing",
           "role": "Routes escalations to the correct leadership level based on severity and scope",
-          "dataFlow": "Alert severity + org scope \u2192 routing rules \u2192 appropriate leader notification"
+          "dataFlow": "Alert severity + org scope → routing rules → appropriate leader notification"
         }
       ],
-      "architectureNarrative": "This blueprint creates a real-time organizational health nervous system. Change data capture streams workforce events as they happen \u2014 terminations, survey submissions, absence records, overtime entries. These flow through the medallion architecture for rapid processing into health metrics. Data quality validation prevents false alarms from bad data. Power BI scorecards give executives an always-current view of organizational health. Data Activator continuously monitors metrics against defined thresholds. When breaches occur, Power Automate orchestrates the escalation workflow \u2014 sending the right notification to the right person at the right level of leadership based on the severity and organizational scope of the issue.",
+      "architectureNarrative": "This blueprint creates a real-time organizational health nervous system. Change data capture streams workforce events as they happen — terminations, survey submissions, absence records, overtime entries. These flow through the medallion architecture for rapid processing into health metrics. Data quality validation prevents false alarms from bad data. Power BI scorecards give executives an always-current view of organizational health. Data Activator continuously monitors metrics against defined thresholds. When breaches occur, Power Automate orchestrates the escalation workflow — sending the right notification to the right person at the right level of leadership based on the severity and organizational scope of the issue.",
       "requiredGovernance": "Threshold definitions reviewed quarterly with executive stakeholders, Escalation routing rules updated when organizational structure changes, False positive monitoring to prevent alert fatigue, Data quality SLAs for real-time source systems, Privacy review of health metrics to ensure no individual identification in executive views, Escalation response SLAs tracked and reported",
       "stakeholders": [
         "CEO",
@@ -7059,46 +7160,54 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Structures compensation data from HRIS and survey sources into analysis-ready layers",
-          "dataFlow": "HRIS/payroll/survey data \u2192 Bronze \u2192 Silver \u2192 Gold comp tables"
+          "dataFlow": "HRIS/payroll/survey data → Bronze → Silver → Gold comp tables"
         },
         {
           "order": 2,
           "patternId": "scd-type-2",
           "role": "Preserves full compensation history for trend analysis and equity audits",
-          "dataFlow": "Compensation changes \u2192 SCD Type 2 \u2192 historical salary dimension"
+          "dataFlow": "Compensation changes → SCD Type 2 → historical salary dimension",
+          "alternatives": [
+            {
+              "patternId": "pii-tokenization",
+              "label": "PII Tokenization & Pseudonymization",
+              "role": "Replaces sensitive compensation identifiers with irreversible tokens, enabling analytics on compensation data without exposing individual identities",
+              "dataFlow": "Identified comp data → tokenization engine → pseudonymized datasets for analysis"
+            }
+          ]
         },
         {
           "order": 3,
           "patternId": "anonymization-k-anonymity",
           "role": "Anonymizes compensation data for cross-department sharing and benchmarking",
-          "dataFlow": "Individual comp data \u2192 k-anonymity grouping \u2192 anonymized aggregates"
+          "dataFlow": "Individual comp data → k-anonymity grouping → anonymized aggregates"
         },
         {
           "order": 4,
           "patternId": "dynamic-data-masking",
           "role": "Masks individual salaries in real-time based on viewer authorization level",
-          "dataFlow": "Comp queries \u2192 dynamic masking rules \u2192 masked/unmasked results"
+          "dataFlow": "Comp queries → dynamic masking rules → masked/unmasked results"
         },
         {
           "order": 5,
           "patternId": "row-level-security",
           "role": "Restricts compensation visibility to authorized scope (own team, own department)",
-          "dataFlow": "User identity \u2192 RLS rules \u2192 scoped compensation data"
+          "dataFlow": "User identity → RLS rules → scoped compensation data"
         },
         {
           "order": 6,
           "patternId": "certified-semantic-model",
           "role": "Provides a single governed source for all compensation metrics and definitions",
-          "dataFlow": "Gold comp tables \u2192 certified semantic model \u2192 consistent metrics"
+          "dataFlow": "Gold comp tables → certified semantic model → consistent metrics"
         },
         {
           "order": 7,
           "patternId": "directlake-power-bi",
           "role": "Delivers interactive compensation dashboards with embedded security controls",
-          "dataFlow": "Semantic model \u2192 DirectLake \u2192 Power BI comp dashboards"
+          "dataFlow": "Semantic model → DirectLake → Power BI comp dashboards"
         }
       ],
-      "architectureNarrative": "This blueprint secures the full compensation analytics lifecycle. Raw compensation data from HRIS and payroll systems flows through the medallion architecture with SCD Type 2 processing to preserve complete salary history. K-anonymity ensures that any shared compensation data cannot be traced to individuals. Dynamic data masking provides real-time protection \u2014 analysts see masked values while authorized comp team members see actuals. Row-level security scopes visibility to each user's authorized population. A certified semantic model ensures everyone uses the same metric definitions, and DirectLake dashboards deliver interactive analytics with all security controls enforced in real-time.",
+      "architectureNarrative": "This blueprint secures the full compensation analytics lifecycle. Raw compensation data from HRIS and payroll systems flows through the medallion architecture with SCD Type 2 processing to preserve complete salary history. K-anonymity ensures that any shared compensation data cannot be traced to individuals. Dynamic data masking provides real-time protection — analysts see masked values while authorized comp team members see actuals. Row-level security scopes visibility to each user's authorized population. A certified semantic model ensures everyone uses the same metric definitions, and DirectLake dashboards deliver interactive analytics with all security controls enforced in real-time.",
       "requiredGovernance": "Minimum group sizes for anonymized reporting (typically 5-10 employees), Dynamic masking rules reviewed when roles or access policies change, Pay equity analysis methodology documented for legal defensibility, Compensation data access logged and reviewed quarterly, Market benchmarking data sourcing and refresh cadence documented, Audit trail for all compensation decision support queries",
       "stakeholders": [
         "Chief HR Officer",
@@ -7122,7 +7231,7 @@
           "order": 1,
           "patternId": "sandbox-upload-workspace",
           "role": "Provides a governed workspace for analysts to upload and manage ad-hoc datasets",
-          "dataFlow": "CSV/Excel/JSON uploads \u2192 validated staging area \u2192 sandbox Lakehouse"
+          "dataFlow": "CSV/Excel/JSON uploads → validated staging area → sandbox Lakehouse"
         },
         {
           "order": 2,
@@ -7134,34 +7243,34 @@
           "order": 3,
           "patternId": "spark-notebook-etl",
           "role": "Gives analysts Spark notebooks for statistical analysis and data transformation",
-          "dataFlow": "Sandbox + enterprise data \u2192 Spark notebooks \u2192 analysis outputs"
+          "dataFlow": "Sandbox + enterprise data → Spark notebooks → analysis outputs"
         },
         {
           "order": 4,
           "patternId": "adhoc-insight-engine",
           "role": "Enables point-and-click insight generation for non-technical users",
-          "dataFlow": "Selected data \u2192 automated analysis \u2192 insight summaries and visualizations"
+          "dataFlow": "Selected data → automated analysis → insight summaries and visualizations"
         },
         {
           "order": 5,
           "patternId": "llm-powered-analysis",
           "role": "Provides generative AI tools for natural language querying and narrative generation",
-          "dataFlow": "Analyst questions \u2192 LLM analysis \u2192 narrative insights and recommendations"
+          "dataFlow": "Analyst questions → LLM analysis → narrative insights and recommendations"
         },
         {
           "order": 6,
           "patternId": "row-level-security",
           "role": "Ensures analysts can only access enterprise data within their authorization scope",
-          "dataFlow": "Analyst identity \u2192 RLS rules \u2192 scoped enterprise data access"
+          "dataFlow": "Analyst identity → RLS rules → scoped enterprise data access"
         },
         {
           "order": 7,
           "patternId": "sensitivity-labels",
           "role": "Auto-classifies uploaded data and prevents sensitive data from leaving the sandbox",
-          "dataFlow": "Uploaded data \u2192 content inspection \u2192 sensitivity labels \u2192 handling rules"
+          "dataFlow": "Uploaded data → content inspection → sensitivity labels → handling rules"
         }
       ],
-      "architectureNarrative": "This blueprint creates a secure analytical playground. The sandbox workspace provides a governed upload area where analysts can bring in ad-hoc datasets \u2014 survey exports, external benchmarks, project data \u2014 and combine them with trusted enterprise Gold layer data. Spark notebooks offer full Python/R/SQL capabilities for statistical modeling and data science. The ad-hoc insight engine provides a lower-code option for quick exploration. LLM-powered analysis tools allow natural language querying and automated narrative generation. Security is maintained through row-level security on enterprise data and sensitivity labels that auto-classify uploaded content and enforce handling rules, preventing accidental data leakage from the sandbox.",
+      "architectureNarrative": "This blueprint creates a secure analytical playground. The sandbox workspace provides a governed upload area where analysts can bring in ad-hoc datasets — survey exports, external benchmarks, project data — and combine them with trusted enterprise Gold layer data. Spark notebooks offer full Python/R/SQL capabilities for statistical modeling and data science. The ad-hoc insight engine provides a lower-code option for quick exploration. LLM-powered analysis tools allow natural language querying and automated narrative generation. Security is maintained through row-level security on enterprise data and sensitivity labels that auto-classify uploaded content and enforce handling rules, preventing accidental data leakage from the sandbox.",
       "requiredGovernance": "Sandbox data retention policies (auto-purge after 90 days unless promoted), Upload size limits and prohibited file type enforcement, Enterprise data access scoped by analyst role and department, Sensitivity label policies for uploaded data auto-classification, Output review process before sandbox insights are shared externally, Resource quotas to prevent Spark cluster abuse",
       "stakeholders": [
         "HR Analytics Team",
@@ -7185,47 +7294,47 @@
           "order": 1,
           "patternId": "certified-semantic-model",
           "role": "Provides the single source of truth for all metrics included in documents",
-          "dataFlow": "Gold layer \u2192 certified semantic model \u2192 trusted metrics and KPIs"
+          "dataFlow": "Gold layer → certified semantic model → trusted metrics and KPIs"
         },
         {
           "order": 2,
           "patternId": "directlake-power-bi",
           "role": "Generates charts and visualizations that are embedded in documents and slides",
-          "dataFlow": "Semantic model \u2192 Power BI visuals \u2192 exportable charts and tables"
+          "dataFlow": "Semantic model → Power BI visuals → exportable charts and tables"
         },
         {
           "order": 3,
           "patternId": "llm-auto-narrative",
           "role": "Generates written narratives, executive summaries, and commentary from data",
-          "dataFlow": "Metrics + context \u2192 LLM prompt \u2192 narrative text sections"
+          "dataFlow": "Metrics + context → LLM prompt → narrative text sections"
         },
         {
           "order": 4,
           "patternId": "paginated-reports",
           "role": "Produces formatted, print-ready documents following organizational templates",
-          "dataFlow": "Data + narratives + visuals \u2192 paginated report templates \u2192 formatted documents"
+          "dataFlow": "Data + narratives + visuals → paginated report templates → formatted documents"
         },
         {
           "order": 5,
           "patternId": "power-automate-triggers",
           "role": "Orchestrates the document assembly workflow and distribution",
-          "dataFlow": "Schedule/trigger \u2192 assemble components \u2192 generate document \u2192 distribute"
+          "dataFlow": "Schedule/trigger → assemble components → generate document → distribute"
         },
         {
           "order": 6,
           "patternId": "sensitivity-labels",
           "role": "Auto-classifies generated documents based on content sensitivity",
-          "dataFlow": "Generated document \u2192 content inspection \u2192 sensitivity label \u2192 handling rules"
+          "dataFlow": "Generated document → content inspection → sensitivity label → handling rules"
         },
         {
           "order": 7,
           "patternId": "deployment-pipelines",
           "role": "Manages template versioning and promotes approved templates across environments",
-          "dataFlow": "Template changes \u2192 dev \u2192 test \u2192 production pipeline"
+          "dataFlow": "Template changes → dev → test → production pipeline"
         }
       ],
-      "architectureNarrative": "This blueprint automates HR document and presentation production. Certified semantic models ensure every document starts from trusted, governed data. Power BI generates the charts and visualizations. LLM-powered narrative generation produces executive summaries, commentary, and analysis text that contextualize the data. Paginated Reports assembles everything into template-following documents \u2014 whether that's a board deck, talent review packet, or compensation summary. Power Automate orchestrates the workflow: triggering assembly on schedule, combining components, and distributing the finished product. Sensitivity labels protect generated documents, and deployment pipelines manage template versioning so updates are tested before reaching production.",
-      "requiredGovernance": "Template approval workflow before production deployment, LLM output review process for generated narratives (human-in-the-loop), Certified data source validation \u2014 documents must only use certified semantic models, Branding and formatting standards enforced through locked template sections, Distribution lists reviewed quarterly, Version control for all document templates with change log",
+      "architectureNarrative": "This blueprint automates HR document and presentation production. Certified semantic models ensure every document starts from trusted, governed data. Power BI generates the charts and visualizations. LLM-powered narrative generation produces executive summaries, commentary, and analysis text that contextualize the data. Paginated Reports assembles everything into template-following documents — whether that's a board deck, talent review packet, or compensation summary. Power Automate orchestrates the workflow: triggering assembly on schedule, combining components, and distributing the finished product. Sensitivity labels protect generated documents, and deployment pipelines manage template versioning so updates are tested before reaching production.",
+      "requiredGovernance": "Template approval workflow before production deployment, LLM output review process for generated narratives (human-in-the-loop), Certified data source validation — documents must only use certified semantic models, Branding and formatting standards enforced through locked template sections, Distribution lists reviewed quarterly, Version control for all document templates with change log",
       "stakeholders": [
         "CHRO",
         "Chief of Staff",
@@ -7248,40 +7357,40 @@
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Structures lease and property data into progressive refinement layers",
-          "dataFlow": "Lease PDFs + checklist data \u2192 Bronze (raw) \u2192 Silver (extracted) \u2192 Gold (structured)"
+          "dataFlow": "Lease PDFs + checklist data → Bronze (raw) → Silver (extracted) → Gold (structured)"
         },
         {
           "order": 2,
           "patternId": "azure-ai-foundry-integration",
           "role": "Extracts key terms, dates, amounts, and clauses from lease agreement PDFs",
-          "dataFlow": "Lease PDFs \u2192 Azure AI Document Intelligence \u2192 extracted lease fields"
+          "dataFlow": "Lease PDFs → Azure AI Document Intelligence → extracted lease fields"
         },
         {
           "order": 3,
           "patternId": "data-quality-validation",
           "role": "Validates extracted lease data against checklists and business rules",
-          "dataFlow": "Extracted fields + checklist data \u2192 validation rules \u2192 confirmed/flagged items"
+          "dataFlow": "Extracted fields + checklist data → validation rules → confirmed/flagged items"
         },
         {
           "order": 4,
           "patternId": "power-automate-triggers",
           "role": "Orchestrates the full transaction workflow: form population, routing, signatures, archiving",
-          "dataFlow": "Validated data \u2192 form templates \u2192 populated forms \u2192 approval routing \u2192 signatures \u2192 archive"
+          "dataFlow": "Validated data → form templates → populated forms → approval routing → signatures → archive"
         },
         {
           "order": 5,
           "patternId": "audit-siem-integration",
           "role": "Logs every step of the transaction for compliance and audit trail",
-          "dataFlow": "All workflow events \u2192 audit log \u2192 transaction history \u2192 compliance reporting"
+          "dataFlow": "All workflow events → audit log → transaction history → compliance reporting"
         },
         {
           "order": 6,
           "patternId": "directlake-power-bi",
           "role": "Provides portfolio dashboards showing lease status, upcoming expirations, and financial exposure",
-          "dataFlow": "Gold lease data \u2192 DirectLake \u2192 real estate portfolio dashboards"
+          "dataFlow": "Gold lease data → DirectLake → real estate portfolio dashboards"
         }
       ],
-      "architectureNarrative": "This blueprint automates real estate transaction processing end-to-end. Lease agreements (PDFs) and checklist data are ingested into the Bronze layer. Azure AI Foundry's document intelligence capabilities extract key lease terms \u2014 dates, amounts, parties, clauses \u2014 into structured data in the Silver layer. Data quality validation cross-references extracted data against checklists and business rules, flagging discrepancies for human review. Once validated, Power Automate orchestrates the downstream workflow: populating required Excel forms (rent rolls, lease abstracts, approval matrices), routing for digital signatures, sending notifications at each approval stage, and archiving executed documents. Every transaction step is logged for audit compliance. DirectLake dashboards give real estate teams portfolio-wide visibility into lease obligations, upcoming expirations, and financial exposure.",
+      "architectureNarrative": "This blueprint automates real estate transaction processing end-to-end. Lease agreements (PDFs) and checklist data are ingested into the Bronze layer. Azure AI Foundry's document intelligence capabilities extract key lease terms — dates, amounts, parties, clauses — into structured data in the Silver layer. Data quality validation cross-references extracted data against checklists and business rules, flagging discrepancies for human review. Once validated, Power Automate orchestrates the downstream workflow: populating required Excel forms (rent rolls, lease abstracts, approval matrices), routing for digital signatures, sending notifications at each approval stage, and archiving executed documents. Every transaction step is logged for audit compliance. DirectLake dashboards give real estate teams portfolio-wide visibility into lease obligations, upcoming expirations, and financial exposure.",
       "requiredGovernance": "Document extraction accuracy thresholds with human review for low-confidence extractions, Digital signature authority matrix aligned with corporate approval policies, Archiving retention policies per jurisdiction and lease type, Financial data validation against accounting system reconciliation, Access controls restricting lease financial details to authorized personnel, Audit log retention matching legal hold and regulatory requirements",
       "stakeholders": [
         "VP of Real Estate",
@@ -7299,46 +7408,46 @@
       "name": "Automated Schedule of Learning Sessions",
       "category": "Learning & Development",
       "description": "Automates the end-to-end scheduling of learning sessions including instructor-led classes, virtual training, and workshops. Manages room bookings, Teams meeting link generation, facilitator notifications, participant enrollment, and calendar updates through Outlook integration. Provides a unified dashboard of all scheduled sessions with automated reminders and post-session feedback collection.",
-      "businessValue": "Eliminates the manual coordination overhead of scheduling learning sessions \u2014 room conflicts, missing Teams links, forgotten facilitator notifications. Ensures 100% of sessions have proper resources (rooms, links, materials) booked before participants are notified. Reduces L&D administrative burden by 50-70%, letting the team focus on content quality rather than logistics.",
+      "businessValue": "Eliminates the manual coordination overhead of scheduling learning sessions — room conflicts, missing Teams links, forgotten facilitator notifications. Ensures 100% of sessions have proper resources (rooms, links, materials) booked before participants are notified. Reduces L&D administrative burden by 50-70%, letting the team focus on content quality rather than logistics.",
       "patternFlow": [
         {
           "order": 1,
           "patternId": "medallion-architecture",
           "role": "Structures learning catalog, session, and enrollment data into managed layers",
-          "dataFlow": "LMS/course catalog/enrollment data \u2192 Bronze \u2192 Silver \u2192 Gold learning tables"
+          "dataFlow": "LMS/course catalog/enrollment data → Bronze → Silver → Gold learning tables"
         },
         {
           "order": 2,
           "patternId": "data-quality-validation",
           "role": "Validates session details: facilitator availability, room capacity, time conflicts",
-          "dataFlow": "Proposed sessions \u2192 conflict checks \u2192 validation results \u2192 cleared/flagged sessions"
+          "dataFlow": "Proposed sessions → conflict checks → validation results → cleared/flagged sessions"
         },
         {
           "order": 3,
           "patternId": "power-automate-triggers",
           "role": "Orchestrates the full scheduling workflow: room booking, Teams link, calendar invites, reminders",
-          "dataFlow": "Cleared session \u2192 book room (Outlook) \u2192 create Teams link \u2192 send invites \u2192 schedule reminders"
+          "dataFlow": "Cleared session → book room (Outlook) → create Teams link → send invites → schedule reminders"
         },
         {
           "order": 4,
           "patternId": "data-activator-reflex",
           "role": "Monitors for schedule changes and triggers update notifications automatically",
-          "dataFlow": "Session changes \u2192 Reflex detection \u2192 update notifications to facilitators and participants"
+          "dataFlow": "Session changes → Reflex detection → update notifications to facilitators and participants"
         },
         {
           "order": 5,
           "patternId": "directlake-power-bi",
           "role": "Provides a unified dashboard of all scheduled sessions, utilization, and attendance",
-          "dataFlow": "Gold learning data \u2192 DirectLake \u2192 learning schedule dashboards"
+          "dataFlow": "Gold learning data → DirectLake → learning schedule dashboards"
         },
         {
           "order": 6,
           "patternId": "metrics-scorecard",
           "role": "Tracks L&D KPIs: session utilization, attendance rates, facilitator hours, room usage",
-          "dataFlow": "Session metrics \u2192 Power BI scorecards \u2192 goal tracking \u2192 trend analysis"
+          "dataFlow": "Session metrics → Power BI scorecards → goal tracking → trend analysis"
         }
       ],
-      "architectureNarrative": "This blueprint automates learning session logistics end-to-end. The learning catalog, facilitator profiles, room inventory, and enrollment data are structured through the medallion architecture into a unified Gold layer. When new sessions are proposed, data quality validation checks for conflicts \u2014 facilitator double-bookings, room capacity mismatches, time overlaps with existing sessions. Cleared sessions trigger a Power Automate workflow that books the meeting room through Outlook, generates a Teams meeting link, sends calendar invites to facilitators and enrolled participants, and schedules automated reminders (e.g., 1 week, 1 day, 1 hour before). Data Activator monitors for changes (cancellations, room switches, time adjustments) and automatically notifies all affected parties. DirectLake dashboards provide L&D teams with a real-time view of all scheduled sessions, room utilization, and attendance tracking. Metrics scorecards track key L&D KPIs against organizational learning goals.",
+      "architectureNarrative": "This blueprint automates learning session logistics end-to-end. The learning catalog, facilitator profiles, room inventory, and enrollment data are structured through the medallion architecture into a unified Gold layer. When new sessions are proposed, data quality validation checks for conflicts — facilitator double-bookings, room capacity mismatches, time overlaps with existing sessions. Cleared sessions trigger a Power Automate workflow that books the meeting room through Outlook, generates a Teams meeting link, sends calendar invites to facilitators and enrolled participants, and schedules automated reminders (e.g., 1 week, 1 day, 1 hour before). Data Activator monitors for changes (cancellations, room switches, time adjustments) and automatically notifies all affected parties. DirectLake dashboards provide L&D teams with a real-time view of all scheduled sessions, room utilization, and attendance tracking. Metrics scorecards track key L&D KPIs against organizational learning goals.",
       "requiredGovernance": "Facilitator availability calendar integration and conflict resolution rules, Room booking priority rules when conflicts arise, Minimum enrollment thresholds before session confirmation, Cancellation policy enforcement (minimum notice period), Post-session feedback collection and response rate monitoring, Budget tracking for external facilitator costs and room charges",
       "stakeholders": [
         "Head of Learning & Development",

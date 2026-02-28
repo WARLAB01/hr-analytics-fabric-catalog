@@ -2,6 +2,8 @@
 
 **A comprehensive guide to implementing people analytics on Microsoft Fabric**
 
+> **[Open the Live Pattern Builder](https://warlab01.github.io/hr-analytics-fabric-catalog/pattern-builder.html)**
+
 ## What This Is
 
 The HR Analytics Fabric Catalog is a collection of tested patterns, best practices, and implementation guidance for building
@@ -11,7 +13,7 @@ transformation, governance, business intelligence, machine learning, and more—
 Whether you're building your first HR analytics solution or modernizing an existing one, this catalog provides:
 
 - **8 Domain Areas:** Comprehensive coverage from data organization through data sharing
-- **73 Patterns:** Tested approaches with complexity assessments, governance considerations, and use cases
+- **93 Patterns:** Tested approaches with complexity assessments, governance considerations, and use cases
 - **Implementation Guidance:** Practical instructions, code examples, and best practices
 - **Governance Focus:** Special attention to the unique security and compliance requirements of HR data
 
@@ -21,10 +23,11 @@ on Microsoft Fabric. It's designed to help you move faster while avoiding common
 ## Quick Start
 
 ### Using the Pattern Builder HTML App
-1. Open `pattern-builder.html` in your web browser
+1. Open the [live Pattern Builder](https://warlab01.github.io/hr-analytics-fabric-catalog/pattern-builder.html) or open `pattern-builder.html` locally in your browser
 2. Browse patterns by domain, search by name, and explore relationships
 3. Filter by complexity, maturity, and other attributes
-4. Export pattern summaries for team discussions
+4. Use the Use Case Blueprints tab to explore end-to-end implementation paths with alternative pattern options
+5. Export pattern stacks and blueprint flow diagrams (SVG/HTML) for team discussions
 
 ### Using the Streamlit Application
 ```bash
